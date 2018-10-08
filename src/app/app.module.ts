@@ -14,16 +14,18 @@ import { PostService } from './services/post.service';
 
 import { AppRoutingModule } from './app.routing';
 
-import { FileSelectDirective } from 'ng2-file-upload';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    FileSelectDirective
   ],
   imports: [
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDTaqYmYZO3Wjhna-mrrCGUWTLVcFQjKSE'
+    }),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

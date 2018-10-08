@@ -6,7 +6,7 @@ const Posts = require('../models/index'); //create new post schema
 exports.create = function(req, res) {
 
     var newPost = new Posts(req.body);
-
+    console.log(newPost);
     newPost.save(function(err,result){
         if(err){
             console.log(err);
