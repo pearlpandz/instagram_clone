@@ -47,10 +47,10 @@ export class HomeComponent implements OnInit {
 
   postSubmit(newPost: any) {
     console.log(newPost.value);
-    this.http.post('http://localhost:3000/post', newPost.value).subscribe(data => {
-      console.log(data['id']);
+    this.http.post('http://localhost:3000/upload', newPost.value).subscribe(data => {
+      // console.log(data['id']);
       $("#write-post").hide();
-      $(".modal-backdrop").removeClass('in');
+      $(".modal-backdrop").remove();
 		});
   }
 }

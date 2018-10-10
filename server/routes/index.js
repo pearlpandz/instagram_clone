@@ -4,19 +4,16 @@ var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 
 exports.create = function(req, res) {
-
+    console.log(req);
     var newPost = new Posts(req.body);
-    console.log(newPost);
+    // console.log(newPost);
     newPost.save(function(err,result){
         if(err){
             console.log(err);
         }
         else {
             console.log(result['_id']);
-            res.send({ id: result['_id'] });
+            res.send({ req, id: result['_id'] });
         }
-        
     });  
-    
-    
 }
