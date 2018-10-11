@@ -2,7 +2,7 @@
 const express = require('express');
 var multer  =   require('multer');
 const app = express();
-
+var cors = require('cors');
 
 
 
@@ -35,15 +35,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.json());
+app.use(cors());
 
-app.use(express.static('./uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+// app.use(express.static(path.join(__dirname, './uploads')));
+    // app.use(express.static(__dirname + '/uploads'));
+// console.log(path.join(__dirname, 'uploads'));
 
 // Access-Control- Allow-Origin | Allow-Methods | Allow-Headers | Allow-Credentials
 app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    // res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
+    // res.setHeader("Access-Control-Allow-Credentials", "true");
     next();
 });
 
@@ -54,40 +58,46 @@ const Posts = require('./models/index'); //create new post schema
 
 var upload = multer({ storage : multer.diskStorage({
     destination: function (req, file, callback) {
-      callback(null, './uploads');
+      callback(null, 'uploads');
     },
     filename: function (req, file, callback) {
-      callback(null, file.fieldname + '-' + Date.now());
+      callback(null, 'post-' + Date.now() + '.' + file.mimetype.split('/').pop() );
     }
   })
 }).single('sampleFile');
 
 app.post('/post', upload, function(req,res){
+  
   console.log(req.file);
+  const uploadedFilePath = req.protocol + "://" + req.get('host') + '/' + req.file.path;
 
-  var uploadedFilePath = 'localhost:'+port+'/' + req.file.path;
+
+  var regularpath = uploadedFilePath.replace(/\\/g, "/");
+  // console.log(regularpath);
 
   let post = new Posts ({
     description: req.body.description,
     location: req.body.location,
-    sampleFile: uploadedFilePath
+    sampleFile: regularpath
   });
 
   post.save(function(err,result){
-    console.log(uploadedFilePath);
       if(err){
           console.log(err);
       }
       else {
-          res.json({'status': 'value inserted', path: uploadedFilePath });
+          res.json({'status': 'value inserted', path: regularpath });
       }
   });  
 });
 
 
-// app.get('/getpost', function(req,res){
-//   res.send({ result: 'reached' })
-// });
+app.post('/getpost', function(req,res){
+  Posts.find(function(err, docs) {
+    console.log(docs);
+    res.send(docs);
+  })
+});
 
 
 // run server
