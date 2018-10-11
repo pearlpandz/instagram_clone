@@ -1,7 +1,11 @@
 //node dependencies - express
 const express = require('express');
-const fileUpload = require('express-fileupload');
+var multer  =   require('multer');
 const app = express();
+
+
+
+
 const server = require('http').createServer(app);
 
 
@@ -16,7 +20,8 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 
 //mangoose.connect
-mongoose.connect('mongodb://127.0.0.1:27017/instagram_clone');
+const db = mongoose.createConnection('mongodb://127.0.0.1:27017/instagram_clone', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/instagram_clone', { useNewUrlParser: true });
 
 // Router - Express functions
 const router = require('express').Router();
@@ -30,8 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.json());
-app.use(fileUpload());
 
+app.use(express.static('./uploads'));
 
 // Access-Control- Allow-Origin | Allow-Methods | Allow-Headers | Allow-Credentials
 app.use(function(req, res, next) {
@@ -44,26 +49,46 @@ app.use(function(req, res, next) {
 
 
 // calling routes folder
-const post = require('./routes/index.js');
-
+const Posts = require('./models/index'); //create new post schema
 // api hiting place
-app.post('/post', post.create); //api for post create
 
-app.post('/upload', function(req, res) {
-    if (!req.body)
-      return res.status(400).send('No files were uploaded.');
-   
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.sampleFile;
-   console.log(sampleFile);
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv("hi.jpg", function(err) {
-      if (err)
-        return res.status(500).send(err);
-   
-      res.send('File uploaded!');
-    });
+var upload = multer({ storage : multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './uploads');
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.fieldname + '-' + Date.now());
+    }
+  })
+}).single('sampleFile');
+
+app.post('/post', upload, function(req,res){
+  console.log(req.file);
+
+  var uploadedFilePath = 'localhost:'+port+'/' + req.file.path;
+
+  let post = new Posts ({
+    description: req.body.description,
+    location: req.body.location,
+    sampleFile: uploadedFilePath
   });
+
+  post.save(function(err,result){
+    console.log(uploadedFilePath);
+      if(err){
+          console.log(err);
+      }
+      else {
+          res.json({'status': 'value inserted', path: uploadedFilePath });
+      }
+  });  
+});
+
+
+// app.get('/getpost', function(req,res){
+//   res.send({ result: 'reached' })
+// });
+
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));

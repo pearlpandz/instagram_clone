@@ -36,18 +36,19 @@ export class HomeComponent implements OnInit {
       this.lon = position.coords.longitude;
     
 
-    this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lon+"&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
-      var dummy = data['results'][0]['formatted_address'];
-      this.location = dummy;
+      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lon+"&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
+        var dummy = data['results'][0]['formatted_address'];
+        this.location = dummy;
+        console.log(this.location);
+      });
     });
-  });
   }
 
   
 
   postSubmit(newPost: any) {
     console.log(newPost.value);
-    this.http.post('http://localhost:3000/upload', newPost.value).subscribe(data => {
+    this.http.post('http://localhost:3000/post', newPost.value).subscribe(data => {
       // console.log(data['id']);
       $("#write-post").hide();
       $(".modal-backdrop").remove();
