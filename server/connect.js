@@ -67,18 +67,12 @@ var upload = multer({ storage : multer.diskStorage({
 }).single('sampleFile');
 
 app.post('/post', upload, function(req,res){
-  
-  console.log(req.file);
-  const uploadedFilePath = req.protocol + "://" + req.get('host') + '/' + req.file.path;
-
-
-  var regularpath = uploadedFilePath.replace(/\\/g, "/");
-  // console.log(regularpath);
 
   let post = new Posts ({
     description: req.body.description,
     location: req.body.location,
-    sampleFile: regularpath
+    sampleFile: req.body.sampleFile,
+    createdat: new Date().toLocaleString()
   });
 
   post.save(function(err,result){
@@ -86,15 +80,38 @@ app.post('/post', upload, function(req,res){
           console.log(err);
       }
       else {
-          res.json({'status': 'value inserted', path: regularpath });
+          res.json({id: result['_id'] });
       }
   });  
 });
 
 
+app.post('/upload', upload, function(req,res){
+  const uploadedFilePath = req.protocol + "://" + req.get('host') + '/' + req.file.path;
+  var regularpath = uploadedFilePath.replace(/\\/g, "/");
+  let posts = new Posts ({
+    sampleFile: regularpath,
+    createdat: new Date().toLocaleString()
+  });
+  let mangooseid = req.body._id;
+
+  var query = {"_id": mangooseid};
+  var update = {sampleFile: regularpath};
+  var options = {new: true};
+  Posts.findOneAndUpdate(query, update, options, function(err, post) {
+    if (err) {
+      console.log('got an error');
+    }
+    else {
+      console.log(post);
+      res.send(post);
+    }
+  
+  }); 
+});
+
 app.post('/getpost', function(req,res){
   Posts.find(function(err, docs) {
-    console.log(docs);
     res.send(docs);
   })
 });

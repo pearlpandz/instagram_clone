@@ -15,12 +15,16 @@ export class HomeComponent implements OnInit {
     
   // variable declaration
   model: any = {}; //to create object
-  
   location: any; //to crate object.location
+  newPost: any = [];
   lat: number;
   lon: number;
 
   postdata: Array<any> = [];
+  selectedFile: File = null;
+  fd = new FormData();
+
+  post_create: any;
 
   constructor(
     // private router: Router,
@@ -47,23 +51,54 @@ export class HomeComponent implements OnInit {
 
   }
 
-  
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+    this.fd.append('sampleFile', this.selectedFile, this.selectedFile.name);
+    // this.upload(this.fd);
+  }
+
+  // upload(fd) {
+  //   console.log("in upload function", fd);
+  //   this.http.post('http://localhost:3000/upload', this.fd)
+  //   .subscribe( result => {
+  //     console.log(result)
+  //   });
+  // }
 
   postSubmit(newPost: any) {
-    console.log(newPost.value);
+    // console.log(newPost.value);
+
     this.http.post('http://localhost:3000/post', newPost.value).subscribe(data => {
-      // console.log(data['id']);
-      $("#write-post").hide();
-      $(".modal-backdrop").remove();
+      if(!data['id']){
+        console.log("something went wrong");
+      }
+      else {
+        // console.log(data['id']);
+        this.fd.append('_id',data['id']);
+        this.http.post('http://localhost:3000/upload', this.fd).subscribe(data => {
+          // console.log(data);
+          this.getpost();
+          
+          
+
+          $("#write-post").hide();
+          $("#write-post").modal('toggle');
+        });
+      }
 		});
   }
 
+  
+
+
+  // get post
   getpost() {
     this.http.post('http://localhost:3000/getpost','')
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data;    
-      console.log(this.postdata);
+      this.post_create = data.createdat;
+      // console.log(this.postdata);
 		});
   }
 

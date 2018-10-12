@@ -15,12 +15,14 @@ import { PostService } from './services/post.service';
 import { AppRoutingModule } from './app.routing';
 
 import { AgmCoreModule } from '@agm/core';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
+    TimeAgoPipe
   ],
   imports: [
     AgmCoreModule.forRoot({
