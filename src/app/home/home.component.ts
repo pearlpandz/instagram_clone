@@ -4,7 +4,7 @@ import { PostService } from './../services/post.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 declare var jquery:any;
 declare var $ :any;
-
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +13,14 @@ declare var $ :any;
 })
 export class HomeComponent implements OnInit {
     
-    // variable declaration
-    model: any = {}; //to create object
-    location: any; //to crate object.location
-
-
-    
+  // variable declaration
+  model: any = {}; //to create object
+  
+  location: any; //to crate object.location
   lat: number;
   lon: number;
+
+  postdata: Array<any> = [];
 
   constructor(
     // private router: Router,
@@ -39,9 +39,12 @@ export class HomeComponent implements OnInit {
       this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lon+"&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
         var dummy = data['results'][0]['formatted_address'];
         this.location = dummy;
-        console.log(this.location);
+        // console.log(this.location);
       });
     });
+
+    this.getpost();
+
   }
 
   
@@ -54,4 +57,14 @@ export class HomeComponent implements OnInit {
       $(".modal-backdrop").remove();
 		});
   }
+
+  getpost() {
+    this.http.post('http://localhost:3000/getpost','')
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      this.postdata = data;    
+      console.log(this.postdata);
+		});
+  }
+
 }

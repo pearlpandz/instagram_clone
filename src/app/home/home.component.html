@@ -1,5 +1,5 @@
 <div class="container-fluid page-start">
-  <div class="feed-panel">
+  <div class="feed-panel" *ngFor='let post of postdata;'>
       <div class="row feed-head no-margin">
 
           <div class="left">
@@ -11,6 +11,7 @@
               <div  class="user-name">
                   <a href="view-profile.html">
                       <h5>aliana casandra</h5>
+                    <p>{{post.location}}</p>
                   </a>
               </div>                    
           </div>
@@ -24,73 +25,24 @@
       </div>
 
       <div class="row feed-image no-margin">
-          <img src="../../../assets/img/model.jpg">
+          <img src={{post.sampleFile}}>
       </div>
 
       <div class="row feed-content no-margin">
-          <h5><span class="count dark">586</span> likes</h5>
-          <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning <a href="#" class="hash">happy</a></p>
-          <p class="view-comments">View all comments</p>
+          <!-- <h5><span class="count dark">586</span> likes</h5> -->
+          <p><a href="view-profile.html" class="dark">aliana casandra</a>  {{post.description}}</p>
+          <!-- <p class="view-comments">View all comments</p>
           <div class="feed-comments">
               <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning</p>
               <p><a href="view-profile.html" class="dark">aliana</a>  Lots of love! Twirling for u in a stunning</p>
               <p><a href="view-profile.html" class="dark">casandra</a>  Lots of love! Twirling for u in a stunning</p>
-          </div>
+          </div> -->
       </div>
 
       <div class="row feed-footer no-margin">
 
           <div class="input-group">
             <span class="input-group-addon like-btn"><a class="like"><i class="ion-ios-heart-outline"></i></a></span>
-            <input type="text" class="form-control comment" placeholder="Add a comment...">
-            <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
-          </div>
-
-      </div>
-  </div>
-
-  <div class="feed-panel">
-      <div class="row feed-head no-margin">
-
-          <div class="left">
-              <div  class="user-img">
-                  <a href="view-profile.html">
-                      <img src="../../../assets/img/model-user.jpg">
-                  </a>
-              </div>
-              <div  class="user-name">
-                  <a href="view-profile.html">
-                      <h5>aliana casandra</h5>
-                  </a>
-              </div>                    
-          </div>
-
-          <div class="right">
-              <a href="#">
-                  8h
-              </a>
-          </div>
-      </div>
-
-      <div class="row feed-image no-margin">
-          <img src="../../../assets/img/model1.jpg">
-      </div>
-
-      <div class="row feed-content no-margin">
-          <h5><span class="count dark">586</span> likes</h5>
-          <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning <a href="#" class="hash">happy</a></p>
-          <p class="view-comments">View all comments</p>
-          <div class="feed-comments">
-              <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning</p>
-              <p><a href="view-profile.html" class="dark">aliana</a>  Lots of love! Twirling for u in a stunning</p>
-              <p><a href="view-profile.html" class="dark">casandra</a>  Lots of love! Twirling for u in a stunning</p>
-          </div>
-      </div>
-
-      <div class="row feed-footer no-margin">
-
-          <div class="input-group">
-            <span class="input-group-addon like-btn"><a class="like active"><i class="ion-ios-heart"></i></a></span>
             <input type="text" class="form-control comment" placeholder="Add a comment...">
             <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
           </div>
