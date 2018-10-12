@@ -111,9 +111,14 @@ app.post('/upload', upload, function(req,res){
 });
 
 app.post('/getpost', function(req,res){
-  Posts.find(function(err, docs) {
-    res.send(docs);
-  })
+  Posts.find({}).sort('-createdat').exec(function(err, docs) { 
+    if(err) {
+      res.json(err);
+    }
+    else {
+      res.send(docs);
+    }
+   });
 });
 
 
