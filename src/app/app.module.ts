@@ -16,13 +16,27 @@ import { AppRoutingModule } from './app.routing';
 
 import { AgmCoreModule } from '@agm/core';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { ExploreComponent } from './explore/explore.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AboutComponent } from './cms/about/about.component';
+import { PrivacyComponent } from './cms/privacy/privacy.component';
+import { TermsComponent } from './cms/terms/terms.component';
+import { FaqComponent } from './cms/faq/faq.component';
+import { FooterComponent } from './includes/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    ExploreComponent,
+    ProfileComponent,
+    AboutComponent,
+    PrivacyComponent,
+    TermsComponent,
+    FaqComponent,
+    FooterComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
