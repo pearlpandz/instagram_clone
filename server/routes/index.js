@@ -3,17 +3,21 @@ const router = require('express').Router();
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 
-exports.create = function(req, res) {
-    console.log(req);
-    var newPost = new Posts(req.body);
-    // console.log(newPost);
-    newPost.save(function(err,result){
+exports.create = function(req,res){
+
+    let post = new Posts ({
+      description: req.body.description,
+      location: req.body.location,
+      sampleFile: req.body.sampleFile,
+      createdat: new Date().toLocaleString()
+    });
+  
+    post.save(function(err,result){
         if(err){
             console.log(err);
         }
         else {
-            console.log(result['_id']);
-            res.send({ req, id: result['_id'] });
+            res.json({id: result['_id'] });
         }
     });  
-}
+  };
