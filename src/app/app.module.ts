@@ -23,6 +23,8 @@ import { PrivacyComponent } from './cms/privacy/privacy.component';
 import { TermsComponent } from './cms/terms/terms.component';
 import { FaqComponent } from './cms/faq/faq.component';
 import { FooterComponent } from './includes/footer/footer.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { FooterComponent } from './includes/footer/footer.component';
     PrivacyComponent,
     TermsComponent,
     FaqComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
