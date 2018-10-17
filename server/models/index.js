@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const newPostSchema = new mongoose.Schema({
     description: {type: String},
     location: {type: String},
-    sampleFile: String,
+    sampleFile: [],
     createdat: {type: String }
 });
 

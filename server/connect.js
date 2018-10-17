@@ -54,7 +54,7 @@ var upload = multer({ storage : multer.diskStorage({
 app.post('/post', routes_posts.create);
 
 //upload post pic
-app.post('/upload', upload.single('sampleFile'), routes_upload_post.upload);
+app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
 
 //get posts
 app.post('/getpost', routes_getposts.getpost);

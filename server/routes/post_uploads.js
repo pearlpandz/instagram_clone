@@ -4,8 +4,15 @@ var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 
 exports.upload = function(req,res){
-    const uploadedFilePath = req.protocol + "://" + req.get('host') + '/' + req.file.path;
-    var regularpath = uploadedFilePath.replace(/\\/g, "/");
+    var receiveArrayFiles = req.files;
+    var regularpath = [];
+
+    for (var i =0; i < receiveArrayFiles.length; i++ ) {
+      // console.log('--- ',receiveArrayFiles[i])
+      regularpath.push(req.protocol + "://" + req.get('host') + '/' + receiveArrayFiles[i].path);
+    }
+    // console.log("array regular", regularpath);
+
     let posts = new Posts ({
       sampleFile: regularpath,
       createdat: new Date().toLocaleString()
@@ -15,13 +22,14 @@ exports.upload = function(req,res){
     var query = {"_id": mangooseid};
     var update = {sampleFile: regularpath};
     var options = {new: true};
-    Posts.findOneAndUpdate(query, update, options, function(err, post) {
+    Posts.findOneAndUpdate(query, {$set:{sampleFile:regularpath}}, options, function(err, post) {
+      console.log('000000 = ',err, post)
       if (err) {
         console.log('got an error');
       }
       else {
         console.log(post);
-        res.send(post);
+        res.send(post); 
       }
     
     }); 

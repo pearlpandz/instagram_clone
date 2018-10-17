@@ -21,8 +21,9 @@ export class HomeComponent implements OnInit {
   lon: number;
 
   postdata: Array<any> = [];
-  selectedFile: File = null;
+  selectedFile: Array<File> = [];
   fd = new FormData();
+  urls = new Array<string>();
 
   post_create: any;
 
@@ -51,36 +52,44 @@ export class HomeComponent implements OnInit {
 
   }
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    this.fd.append('sampleFile', this.selectedFile, this.selectedFile.name);
-    // this.upload(this.fd);
+  onFileSelected(event: any) {
+    
+    this.selectedFile = <Array<File>>event.target.files;
+    for (var i =0; i < this.selectedFile.length; i++) {
+      this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
+    }
+    // console.log(this.fd);
   }
 
-  // upload(fd) {
-  //   console.log("in upload function", fd);
-  //   this.http.post('http://localhost:3000/upload', this.fd)
-  //   .subscribe( result => {
-  //     console.log(result)
-  //   });
-  // }
+  readUrl(event:any) {
+    this.urls = [];
+    let files = event.target.files;
+    if (files) {
+      for (let file of files) {
+        let reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.urls.push(e.target.result);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
 
   postSubmit(newPost: any) {
-    // console.log(newPost.value);
 
     this.http.post('http://localhost:3000/post', newPost.value).subscribe(data => {
       if(!data['id']){
         console.log("something went wrong");
       }
       else {
-        // console.log(data['id']);
         this.fd.append('_id',data['id']);
+        
+        // console.log(this.fd);
+        
         this.http.post('http://localhost:3000/upload', this.fd).subscribe(data => {
           // console.log(data);
           this.getpost();
-          
-          
-
           $("#write-post").hide();
           $("#write-post").modal('toggle');
         });
