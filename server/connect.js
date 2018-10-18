@@ -23,10 +23,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/instagram_clone', { useNewUrlParser:
 const bodyParser = require('body-parser');
 const path = require('path');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
-app.use(express.json());
+app.use(express.json()); 
 app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // given full permission to access this folder
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
@@ -36,7 +38,7 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 const routes_posts = require('./routes/index'); //create new post schema
 const routes_upload_post = require('./routes/post_uploads'); //create new post schema
 const routes_getposts = require('./routes/get_posts'); //get all post data
-
+const create_user = require('./routes/add_user'); //create user
 
 // file upload multer function
 var upload = multer({ storage : multer.diskStorage({
@@ -58,6 +60,9 @@ app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
 
 //get posts
 app.post('/getpost', routes_getposts.getpost);
+
+//create user
+app.post('/adduser', create_user.adduser);
 
 
 // run server

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
@@ -26,6 +26,9 @@ import { FooterComponent } from './includes/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 
+import { CommonModule } from '@angular/common';
+import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,11 +50,15 @@ import { SignupComponent } from './auth/signup/signup.component';
       apiKey: 'AIzaSyDTaqYmYZO3Wjhna-mrrCGUWTLVcFQjKSE'
     }),
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    ToastrModule.forRoot({positionClass: 'inline'}),
+    ToastContainerModule
   ],
   providers: [
     PostService
