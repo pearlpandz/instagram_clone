@@ -33,12 +33,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // given full permission to access this folder
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
+// middleware
+const middleware = require('./common/middleware'); //common middleware for all requests
 
 // calling routes folder
 const routes_posts = require('./routes/index'); //create new post schema
 const routes_upload_post = require('./routes/post_uploads'); //create new post schema
 const routes_getposts = require('./routes/get_posts'); //get all post data
 const create_user = require('./routes/add_user'); //create user
+
+
 
 // file upload multer function
 var upload = multer({ storage : multer.diskStorage({
@@ -58,8 +62,8 @@ app.post('/post', routes_posts.create);
 //upload post pic
 app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
 
-//get posts
-app.post('/getpost', routes_getposts.getpost);
+//get posts middleware.checkToken,
+app.post('/getpost',  routes_getposts.getpost);
 
 //create user
 app.post('/adduser', create_user.adduser);
