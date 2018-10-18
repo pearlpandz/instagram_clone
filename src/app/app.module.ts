@@ -10,7 +10,7 @@ import { HeaderComponent } from './includes/header/header.component';
 import { HomeComponent } from './home/home.component';
 
 // services
-import { PostService } from './services/post.service';
+import { HomeService } from './home/home.service';
 
 import { AppRoutingModule } from './app.routing';
 
@@ -28,6 +28,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
     ToastContainerModule
   ],
   providers: [
-    PostService
+    HomeService
   ],
   bootstrap: [AppComponent]
 })

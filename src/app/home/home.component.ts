@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 // import { Router } from '@angular/router';
-import { PostService } from './../services/post.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 declare var jquery:any;
 declare var $ :any;
 import 'rxjs/Rx';
+
+// service calling
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -28,9 +30,8 @@ export class HomeComponent implements OnInit {
   post_create: any;
 
   constructor(
-    // private router: Router,
-    private PostService: PostService,
     private http: HttpClient,
+    private homeService: HomeService //home service for {create post, get post}
   ) {
   }
 
@@ -75,19 +76,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
+  // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
-
-    this.http.post('http://localhost:3000/post', newPost.value).subscribe(data => {
+    this.homeService.createPost(newPost.value).subscribe(data => {
       if(!data['id']){
         console.log("something went wrong");
       }
       else {
-        this.fd.append('_id',data['id']);
-        
+        this.fd.append('_id',data['id']);        
         // console.log(this.fd);
-        
-        this.http.post('http://localhost:3000/upload', this.fd).subscribe(data => {
+        this.homeService.uploadPostImg(this.fd).subscribe(data => {
           // console.log(data);
           this.getpost();
           $("#write-post").hide();
@@ -102,12 +100,12 @@ export class HomeComponent implements OnInit {
 
   // get post
   getpost() {
-    this.http.post('http://localhost:3000/getpost','')
+    this.homeService.getPost()
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data;    
       this.post_create = data.createdat;
-      // console.log(this.postdata);
+      // console.log('-----in component-------',this.postdata);
 		});
   }
 
