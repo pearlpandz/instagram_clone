@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
+import { ToastmsgsService } from './../../common/toastmsgs.service';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from "@angular/router";
 
@@ -15,18 +15,12 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private toastrService: ToastrService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private toastmsgsService: ToastmsgsService
   ) { }
 
   ngOnInit() {
-    // this.showSuccess();
-    // this.showShow();
-    // this.showError();
-    // this.showWarning();
-    // this.showInfo();
-    
     //check cookieEmail
     this.cookieEmail = this.cookieService.get('email'); 
     this.cookieToken = this.cookieService.get('token');
@@ -39,7 +33,7 @@ export class SignupComponent implements OnInit {
   Submit(newUser: any) {
     this.http.post('http://localhost:3000/adduser', newUser.value).subscribe(data => {
       console.log(data);
-      this.showSuccess();
+      this.toastmsgsService.showSuccess();
       this.cookieService.set( 'email', data['email'] );
       this.cookieService.set( 'token', data['token'] );
       this.cookieEmail = this.cookieService.get('email'); 
@@ -50,22 +44,6 @@ export class SignupComponent implements OnInit {
 		});
   }
 
-  showSuccess() {
-    this.toastrService.success('You Successfully joined our community!','Welcome');
-  }
-  showError(){
-    this.toastrService.error('Content', 'Titel');
-  }
-  showShow(){
-    this.toastrService.show('Content', 'Titel');
-  }
 
-  showInfo(){
-    this.toastrService.info('Content', 'Titel');
-  }
-
-  showWarning(){
-    this.toastrService.warning('Content', 'Titel');
-  }
 
 }

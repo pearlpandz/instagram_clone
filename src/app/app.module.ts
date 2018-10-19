@@ -15,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
-
+import { ToastmsgsService } from './common/toastmsgs.service';
 
 //Routing
 import { AppRoutingModule } from './app.routing';
@@ -83,7 +83,8 @@ import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
     CookieService,
     JwtHelperService,
     AuthGuard,
-    RoleGuard
+    RoleGuard,
+    ToastmsgsService
   ],
   bootstrap: [AppComponent]
 })
