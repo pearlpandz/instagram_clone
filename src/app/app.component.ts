@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'instagram-clone';
+  cookieEmail;
+  cookieBoolen;
+  constructor(
+    private cookieService: CookieService
+  ) {}
+
+  ngOnInit() {
+    this.cookieEmail = this.cookieService.get('email'); 
+    this.cookieBoolen = this.cookieService.get('boolen');
+    console.log('cookieBoolen-->',this.cookieBoolen);
+  }
+
+    
 }

@@ -34,8 +34,11 @@ export class LoginComponent implements OnInit {
         // console.log(data);
         this.cookieService.set('email',data['email']); 
         this.cookieService.set('token', data['token']);
+        this.cookieService.set('boolen', 'true');
+
         this.cookieEmail = this.cookieService.get('email');
         this.cookieToken = this.cookieService.get('toke');
+        
         if(this.cookieEmail){
           this.router.navigate(['/home']);
           this.toastrService.success('Have a great day!','Welcome Back!');
