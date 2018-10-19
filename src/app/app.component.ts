@@ -19,5 +19,13 @@ export class AppComponent {
     console.log('cookieBoolen-->',this.cookieBoolen);
   }
 
+  isLoginPage(): boolean {
+    this.cookieEmail = this.cookieService.get('email');
+    if(this.cookieEmail) {
+      return true;
+    }
+    return false;
+  }
+
     
 }
