@@ -14,7 +14,7 @@ export class AuthserviceService {
 
   public isAuthenticated(): boolean {
     const token = this.cookieService.get('token');
-    // console.log(token);
+    // console.log('token---------------',token);
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);

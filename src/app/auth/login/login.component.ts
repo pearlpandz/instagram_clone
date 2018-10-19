@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('boolen', 'true');
 
         this.cookieEmail = this.cookieService.get('email');
-        this.cookieToken = this.cookieService.get('toke');
+        this.cookieToken = this.cookieService.get('token');
         
         if(this.cookieEmail){
           this.router.navigate(['/home']);
