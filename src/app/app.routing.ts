@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate  } from '@angular/router';
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 
 import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
@@ -13,16 +15,57 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent  },
-  { path: 'signup', component: SignupComponent  },
-  { path: 'home', component: HomeComponent  },
-  { path: 'explore', component: ExploreComponent  },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'faq', component: FaqComponent },
-  { path: 'privacy', component: PrivacyComponent },
-  { path: 'terms', component: TermsComponent }
+  { 
+    path: '', 
+    redirectTo: 'login', 
+    pathMatch: 'full' 
+  },
+  { 
+    path: 'login', 
+    component: LoginComponent  
+  },
+  { path: 'signup', 
+    component: SignupComponent  
+  },
+  { 
+    path: 'home', 
+    component: HomeComponent,
+    canActivate: [AuthGuard]   
+  },
+  // { 
+  //   path: 'admin', 
+  //   component: AdminComponent, 
+  //   canActivate: [RoleGuard], 
+  //   data: { 
+  //     expectedRole: 'admin'
+  //   } 
+  // },
+  { 
+    path: 'explore', 
+    component: ExploreComponent,
+    canActivate: [AuthGuard]   
+  },
+  { 
+    path: 'profile', 
+    component: ProfileComponent,
+    canActivate: [AuthGuard]  
+  },
+  { 
+    path: 'about', 
+    component: AboutComponent 
+  },
+  { 
+    path: 'faq', 
+    component: FaqComponent 
+  },
+  { 
+    path: 'privacy', 
+    component: PrivacyComponent 
+  },
+  { 
+    path: 'terms', 
+    component: TermsComponent 
+  }
 ];
 
 @NgModule({

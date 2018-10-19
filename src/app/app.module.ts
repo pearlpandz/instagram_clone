@@ -11,11 +11,20 @@ import { HomeComponent } from './home/home.component';
 
 // services
 import { HomeService } from './home/home.service';
+import { CookieService } from 'ngx-cookie-service';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 
+
+//Routing
 import { AppRoutingModule } from './app.routing';
 
+//others
 import { AgmCoreModule } from '@agm/core';
 import {TimeAgoPipe} from 'time-ago-pipe';
+
+//components
 import { ExploreComponent } from './explore/explore.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AboutComponent } from './cms/about/about.component';
@@ -28,6 +37,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
+
 
 
 @NgModule({
@@ -59,10 +69,21 @@ import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
     AppRoutingModule,
     CommonModule,
     ToastrModule.forRoot({positionClass: 'inline'}),
-    ToastContainerModule
+    ToastContainerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return '';
+        }
+      }
+    })
   ],
   providers: [
-    HomeService
+    HomeService,
+    CookieService,
+    JwtHelperService,
+    AuthGuard,
+    RoleGuard
   ],
   bootstrap: [AppComponent]
 })

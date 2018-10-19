@@ -37,6 +37,7 @@ exports.adduser = function(req,res){
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
+                        email: user.email,
                         token: token
                     });
                 }
