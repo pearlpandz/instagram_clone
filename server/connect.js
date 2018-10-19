@@ -4,7 +4,7 @@ var multer  =   require('multer');
 const app = express();
 var cors = require('cors');
 const server = require('http').createServer(app);
-
+const jwt = require('jsonwebtoken');
 
 //node dependencies - mangoose
 const mongoose = require('mongoose');
@@ -35,13 +35,13 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // middleware
 const middleware = require('./common/middleware'); //common middleware for all requests
-
+console.log('-------------------------------');
 // calling routes folder
 const routes_posts = require('./routes/index'); //create new post schema
 const routes_upload_post = require('./routes/post_uploads'); //create new post schema
 const routes_getposts = require('./routes/get_posts'); //get all post data
 const create_user = require('./routes/add_user'); //create user
-
+const userlogin = require('./routes/login_user'); //user login
 
 
 // file upload multer function
@@ -68,6 +68,8 @@ app.post('/getpost',  routes_getposts.getpost);
 //create user
 app.post('/adduser', create_user.adduser);
 
+//create user
+app.post('/userlogin', userlogin.login);
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));

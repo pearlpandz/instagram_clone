@@ -19,14 +19,14 @@
                   </a>
                   <div class="log-divider">OR</div>
               </div>
-              <form class="login-form">
+              <form class="login-form" (ngSubmit)="Submit(userLogin)" #userLogin="ngForm">
                   <div class="form-group">
-                      <input type="email" class="form-control" placeholder="Enter Your Email">
+                      <input type="email" class="form-control" placeholder="Enter Your Email" required [(ngModel)]="email" name="email">
                   </div>
                   <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Enter Password">
+                      <input type="password" class="form-control" placeholder="Enter Password" required [(ngModel)]="password" name="password">
                   </div>
-                  <button class="sub-btn">Login</button>
+                  <button class="sub-btn" [disabled]="!userLogin.form.valid">Login</button>
               </form>
               <p class="log-sub-txt">By signing up, you agree to our <a routerLink="../terms" class="log-gray-txt">Terms</a> &amp; <a routerLink="../privacy" class="log-gray-txt">Privacy Policy</a>.</p>
               <p class="log-sub-txt">Don't have an account? <a routerLink="../signup" class="blue-color">Signup</a></p>
