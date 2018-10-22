@@ -9,7 +9,9 @@ exports.create = function(req,res){
       description: req.body.description,
       location: req.body.location,
       sampleFile: req.body.sampleFile,
-      createdat: new Date().toLocaleString()
+      createdat: new Date().toLocaleString(),
+      username: req.body.username,
+      profilepic: req.body.userpic
     });
   
     post.save(function(err,result){

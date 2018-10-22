@@ -53,8 +53,11 @@ exports.login = function(req,res){
                         {
                             success: true,
                             token: token,
-                            message: 'successfully logged In',
-                            email: data.email
+                            message: 'Successfully Signed In',
+                            email: data.email,
+                            name: data.name,
+                            id: data.id,
+                            profilepic: data.profilepic
                         }
                     )
                 }

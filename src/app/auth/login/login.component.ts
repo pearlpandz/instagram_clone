@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   cookieEmail = '';
   cookieToken = '';
+  cookieName = '';
+  cookieProfilepic= '';
   constructor(
     private cookieService: CookieService,
     private router: Router,
@@ -35,10 +37,16 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('email',data['email']); 
         this.cookieService.set('token', data['token']);
         this.cookieService.set('boolen', 'true');
+        this.cookieService.set('name', data['name']);
+        this.cookieService.set('profilepic', data['profilepic']);
 
         this.cookieEmail = this.cookieService.get('email');
         this.cookieToken = this.cookieService.get('token');
+        this.cookieName = this.cookieService.get('name');
+        this.cookieProfilepic = this.cookieService.get('profilepic');
         
+        // console.log(this.cookieName);
+
         if(this.cookieEmail){
           this.router.navigate(['/home']);
           this.toastrService.success('Have a great day!','Welcome Back!');

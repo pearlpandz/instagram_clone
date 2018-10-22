@@ -32,12 +32,16 @@ export class SignupComponent implements OnInit {
 
   Submit(newUser: any) {
     this.http.post('http://localhost:3000/adduser', newUser.value).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.toastmsgsService.showSuccess();
       this.cookieService.set( 'email', data['email'] );
       this.cookieService.set( 'token', data['token'] );
+      this.cookieService.set( 'name', data['name'] );
+      this.cookieService.set('profilepic', data['profilepic']);
+
       this.cookieEmail = this.cookieService.get('email'); 
       this.cookieToken = this.cookieService.get('token');
+      
       if(this.cookieEmail){
         this.router.navigate(['/home']);
       }

@@ -212,6 +212,7 @@ a:hover{
 
 .feed-panel img{
   max-width: 100%;
+  width: 100%;
 }
 
 .feed-head{
@@ -219,12 +220,13 @@ a:hover{
 }
 
 .feed-head .user-img{
-  width: 30px;
-  height: 30px;
-  float: left;
+  width: 45px;
+  height: 45px;
   margin-right: 10px;
   border-radius: 100%;
   overflow: hidden;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .feed-head .user-img a{
@@ -237,7 +239,9 @@ a:hover{
 }
 
 .feed-head .user-name{
-  float: left;
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .feed-head .user-name a{
@@ -254,6 +258,7 @@ a:hover{
   margin: 0;
   line-height: 28px;
   font-size: 16px;
+  font-weight: 400;
 }
 
 .feed-head .left{
@@ -714,7 +719,9 @@ a.dark:hover,a.dark:focus,a.dark:active{
 }
 
 .user-name{
-  margin-bottom: 20px !important;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin-bottom: 0px !important;
 }
 
 .follow{

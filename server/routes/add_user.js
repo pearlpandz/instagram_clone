@@ -7,10 +7,18 @@ const config = require('./../common/config');
 
 exports.adduser = function(req,res){
 
+    if(req.body.profilepic){
+        profilepic = req.body.profilepic;
+    }
+    else {
+        profilepic = req.protocol + "://" + req.get('host') + '/uploads/noimage.png';
+    }
+
     let user = new users ({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        profilepic: profilepic,
         createdat: new Date().toLocaleString()
       });
 
@@ -36,9 +44,12 @@ exports.adduser = function(req,res){
                     // return the information including token as JSON
                     res.json({
                         success: true,
-                        message: 'Enjoy your token!',
+                        message: 'Successfully Signed Up',
+                        token: token,
                         email: user.email,
-                        token: token
+                        name: user.name,
+                        id: user.id,
+                        profilepic: user.profilepic
                     });
                 }
             }); 

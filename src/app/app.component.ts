@@ -16,7 +16,7 @@ export class AppComponent {
   ngOnInit() {
     this.cookieEmail = this.cookieService.get('email'); 
     this.cookieBoolen = this.cookieService.get('boolen');
-    console.log('cookieBoolen-->',this.cookieBoolen);
+    // console.log('cookieBoolen-->',this.cookieBoolen);
   }
 
   isLoginPage(): boolean {

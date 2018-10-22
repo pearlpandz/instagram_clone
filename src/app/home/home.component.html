@@ -5,12 +5,12 @@
           <div class="left">
               <div  class="user-img">
                   <a href="view-profile.html">
-                      <img src="../../../assets/img/model-user.jpg">
+                      <img src="{{post.profilepic}}">
                   </a>
               </div>
               <div  class="user-name">
                   <a href="view-profile.html">
-                      <h5>aliana casandra</h5>
+                      <h5>{{post.username}}</h5>
                     <p>{{post.location}}</p>
                   </a>
               </div>                    
@@ -30,7 +30,7 @@
 
       <div class="row feed-content no-margin">
           <!-- <h5><span class="count dark">586</span> likes</h5> -->
-          <p><a href="view-profile.html" class="dark">aliana casandra</a>  {{post.description}}</p>
+          <p><a href="view-profile.html" class="dark user-name">{{post.username}}</a>  {{post.description}}</p>
           <!-- <p class="view-comments">View all comments</p>
           <div class="feed-comments">
               <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning</p>
@@ -117,7 +117,9 @@
                           <img *ngFor="let url of urls" width="50" height="50" src="{{url}}" alt="">
                       </div>
                         <div class="form-group">
-                        <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location" value="{{location}}"/>
+                            <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location" value="{{location}}"/>
+                            <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username" value="{{username}}"/>
+                            <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic" value="{{userpic}}"/>
                         </div>
                         <div class="form-group">
                                 <label for="userImage">Post Image</label>

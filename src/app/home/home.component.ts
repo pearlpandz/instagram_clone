@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 declare var jquery:any;
 declare var $ :any;
 import 'rxjs/Rx';
+import { CookieService } from 'ngx-cookie-service';
 
 // service calling
 import { HomeService } from './home.service';
@@ -29,13 +30,19 @@ export class HomeComponent implements OnInit {
 
   post_create: any;
 
+  username;
+  userpic;
+
   constructor(
     private http: HttpClient,
-    private homeService: HomeService //home service for {create post, get post}
+    private homeService: HomeService, //home service for {create post, get post}
+    private cookieService: CookieService,
   ) {
   }
 
   ngOnInit() {
+    
+
     navigator.geolocation.getCurrentPosition((position) => { 
       // console.log("Got position", position.coords);
       this.lat = position.coords.latitude; 
@@ -48,6 +55,11 @@ export class HomeComponent implements OnInit {
         // console.log(this.location);
       });
     });
+
+    this.username = this.cookieService.get('name');
+    // console.log(this.userid);
+    this.userpic = this.cookieService.get('profilepic')
+    // console.log(this.userpic);
 
     this.getpost();
 
@@ -78,6 +90,7 @@ export class HomeComponent implements OnInit {
 
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
+    // console.log(newPost.value);
     this.homeService.createPost(newPost.value).subscribe(data => {
       if(!data['id']){
         console.log("something went wrong");
