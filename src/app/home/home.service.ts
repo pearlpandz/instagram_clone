@@ -22,4 +22,9 @@ export class HomeService {
     return this.http.post('http://localhost:3000/getpost', '');
   }
 
+  likePost(likeinfo){
+    console.log(likeinfo);
+    return this.http.post('http://localhost:3000/likepost', likeinfo);
+  }
+
 }

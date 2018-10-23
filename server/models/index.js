@@ -9,7 +9,9 @@ const newPostSchema = new mongoose.Schema({
     createdat: {type: String },
     username: {type: String},
     profilepic: {type: String},
-    userid: {type: String}
+    userid: {type: String},
+    likecount: {type: String},
+    likeids: []
 });
 
 var posts = mongoose.model('posts', newPostSchema);

@@ -44,6 +44,7 @@ const create_user = require('./routes/add_user'); //create user
 const userlogin = require('./routes/login_user'); //user login
 const searchuser = require('./routes/search_user');// search User
 
+const likepost = require('./routes/like_post');
 
 // file upload multer function
 var upload = multer({
@@ -74,5 +75,9 @@ app.post('/adduser', create_user.adduser);
 app.post('/userlogin', userlogin.login);
 //search user
 app.post('/search/:name', searchuser.search);
+
+//like post
+app.post('/likepost', likepost.likepost);
+
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));

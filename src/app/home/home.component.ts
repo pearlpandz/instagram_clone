@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 // service calling
 import { HomeService } from './home.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,9 @@ export class HomeComponent implements OnInit {
   userpic;
   userid;
 
+  likeinfo = [];
+  likecount;
+
   constructor(
     private http: HttpClient,
     private homeService: HomeService, //home service for {create post, get post}
@@ -48,7 +52,7 @@ export class HomeComponent implements OnInit {
     this.homeName = this.cookieService.get('name');
 this.homeEmail = this.cookieService.get('email');
 this.homePic = this.cookieService.get('profilepic');
-console.log(this.homePic );
+// console.log(this.homePic );
 
     navigator.geolocation.getCurrentPosition((position) => { 
       // console.log("Got position", position.coords);
@@ -133,8 +137,21 @@ console.log(this.homePic );
   }
 
   like(post_id, current_userid){
-    console.log('current userid',current_userid.value);
-    console.log('this post id', post_id.value);
+    // console.log('current userid',current_userid.value);
+    // console.log('this post id', post_id.value);
+
+
+    this.likeinfo = [{
+      post_id: post_id.value,
+      current_userid:current_userid.value}];
+
+
+    this.homeService.likePost(this.likeinfo[0])
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      this.likecount = data;
+      // console.log(this.likecount);
+		});
   }
 
 }
