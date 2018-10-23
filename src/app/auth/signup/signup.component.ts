@@ -38,6 +38,7 @@ export class SignupComponent implements OnInit {
       this.cookieService.set( 'token', data['token'] );
       this.cookieService.set( 'name', data['name'] );
       this.cookieService.set('profilepic', data['profilepic']);
+      this.cookieService.set('id', data['id']);
 
       this.cookieEmail = this.cookieService.get('email'); 
       this.cookieToken = this.cookieService.get('token');
