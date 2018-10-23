@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import {Router} from "@angular/router";
-declare var jquery:any;
-declare var $ :any;
+import { Router } from '@angular/router';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-profile',
@@ -22,23 +22,23 @@ export class ProfileComponent implements OnInit {
   profilePic = '';
   ngOnInit() {
 
-this.profileName = this.cookieService.get('name');
-this.profileEmail = this.cookieService.get('email');
-this.profilePic = this.cookieService.get('profilepic');
-console.log(this.profilePic);
+    this.profileName = this.cookieService.get('name');
+    this.profileEmail = this.cookieService.get('email');
+    this.profilePic = this.cookieService.get('profilepic');
+    console.log(this.profilePic);
 
 
   }
 
   logout() {
-    this.cookieEmail = this.cookieService.get('email'); 
-    if(this.cookieEmail) {
+    this.cookieEmail = this.cookieService.get('email');
+    if (this.cookieEmail) {
       this.cookieService.deleteAll();
       $("#log-out").modal('toggle');
       this.router.navigate(['/login']);
-      this.toastrService.success('You Successfully logged out.','Thanks for coming!');
+      this.toastrService.success('You Successfully logged out.', 'Thanks for coming!');
     }
-    
+
   }
 
 }
