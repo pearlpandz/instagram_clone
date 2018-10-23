@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('boolen', 'true');
         this.cookieService.set('name', data['name']);
         this.cookieService.set('profilepic', data['profilepic']);
-        
+        this.cookieService.set('id', data['id']);
 
         this.cookieEmail = this.cookieService.get('email');
         this.cookieToken = this.cookieService.get('token');

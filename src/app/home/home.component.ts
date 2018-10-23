@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   username;
   userpic;
+  userid;
 
   constructor(
     private http: HttpClient,
@@ -65,7 +66,9 @@ console.log(this.homePic );
     this.username = this.cookieService.get('name');
     // console.log(this.userid);
     this.userpic = this.cookieService.get('profilepic')
-    console.log(this.userpic);
+    // console.log(this.userpic);
+    this.userid = this.cookieService.get('id');
+    // console.log(this.userid);
 
     this.getpost();
 
