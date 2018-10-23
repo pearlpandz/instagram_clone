@@ -17,8 +17,17 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService
   ) { }
-
+  profileName = '';
+  profileEmail = '';
+  profilePic = '';
   ngOnInit() {
+
+this.profileName = this.cookieService.get('name');
+this.profileEmail = this.cookieService.get('email');
+this.profilePic = this.cookieService.get('profilepic');
+console.log(this.profilePic);
+
+
   }
 
   logout() {

@@ -1,138 +1,159 @@
 <div class="container-fluid page-start">
-  <div class="feed-panel" *ngFor='let post of postdata;'>
-      <div class="row feed-head no-margin">
 
-          <div class="left">
-              <div  class="user-img">
-                  <a href="view-profile.html">
-                      <img src="{{post.profilepic}}">
-                  </a>
-              </div>
-              <div  class="user-name">
-                  <a href="view-profile.html">
-                      <h5>{{post.username}}</h5>
-                    <p>{{post.location}}</p>
-                  </a>
-              </div>                    
-          </div>
 
-          <div class="right">
-              <a href="#">
-                  {{post.createdat | timeAgo }}
-              </a>
-          </div>
+    <div class="post-box">
+        <img src="{{homePic}}">
+        <textarea>Write Something Here..</textarea>
+        <div class="btn-container">
+            <button class="btn bnt1"><i class="fa fa-file-image-o" aria-hidden="true"></i>Photo</button>
+            <button class="btn bnt1"><i class="fa fa-file-video-o" aria-hidden="true"></i>video</button>
+            <button class="btn bnt1"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i>Gif</button>
+          <!-- <button class="btn bntn"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>!-->
+        </div>
+    </div>
 
-      </div>
+    <div class="feed-panel" *ngFor='let post of postdata;'>
+        <div class="row feed-head no-margin">
 
-      <div class="row feed-image no-margin">
-          <img *ngFor = 'let imgurl of post.sampleFile;' src='{{imgurl}}'>
-      </div>
+            <div class="left">
+                <div class="user-img">
+                    <a href="view-profile.html">
+                        <img src="{{post.profilepic}}">
+                    </a>
+                </div>
+                <div class="user-name">
+                    <a href="view-profile.html">
+                        <h5>{{post.username}}</h5>
+                        <p>{{post.location}}</p>
+                    </a>
+                </div>
+            </div>
 
-      <div class="row feed-content no-margin">
-          <!-- <h5><span class="count dark">586</span> likes</h5> -->
-          <p><a href="view-profile.html" class="dark user-name">{{post.username}}</a>  {{post.description}}</p>
-          <!-- <p class="view-comments">View all comments</p>
+            <div class="right">
+                <a href="#">
+                    {{post.createdat | timeAgo }}
+                </a>
+            </div>
+
+        </div>
+
+        <div class="row feed-image no-margin">
+            <img *ngFor='let imgurl of post.sampleFile;' src='{{imgurl}}'>
+        </div>
+
+        <div class="row feed-content no-margin">
+            <!-- <h5><span class="count dark">586</span> likes</h5> -->
+            <p><a href="view-profile.html" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
+            <!-- <p class="view-comments">View all comments</p>
           <div class="feed-comments">
               <p><a href="view-profile.html" class="dark">aliana casandra</a>  Lots of love! Twirling for u in a stunning</p>
               <p><a href="view-profile.html" class="dark">aliana</a>  Lots of love! Twirling for u in a stunning</p>
               <p><a href="view-profile.html" class="dark">casandra</a>  Lots of love! Twirling for u in a stunning</p>
           </div> -->
-      </div>
+        </div>
 
-      <div class="row feed-footer no-margin">
+        <div class="row feed-footer no-margin">
 
-          <div class="input-group">
-            <span class="input-group-addon like-btn"><a class="like"><i class="ion-ios-heart-outline"></i></a></span>
-            <input type="text" class="form-control comment" placeholder="Add a comment...">
-            <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
-          </div>
+            <div class="input-group">
+                <span class="input-group-addon like-btn"><a class="like"><i class="ion-ios-heart-outline"></i></a></span>
+                <input type="text" class="form-control comment" placeholder="Add a comment...">
+                <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
+            </div>
 
-      </div>
-  </div>
+        </div>
+    </div>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-</div> 
+</div>
 
 <!-- More Modal -->
 <div id="more-modal" class="modal fade" role="dialog">
     <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">More Action</h4>
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">More Action</h4>
+            </div>
+            <div class="modal-body">
+                <a class="full" data-toggle="collapse" data-target="#report-details">Report inappropriate</a>
+                <div id="report-details" class="collapse report-details">
+                    <form class="form">
+                        <div class="report-content">
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">I don't like this Image</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">This Image is spam or a scam</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">This Image puts people at risk</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio">This Image shouldn't be on Instagram</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+                <a class="full no-border" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+
     </div>
-    <div class="modal-body">
-     <a class="full" data-toggle="collapse" data-target="#report-details">Report inappropriate</a>
-     <div id="report-details" class="collapse report-details">
-          <form class="form">
-              <div class="report-content">
-                  <div class="radio">
-                    <label><input type="radio" name="optradio">I don't like this Image</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio">This Image is spam or a scam</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio">This Image puts people at risk</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio">This Image shouldn't be on Instagram</label>
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>          
-          </form>
-     </div>
-     <a class="full no-border" data-dismiss="modal">Cancel</a>
-    </div>      
-    </div>
-    
-    </div>
-    </div>
-    
-    <!-- write-post modal -->
-    <div id="write-post" class="modal fade" role="dialog">
+</div>
+
+<!-- write-post modal -->
+<div id="write-post" class="modal fade" role="dialog">
     <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">Write Post</h4>
-          </div>
-    
-          <div class="modal-body">
-              <div class="write-post">
-                  <form (ngSubmit)="postSubmit(newPost)" #newPost="ngForm" >
-                      <div class="form-group">
-                          <label for="exampleInputEmail1">description</label>
-                          <textarea class="form-control" id="description" required [(ngModel)]="description" name="description">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Write Post</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="write-post">
+                    <form (ngSubmit)="postSubmit(newPost)" #newPost="ngForm">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">description</label>
+                            <textarea class="form-control" id="description" required [(ngModel)]="description" name="description">
                           </textarea>
-                          <img *ngFor="let url of urls" width="50" height="50" src="{{url}}" alt="">
-                      </div>
-                        <div class="form-group">
-                            <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location" value="{{location}}"/>
-                            <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username" value="{{username}}"/>
-                            <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic" value="{{userpic}}"/>
+                            <img *ngFor="let url of urls" width="50" height="50" src="{{url}}" alt="">
                         </div>
                         <div class="form-group">
-                                <label for="userImage">Post Image</label>
-                                <input type="file" id="image"  name="sampleFile" [(ngModel)]="sampleFile" multiple (change)="onFileSelected($event);readUrl($event)"/>
-                                
+                            <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location"
+                                value="{{location}}" />
+                            <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username"
+                                value="{{username}}" />
+                            <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic"
+                                value="{{userpic}}" />
                         </div>
-                      <div class="submit-button float-right">
-                          <button type="submit" class="btn btn-primary float-left submit" [disabled]="!newPost.form.valid">Post</button>
-                          <!-- <button type="submit" class="btn btn-primary float-left submit">Cancel</button> -->
-                      </div><!--end of submit-button-->
-                  </form>    
-              </div>
-          </div><!--end of modal-body-->      
-      </div><!--end of modal-content-->
-    </div><!--end of modal-dialog-->
-    </div><!--end of write-post id-->
+                        <div class="form-group">
+                            <label for="userImage">Post Image</label>
+                            <input type="file" id="image" name="sampleFile" [(ngModel)]="sampleFile" multiple (change)="onFileSelected($event);readUrl($event)" />
+
+                        </div>
+                        <div class="submit-button float-right">
+                            <button type="submit" class="btn btn-primary float-left submit" [disabled]="!newPost.form.valid">Post</button>
+                            <!-- <button type="submit" class="btn btn-primary float-left submit">Cancel</button> -->
+                        </div>
+                        <!--end of submit-button-->
+                    </form>
+                </div>
+            </div>
+            <!--end of modal-body-->
+        </div>
+        <!--end of modal-content-->
+    </div>
+    <!--end of modal-dialog-->
+</div>
+<!--end of write-post id-->

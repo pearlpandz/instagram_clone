@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.cookieEmail = this.cookieService.get('email'); 
     this.cookieToken = this.cookieService.get('token');
+    this.cookieName =  this.cookieService.get('name');
+    this.cookieProfilepic = this.cookieService.get('profilepic');
     if(this.cookieEmail) {
       this.router.navigate(['/home']);
     }
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('boolen', 'true');
         this.cookieService.set('name', data['name']);
         this.cookieService.set('profilepic', data['profilepic']);
+        
 
         this.cookieEmail = this.cookieService.get('email');
         this.cookieToken = this.cookieService.get('token');

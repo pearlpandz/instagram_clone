@@ -3,12 +3,12 @@
       <div class="user-profile-details">
           <div class="user-profile-inner row no-margin">
               <div class="user-img">
-                  <a href="#" data-toggle="modal" data-target="#change-photo"><img src="../../assets/img/model-user.jpg"></a>
+                  <a href="#" data-toggle="modal" data-target="#change-photo"><img src="{{profilePic}}"></a>
               </div>
 
               <div class="user-profile-content row no-margin">
                   <div class="user-name row no-margin">
-                      <h1 class="profile-user-name">aliana casandra</h1>
+                      <h1 class="profile-user-name">{{profileName}}</h1>
                       <a href="edit-profile.html" class="user-profile-edit">Edit Profile</a>
                       <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
                   </div>
@@ -29,8 +29,8 @@
 
                   <div class="biography row no-margin">
                       <span>
-                          <h2 class="bio-username no-margin float-left">aliana casandra</h2>
-                          <a href="#" class="web-link">alianacasandra.com</a>
+                          <h2 class="bio-username no-margin float-left">{{profileName}}</h2>
+                          <a href="#" class="web-link">{{profileEmail}}</a>
                       </span>
                   </div>
               </div><!--end of user-profile-content-->
@@ -616,7 +616,7 @@
               <div class="col-sm-8 no-padding">
                   <div class="popup-image-outer">
                       <div class="popup-image">
-                          <img src="../../assets/img/model-user.jpg" class="pop-img">
+                          <img src={{profilePic}} class="pop-img">
                       </div>
                   </div>
               </div>
@@ -625,7 +625,7 @@
                   <div class="comment-like">
                       <div class="comment-profile">
                           <div class="user-img float-left">
-                              <a href="user-profile.html"><img src="../../assets/img/model-user.jpg"></a>
+                              <a href="user-profile.html"><img src="{{profilePic}}"></a>
                           </div>
 
                           <div  class="user-name">
