@@ -10,8 +10,15 @@ const newPostSchema = new mongoose.Schema({
     username: {type: String},
     profilepic: {type: String},
     userid: {type: String},
-    likecount: {type: String},
-    likeids: []
+    likecount: {
+        type: Number,
+        default: 0
+    },
+    likeids: [],
+    class: {
+        type: Boolean,
+        default: false
+    }
 });
 
 var posts = mongoose.model('posts', newPostSchema);

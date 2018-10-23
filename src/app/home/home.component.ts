@@ -37,9 +37,11 @@ export class HomeComponent implements OnInit {
   username;
   userpic;
   userid;
+  homeUserid;
 
   likeinfo = [];
   likecount;
+  likestatus;
 
   constructor(
     private http: HttpClient,
@@ -50,9 +52,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
-this.homeEmail = this.cookieService.get('email');
-this.homePic = this.cookieService.get('profilepic');
-// console.log(this.homePic );
+    this.homeEmail = this.cookieService.get('email');
+    this.homePic = this.cookieService.get('profilepic');
+    this.homeUserid = this.cookieService.get('id');
+    // console.log(this.homeUserid);
 
     navigator.geolocation.getCurrentPosition((position) => { 
       // console.log("Got position", position.coords);
@@ -74,7 +77,7 @@ this.homePic = this.cookieService.get('profilepic');
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
 
-    this.getpost();
+    this.getpost(this.homeUserid);
 
   }
 
@@ -113,7 +116,7 @@ this.homePic = this.cookieService.get('profilepic');
         // console.log(this.fd);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
           // console.log(data);
-          this.getpost();
+          this.getpost(this.homeUserid);
           $("#write-post").hide();
           $("#write-post").modal('toggle');
         });
@@ -122,15 +125,15 @@ this.homePic = this.cookieService.get('profilepic');
   }
 
   
-
-
   // get post
-  getpost() {
-    this.homeService.getPost()
+  getpost(currentuserid) {
+    // console.log(currentuserid);
+    let userid = {userid: currentuserid};
+    this.homeService.getPost(userid)
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data;  
-      // console.log(this.postdata);  
+      console.log(this.postdata);  
       this.post_create = data.createdat;
       // console.log('-----in component-------',this.postdata);
 		});
@@ -149,8 +152,13 @@ this.homePic = this.cookieService.get('profilepic');
     this.homeService.likePost(this.likeinfo[0])
     .map((data: any) => data)
     .subscribe(data =>  {
-      this.likecount = data;
-      // console.log(this.likecount);
+      console.log(data['status']);
+      if(data['status']){
+        this.likestatus = data['status'];
+      }
+      else{
+        this.likestatus = data['status'];
+      }
 		});
   }
 
