@@ -42,7 +42,7 @@ const routes_upload_post = require('./routes/post_uploads'); //create new post s
 const routes_getposts = require('./routes/get_posts'); //get all post data
 const create_user = require('./routes/add_user'); //create user
 const userlogin = require('./routes/login_user'); //user login
-
+const likepost = require('./routes/like_post');
 
 // file upload multer function
 var upload = multer({ storage : multer.diskStorage({
@@ -70,6 +70,9 @@ app.post('/adduser', create_user.adduser);
 
 //create user
 app.post('/userlogin', userlogin.login);
+
+//like post
+app.post('/likepost', likepost.likepost);
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
