@@ -1,9 +1,16 @@
 <div class="container-fluid page-start">
   <div class="feed-panel" *ngFor='let post of postdata;'>
       <div class="row feed-head no-margin">
+            
+            <input class="form-control" type="hidden" id="post_id" name="post_id" value="{{post._id}}" #post_id/>
 
+            <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
+        
+            <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}" #current_userid />
+            
           <div class="left">
               <div  class="user-img">
+                  
                   <a href="view-profile.html">
                       <img src="{{post.profilepic}}">
                   </a>
@@ -15,7 +22,7 @@
                   </a>
               </div>                    
           </div>
-
+          
           <div class="right">
               <a href="#">
                   {{post.createdat | timeAgo }}
@@ -42,7 +49,8 @@
       <div class="row feed-footer no-margin">
 
           <div class="input-group">
-            <span class="input-group-addon like-btn"><a class="like"><i class="ion-ios-heart-outline"></i></a></span>
+            
+            <span class="input-group-addon like-btn"><a class="like" (click)="like(post_id, current_userid)"><i class="ion-ios-heart-outline"></i></a></span>
             <input type="text" class="form-control comment" placeholder="Add a comment...">
             <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
           </div>

@@ -11,7 +11,8 @@ exports.create = function(req,res){
       sampleFile: req.body.sampleFile,
       createdat: new Date().toLocaleString(),
       username: req.body.username,
-      profilepic: req.body.userpic
+      profilepic: req.body.userpic,
+      userid: req.body.userid
     });
   
     post.save(function(err,result){
