@@ -58,6 +58,8 @@ exports.login = function(req,res){
                             name: data.name,
                             id: data.id,
                             profilepic: data.profilepic
+                          
+
                         }
                     )
                 }

@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.cookieEmail = this.cookieService.get('email'); 
     this.cookieToken = this.cookieService.get('token');
+    this.cookieName =  this.cookieService.get('name');
+    this.cookieProfilepic = this.cookieService.get('profilepic');
     if(this.cookieEmail) {
       this.router.navigate(['/home']);
     }

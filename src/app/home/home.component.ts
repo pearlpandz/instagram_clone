@@ -17,6 +17,9 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
     
   // variable declaration
+  homeName = '';
+  homePic = '';
+  homeEmail = '';
   model: any = {}; //to create object
   location: any; //to crate object.location
   newPost: any = [];
@@ -42,7 +45,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.homeName = this.cookieService.get('name');
+this.homeEmail = this.cookieService.get('email');
+this.homePic = this.cookieService.get('profilepic');
+console.log(this.homePic );
 
     navigator.geolocation.getCurrentPosition((position) => { 
       // console.log("Got position", position.coords);
