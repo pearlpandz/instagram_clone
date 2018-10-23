@@ -8,7 +8,8 @@ const newPostSchema = new mongoose.Schema({
     sampleFile: [],
     createdat: {type: String },
     username: {type: String},
-    profilepic: {type: String}
+    profilepic: {type: String},
+    userid: {type: String}
 });
 
 var posts = mongoose.model('posts', newPostSchema);

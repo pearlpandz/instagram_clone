@@ -125,10 +125,16 @@ console.log(this.homePic );
     this.homeService.getPost()
     .map((data: any) => data)
     .subscribe(data =>  {
-      this.postdata = data;    
+      this.postdata = data;  
+      // console.log(this.postdata);  
       this.post_create = data.createdat;
       // console.log('-----in component-------',this.postdata);
 		});
+  }
+
+  like(post_id, current_userid){
+    console.log('current userid',current_userid.value);
+    console.log('this post id', post_id.value);
   }
 
 }
