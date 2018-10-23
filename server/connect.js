@@ -1,6 +1,6 @@
 //node dependencies - express
 const express = require('express');
-var multer  =   require('multer');
+var multer = require('multer');
 const app = express();
 var cors = require('cors');
 const server = require('http').createServer(app);
@@ -25,7 +25,7 @@ const path = require('path');
 
 
 app.use(bodyParser.json());
-app.use(express.json()); 
+app.use(express.json());
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,15 +42,18 @@ const routes_upload_post = require('./routes/post_uploads'); //create new post s
 const routes_getposts = require('./routes/get_posts'); //get all post data
 const create_user = require('./routes/add_user'); //create user
 const userlogin = require('./routes/login_user'); //user login
+const searchuser = require('./routes/search_user');// search User
+
 const likepost = require('./routes/like_post');
 
 // file upload multer function
-var upload = multer({ storage : multer.diskStorage({
+var upload = multer({
+  storage: multer.diskStorage({
     destination: function (req, file, callback) {
       callback(null, 'uploads');
     },
     filename: function (req, file, callback) {
-      callback(null, Date.now() + '.' + file.mimetype.split('/').pop() );
+      callback(null, Date.now() + '.' + file.mimetype.split('/').pop());
     }
   })
 });
@@ -63,13 +66,15 @@ app.post('/post', routes_posts.create);
 app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
 
 //get posts middleware.checkToken,
-app.post('/getpost',  routes_getposts.getpost);
+app.post('/getpost', routes_getposts.getpost);
 
 //create user
 app.post('/adduser', create_user.adduser);
 
 //create user
 app.post('/userlogin', userlogin.login);
+//search user
+app.post('/search/:name', searchuser.search);
 
 //like post
 app.post('/likepost', likepost.likepost);
