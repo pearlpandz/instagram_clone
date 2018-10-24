@@ -26,9 +26,10 @@ exports.likepost = function(req,res){
             }
             else {
                 var query2 = {"_id": post_id};
-                var update = {likecount: parseInt(post[0].likecount)+1, likeids: current_userid};
+                var update = {likecount: parseInt(post[0].likecount)+1};
+                var update2 = {likeids: current_userid};
                 var options = {new: true};
-                Posts.findOneAndUpdate(query2, {$set:update}, options, function(err, post1) {
+                Posts.findOneAndUpdate(query2, {$set:update, $push: update2}, options, function(err, post1) {
                     if (err) {
                         console.log('got an error');
                         res.send(err);
