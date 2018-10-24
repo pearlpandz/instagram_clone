@@ -56,7 +56,7 @@ exports.login = function(req,res){
                             message: 'Successfully Signed In',
                             email: data.email,
                             name: data.name,
-                            id: data.id,
+                            id: data._id,
                             profilepic: data.profilepic
                           
 

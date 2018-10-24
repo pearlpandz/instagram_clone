@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.cookieName = this.cookieService.get('name');
         this.cookieProfilepic = this.cookieService.get('profilepic');
         
-        // console.log(this.cookieName);
+        // console.log(data);
 
         if(this.cookieEmail){
           this.router.navigate(['/home']);

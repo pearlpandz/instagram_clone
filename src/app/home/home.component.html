@@ -47,7 +47,7 @@
       </div>
 
       <div class="row feed-content no-margin">
-          <h5><span class="count dark">{{post.likecount}}</span> likes</h5>
+          <h5 *ngIf="post.likecount>0"><span class="count dark">{{post.likecount}}</span> likes</h5>
           <p><a href="view-profile.html" class="dark user-name">{{post.username}}</a>  {{post.description}}</p>
           <!-- <p class="view-comments">View all comments</p>
           <div class="feed-comments">
