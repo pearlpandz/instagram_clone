@@ -331,7 +331,7 @@ a:hover{
   color: #262626;
 }
 
-.input-group-addon.like-btn a:hover,.input-group-addon.like-btn a:focus,.input-group-addon.like-btn a:active{
+.input-group-addon.like-btn a:hover, .input-group-addon.like-btn a.like ,.input-group-addon.like-btn a:focus,.input-group-addon.like-btn a:active{
   color: #ed4956;
   text-decoration: none;
 }

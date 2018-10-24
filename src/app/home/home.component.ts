@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
         this.fd.append('_id',data['id']);        
         // console.log(this.fd);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
-          // console.log(data);
+          //console.log(data);
           this.getpost(this.homeUserid);
           $("#write-post").hide();
           $("#write-post").modal('toggle');
@@ -132,10 +132,10 @@ export class HomeComponent implements OnInit {
     this.homeService.getPost(userid)
     .map((data: any) => data)
     .subscribe(data =>  {
-      this.postdata = data;  
+      this.postdata = data; 
       console.log(this.postdata);  
       this.post_create = data.createdat;
-      // console.log('-----in component-------',this.postdata);
+      
 		});
   }
 
@@ -152,14 +152,26 @@ export class HomeComponent implements OnInit {
     this.homeService.likePost(this.likeinfo[0])
     .map((data: any) => data)
     .subscribe(data =>  {
-      console.log(data['status']);
+      // console.log('status', data['status']);
       if(data['status']){
         this.likestatus = data['status'];
+        this.getpost(this.homeUserid);
       }
       else{
         this.likestatus = data['status'];
       }
 		});
+  }
+  
+  checklikeid(array,target) {
+    // console.log(array.length);
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] === target) {
+        return true;
+      }
+    }
+    // alert("false");
+    return false;
   }
 
 }
