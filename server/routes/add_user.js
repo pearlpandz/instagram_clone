@@ -57,3 +57,19 @@ exports.adduser = function(req,res){
           }
       });
 };
+
+
+
+exports.getalluser = function(req,res){
+    users
+    .distinct("name")
+   
+    .exec(function(err, user) { 
+        if(err) {
+            res.json(err);
+        }
+        else {
+            res.send(user);
+        }  
+    });
+};

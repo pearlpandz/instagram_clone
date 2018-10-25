@@ -85,6 +85,9 @@ app.post('/likepost', likepost.likepost);
 // comment post
 app.post('/commentpost', likepost.commentpost);
 
+//get all userid
+app.post('/getalluser', create_user.getalluser);
+
 app.post('/follows', follows.follow);
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
