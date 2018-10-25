@@ -46,8 +46,9 @@ const searchuser = require('./routes/search_user');// search User
 
 const likepost = require('./routes/like_post');
 const follows = require('./routes/follow_user');
+const findusers = require('./routes/find_user');
 
- 
+
 
 // file upload multer function
 var upload = multer({
@@ -82,12 +83,18 @@ app.post('/search/:name', searchuser.search);
 //like post
 app.post('/likepost', likepost.likepost);
 
+
 // comment post
 app.post('/commentpost', likepost.commentpost);
 
 //get all userid
 app.post('/getalluser', create_user.getalluser);
 
+//follow users
 app.post('/follows', follows.follow);
+
+//find particular user through URL
+app.post('/:name', findusers.finde);
+
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
