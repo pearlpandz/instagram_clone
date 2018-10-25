@@ -67,3 +67,26 @@ exports.likepost = function(req,res){
         }  
     });
 };
+
+
+exports.commentpost = function(req,res){
+    // console.log(req.body.post_id);
+    // console.log(req.body.comment);
+
+    var query = {"_id": req.body.post_id};
+    var update = {comments: {msg: req.body.comment, userid: req.body.commented_id } };
+    var options = {new: true};
+    Posts.findOneAndUpdate(query, {$push:update}, options, function(err, comment) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.send({
+                status: true,
+                data: comment
+            }); 
+        }
+    })
+
+
+}

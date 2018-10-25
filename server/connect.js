@@ -82,6 +82,9 @@ app.post('/search/:name', searchuser.search);
 //like post
 app.post('/likepost', likepost.likepost);
 
+// comment post
+app.post('/commentpost', likepost.commentpost);
+
 app.post('/follows', follows.follow);
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));

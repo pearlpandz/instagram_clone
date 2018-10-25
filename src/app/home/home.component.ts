@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data; 
-      // console.log(this.postdata);  
+      console.log(this.postdata);  
       this.post_create = data.createdat;
       
 		});
