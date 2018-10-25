@@ -18,10 +18,9 @@ const newUserSchema = new mongoose.Schema({
     password: {type: String},
     following: [],
     followers: [],
-
     profilepic: {type: String},
     createdat: {type: String },
-   id:{type: String}
+    id: {type: String}
 });
 
 var users = mongoose.model('users', newUserSchema);

@@ -47,7 +47,7 @@
       </div>
 
       <div class="row feed-content no-margin">
-          <h5><span class="count dark">{{post.likecount}}</span> likes</h5>
+          <h5 *ngIf="post.likecount>0"><span class="count dark">{{post.likecount}}</span> likes</h5>
           <p><a href="view-profile.html" class="dark user-name">{{post.username}}</a>  {{post.description}}</p>
           <!-- <p class="view-comments">View all comments</p>
           <div class="feed-comments">
@@ -60,12 +60,23 @@
         <div class="row feed-footer no-margin">
 
           <div class="input-group">
-            
-            <span class="input-group-addon like-btn">
-                <a [class.like]="likestatus" class="like" (click)="like(post_id, current_userid)">
-                    <i class="fa fa-heart" aria-hidden="true"></i>
+           
+            <span *ngIf="checklikeid(post.likeids, homeUserid); else elseblock" class="input-group-addon like-btn">
+                
+                <a class="like" (click)="like(post_id, current_userid)">
+                   <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </span>
+
+            <ng-template #elseblock>
+                <span class="input-group-addon like-btn">
+                    <a (click)="like(post_id, current_userid)">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </ng-template>  
+
+            
             
             <input type="text" class="form-control comment" placeholder="Add a comment...">
             <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>

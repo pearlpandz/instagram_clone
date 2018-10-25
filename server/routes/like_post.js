@@ -3,9 +3,22 @@ const router = require('express').Router();
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 
+// check target in array or not
+function checklikeid(array,target){
+    console.log(array, target);
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] === target) {
+        console.log('true');
+        return true;
+      }
+    }
+    console.log('false');
+    return false;
+}
+
 exports.likepost = function(req,res){
-    console.log(req.body.post_id);
-    console.log(req.body.current_userid);
+    // console.log(req.body.post_id);
+    // console.log(req.body.current_userid);
     
     let post_id = req.body.post_id;
     let current_userid = req.body.current_userid;
@@ -16,12 +29,22 @@ exports.likepost = function(req,res){
           res.json(err);
         }
         else {
-            console.log(post[0]);
-            if(current_userid == post[0]['likeids']) {
-                res.send({
-                    status: false,
-                    msg: 'already you liked',
-                    likecount: post[0].likecount
+            // res.send(checklikeid(post[0]['likeids'], current_userid));
+            if(  checklikeid(post[0]['likeids'], current_userid) ) {
+                var query3 = {"_id": post_id};
+                var update3 = {likecount: parseInt(post[0].likecount)-1};
+                var remove3 = {likeids: current_userid};
+                var options3 = {new: true};
+                Posts.findOneAndUpdate(query3, {$set:update3, $pull: remove3}, options3, function(err, post3) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    else {
+                        res.send({
+                            status: false,
+                            msg: 'you dis liked this post'
+                        }); 
+                    }
                 })
             }
             else {
@@ -31,24 +54,16 @@ exports.likepost = function(req,res){
                 var options = {new: true};
                 Posts.findOneAndUpdate(query2, {$set:update, $push: update2}, options, function(err, post1) {
                     if (err) {
-                        console.log('got an error');
                         res.send(err);
                     }
                     else {
-                        console.log(post);
                         res.send({
                             status: true,
-                            msg: 'you liked this post',
-                            likeids: post1.likeids,
-                            likecount: post1.likecount
+                            msg: 'you liked this post'
                         }); 
                     }
                 })
             }
         }  
     });
-
-   
-
-
 };

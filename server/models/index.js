@@ -14,11 +14,7 @@ const newPostSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    likeids: [],
-    class: {
-        type: Boolean,
-        default: false
-    }
+    likeids: []
 });
 
 var posts = mongoose.model('posts', newPostSchema);

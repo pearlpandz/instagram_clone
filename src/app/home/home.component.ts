@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
 
-    this.getpost(this.homeUserid);
+    this.getpost();
 
   }
 
@@ -115,8 +115,8 @@ export class HomeComponent implements OnInit {
         this.fd.append('_id',data['id']);        
         // console.log(this.fd);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
-          // console.log(data);
-          this.getpost(this.homeUserid);
+          //console.log(data);
+          this.getpost();
           $("#write-post").hide();
           $("#write-post").modal('toggle');
         });
@@ -126,16 +126,15 @@ export class HomeComponent implements OnInit {
 
   
   // get post
-  getpost(currentuserid) {
+  getpost() {
     // console.log(currentuserid);
-    let userid = {userid: currentuserid};
-    this.homeService.getPost(userid)
+    this.homeService.getPost()
     .map((data: any) => data)
     .subscribe(data =>  {
-      this.postdata = data;  
-      console.log(this.postdata);  
+      this.postdata = data; 
+      // console.log(this.postdata);  
       this.post_create = data.createdat;
-      // console.log('-----in component-------',this.postdata);
+      
 		});
   }
 
@@ -152,14 +151,24 @@ export class HomeComponent implements OnInit {
     this.homeService.likePost(this.likeinfo[0])
     .map((data: any) => data)
     .subscribe(data =>  {
-      console.log(data['status']);
       if(data['status']){
         this.likestatus = data['status'];
+        this.getpost();
       }
       else{
         this.likestatus = data['status'];
+        this.getpost();
       }
 		});
+  }
+  
+  checklikeid(array,target) {
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] === target) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

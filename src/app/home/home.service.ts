@@ -18,13 +18,13 @@ export class HomeService {
     return this.http.post('http://localhost:3000/upload', postdata);
   }
 
-  getPost(currentuserid) {
-    console.log(currentuserid);
-    return this.http.post('http://localhost:3000/getpost', currentuserid);
+  getPost() {
+    // console.log();
+    return this.http.post('http://localhost:3000/getpost', '');
   }
 
   likePost(likeinfo){
-    console.log(likeinfo);
+    // console.log(likeinfo);
     return this.http.post('http://localhost:3000/likepost', likeinfo);
   }
 
