@@ -90,6 +90,8 @@ app.post('/deletecomment', likepost.deletecomment);
 
 //get all userid
 app.post('/getalluser', create_user.getalluser);
+app.post('/blockuser', create_user.blockuser);
+
 
 //follow users
 app.post('/follows', follows.follow);

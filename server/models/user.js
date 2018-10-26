@@ -18,6 +18,7 @@ const newUserSchema = new mongoose.Schema({
     password: {type: String},
     following: [],
     followers: [],
+    blockids: [],
     profilepic: {type: String},
     createdat: {type: String },
     id: {type: String}

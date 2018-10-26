@@ -91,3 +91,19 @@ exports.getalluser = function(req,res){
         }  
     });
 };
+
+//block user for spam posts
+exports.blockuser = function(req,res){
+    let query = {'_id': req.body.userid};
+    let update = {blockids: req.body.blockid };
+    var options = {new: true};
+    users.findOneAndUpdate(query, {$push:update}, options, function(err, data) {
+        if(err) {
+            res.send(err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+
+}
