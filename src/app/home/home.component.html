@@ -52,8 +52,9 @@
           <!-- <p class="view-comments">View all comments</p> -->
           <div class="feed-comments">
             <p *ngFor="let comment of post.comments; let i = index;">
-                <a href="#" class="dark">aliana casandra</a>
-                {{comment.msg}}
+                <a href="view-profile.html" class="dark">{{comment.username}}</a>
+  
+                {{comment.msg}} <span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)">remove</span>
             </p>
           </div>
         </div>
@@ -77,9 +78,7 @@
                 </span>
             </ng-template>  
 
-            
-            
-            <input type="text" class="form-control comment" placeholder="Add a comment...">
+            <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
             <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
           </div>
 

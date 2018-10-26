@@ -106,16 +106,13 @@ export class HomeComponent implements OnInit {
 
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
-    // console.log(newPost.value);
     this.homeService.createPost(newPost.value).subscribe(data => {
       if(!data['id']){
         console.log("something went wrong");
       }
       else {
         this.fd.append('_id',data['id']);        
-        // console.log(this.fd);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
-          //console.log(data);
           this.getpost();
           $("#write-post").hide();
           $("#write-post").modal('toggle');
@@ -127,26 +124,19 @@ export class HomeComponent implements OnInit {
   
   // get post
   getpost() {
-    // console.log(currentuserid);
     this.homeService.getPost()
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data; 
-      console.log(this.postdata);  
       this.post_create = data.createdat;
       
 		});
   }
 
   like(post_id, current_userid){
-    // console.log('current userid',current_userid.value);
-    // console.log('this post id', post_id.value);
-
-
     this.likeinfo = [{
       post_id: post_id.value,
       current_userid:current_userid.value}];
-
 
     this.homeService.likePost(this.likeinfo[0])
     .map((data: any) => data)
@@ -169,6 +159,51 @@ export class HomeComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  isYourComment(commentuser, currentuser) {
+    if(commentuser==currentuser){
+      return true;
+    }
+    return false;
+  }
+
+  deletecomment(postid, comment_id) {
+    let deletecomment = {
+      post_id: postid,
+      comment_id:comment_id
+    };
+
+    this.homeService.deletecomment(deletecomment)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        this.getpost();
+      }
+      else{
+        this.getpost();
+      }
+		});
+  }
+
+  commentpost(postid, comment, commented_name) {
+    let commentpost = {
+      post_id: postid,
+      comment:comment,
+      commented_id: commented_name
+    };
+    
+    this.homeService.commentpost(commentpost)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        this.getpost();
+      }
+      else{
+        this.getpost();
+      }
+		});
+
   }
 
 }

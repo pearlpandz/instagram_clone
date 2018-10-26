@@ -2,6 +2,7 @@ const router = require('express').Router();
 // var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 const users = require('../models/user'); //create new post schema
+
 const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
 
@@ -59,11 +60,28 @@ exports.adduser = function(req,res){
 };
 
 
-
+const posts = require('../models/index'); //create new post schema
 exports.getalluser = function(req,res){
-    users
-    .distinct("name")
-   
+    
+    //get all the "feild: name" data from users table
+    // .distinct("name") 
+    posts.aggregate([
+        {
+            //it will group ther required fields in that record, You should provide your reference key in _id
+            // $group: {_id: "$name", email : {$push: "$email" }  } 
+            
+            //it can remove or add required data in the record
+            $unwind: "$comments",
+            $match: {"_id": "5bd07ab1ba501f2accbd4c51"}
+            // $project : [{ "$comments": 1 }],
+            
+            //it get data, which are perfectly matched
+            // $match : { likecount : 0 },
+            
+            //it will show the given number of data (limit)
+            // $limit: 2
+        }
+    ])
     .exec(function(err, user) { 
         if(err) {
             res.json(err);
