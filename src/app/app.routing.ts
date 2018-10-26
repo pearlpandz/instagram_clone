@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, CanActivate  } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 
@@ -15,22 +15,23 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 
 const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: 'login', 
-    pathMatch: 'full' 
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
-  { 
-    path: 'login', 
-    component: LoginComponent  
+  {
+    path: 'login',
+    component: LoginComponent
   },
-  { path: 'signup', 
-    component: SignupComponent  
+  {
+    path: 'signup',
+    component: SignupComponent
   },
-  { 
-    path: 'home', 
+  {
+    path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard]   
+    canActivate: [AuthGuard]
   },
   // { 
   //   path: 'admin', 
@@ -40,31 +41,31 @@ const routes: Routes = [
   //     expectedRole: 'admin'
   //   } 
   // },
-  { 
-    path: 'explore', 
+  {
+    path: 'explore',
     component: ExploreComponent,
-    canActivate: [AuthGuard]   
+    canActivate: [AuthGuard]
   },
-  { 
-    path: 'profile', 
+  {
+    path: ':name',
     component: ProfileComponent,
-    canActivate: [AuthGuard]  
+    //canActivate: [AuthGuard]
   },
-  { 
-    path: 'about', 
-    component: AboutComponent 
+  {
+    path: 'about',
+    component: AboutComponent
   },
-  { 
-    path: 'faq', 
-    component: FaqComponent 
+  {
+    path: 'faq',
+    component: FaqComponent
   },
-  { 
-    path: 'privacy', 
-    component: PrivacyComponent 
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   },
-  { 
-    path: 'terms', 
-    component: TermsComponent 
+  {
+    path: 'terms',
+    component: TermsComponent
   }
 ];
 

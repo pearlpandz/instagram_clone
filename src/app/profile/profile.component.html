@@ -3,12 +3,13 @@
       <div class="user-profile-details">
           <div class="user-profile-inner row no-margin">
               <div class="user-img">
-                  <a href="#" data-toggle="modal" data-target="#change-photo"><img src="{{profilePic}}"></a>
+                  <a href="#" data-toggle="modal" data-target="#change-photo"><img src="{{pic}}"></a>
               </div>
 
               <div class="user-profile-content row no-margin">
                   <div class="user-name row no-margin">
-                      <h1 class="profile-user-name">{{profileName}}</h1>
+                      
+                      <h1 class="profile-user-name">{{name}}</h1>
                       <a href="edit-profile.html" class="user-profile-edit">Edit Profile</a>
                       <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
                   </div>
@@ -29,8 +30,8 @@
 
                   <div class="biography row no-margin">
                       <span>
-                          <h2 class="bio-username no-margin float-left">{{profileName}}</h2>
-                          <a href="#" class="web-link">{{profileEmail}}</a>
+                          <h2 class="bio-username no-margin float-left">{{name}}</h2>
+                          <a href="#" class="web-link">{{email}}</a>
                       </span>
                   </div>
               </div><!--end of user-profile-content-->
