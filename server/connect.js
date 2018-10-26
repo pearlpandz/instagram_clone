@@ -86,6 +86,7 @@ app.post('/likepost', likepost.likepost);
 
 // comment post
 app.post('/commentpost', likepost.commentpost);
+app.post('/deletecomment', likepost.deletecomment);
 
 //get all userid
 app.post('/getalluser', create_user.getalluser);

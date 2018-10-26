@@ -15,7 +15,13 @@ const newPostSchema = new mongoose.Schema({
         default: 0
     },
     likeids: [],
-    comments: []
+    comments: [
+        {   
+            username: { type: String },
+            msg: { type: String },
+            comment_uuid: { type: Number },
+        }
+    ]
 });
 
 var posts = mongoose.model('posts', newPostSchema);

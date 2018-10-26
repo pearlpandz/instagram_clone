@@ -28,4 +28,14 @@ export class HomeService {
     return this.http.post('http://localhost:3000/likepost', likeinfo);
   }
 
+  commentpost(commentpost){
+    return this.http.post('http://localhost:3000/commentpost', commentpost);
+  }
+
+  deletecomment(deletecomment){
+    return this.http.post('http://localhost:3000/deletecomment', deletecomment);
+  }
+
+  
+
 }
