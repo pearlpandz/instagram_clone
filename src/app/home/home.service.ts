@@ -36,6 +36,12 @@ export class HomeService {
     return this.http.post('http://localhost:3000/deletecomment', deletecomment);
   }
 
-  
+  getblockids(userinfo){
+    return this.http.post('http://localhost:3000/getblockids', userinfo);
+  }
+
+  blockuser(userinfo){
+    return this.http.post('http://localhost:3000/blockuser', userinfo);
+  }
 
 }

@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   likeinfo = [];
   likecount;
   likestatus;
+  blockids = [];
 
   constructor(
     private http: HttpClient,
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit {
     // console.log(this.userpic);
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
-
+    this.getblockids(this.homeUserid);
     this.getpost();
 
   }
@@ -128,6 +129,7 @@ export class HomeComponent implements OnInit {
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data; 
+      // console.log(this.postdata);
       this.post_create = data.createdat;
       
 		});
@@ -160,6 +162,25 @@ export class HomeComponent implements OnInit {
     }
     return false;
   }
+
+  //work reverse array, target
+  arrayTarget(array,target) {
+    for(var i = 0; i < array.length; i++) {
+      if(array[i] === target) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  //work reverse equal check
+  isNotEqual(postuser, currentuser) {
+    if(postuser == currentuser){
+      return false;
+    }
+    return true;
+  }
+
 
   isYourComment(commentuser, currentuser) {
     if(commentuser==currentuser){
@@ -204,6 +225,43 @@ export class HomeComponent implements OnInit {
       }
 		});
 
+  }
+
+  blockuser(userid, blockid) {
+    let userinfo = {
+      userid: userid,
+      blockid: blockid
+    };
+    this.homeService.blockuser(userinfo)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        // console.log(data); 
+        $("#more-modal").modal('toggle'); 
+        this.getblockids(this.homeUserid);
+        this.getpost();      
+      }
+      else{
+        console.log('data is empty');
+      }
+		});
+  }
+
+  getblockids(userid){
+    let userinfo = {
+      userid: userid
+    };
+    this.homeService.getblockids(userinfo)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        this.blockids = data;
+        // console.log(this.blockids);        
+      }
+      else{
+        console.log('data is empty');
+      }
+		});
   }
 
 
