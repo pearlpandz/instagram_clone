@@ -207,7 +207,7 @@ a:hover{
   background-color: #fff;
   border: 1px solid #efefef;
   border-radius: 3px;
-  margin-top: 60px
+  margin: 15px auto;
 }
 
 .feed-panel img{
