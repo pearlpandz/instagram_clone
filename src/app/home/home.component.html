@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-  <div *ngFor='let post of postdata;'>
+  <div *ngFor='let post of postdata;let i=index;'>
      <div  class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)">
       <div class="row feed-head no-margin">
             
@@ -80,28 +80,35 @@
             </ng-template>  
 
             <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
-            <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
+            <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
+                <a (click)="modalclick(post._id)">
+                    <i class="ion-ios-more-outline"></i>
+                </a>
+            </span>
           </div>
-
         </div>
-    </div>
 
-    <div id="more-modal" class="modal fade" role="dialog">
-            <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
-            <div class="modal-dialog">
-        
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">More Action</h4>
-                    </div>
-                    <div class="modal-body">
-                        <a class="full" (click)="blockuser(homeUserid ,post.userid)">Block</a>
-                        <a class="full no-border" data-dismiss="modal">Cancel</a>
+        <div id="{{post._id}}" class="mymodal">
+            <div class="modal_all">
+                <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+                <div class="modal-dialog">
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">More Action</h4>
+                        </div>
+                        <div class="modal-body">
+                            <a class="full" (click)="blockuser(homeUserid ,post.userid)">Block</a>
+                            <a class="full no-border" data-dismiss="modal" (click)="close()">Cancel</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    
 </div>
 </div>
 

@@ -130,7 +130,7 @@ exports.blockuser = function(req,res){
                             res.send(err);
                         }
                         else {
-                            res.send(data);
+                            res.send(data._id);
                         }
                     });
                 }
@@ -143,7 +143,7 @@ exports.blockuser = function(req,res){
                             res.send(err);
                         }
                         else {
-                            res.send(data);
+                            res.send(data._id);
                         }
                     });
                 }

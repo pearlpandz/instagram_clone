@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     .map((data: any) => data)
     .subscribe(data =>  {
       this.postdata = data; 
-      // console.log(this.postdata);
+      ///console.log(this.postdata);
       this.post_create = data.createdat;
       
 		});
@@ -166,7 +166,7 @@ export class HomeComponent implements OnInit {
   //work reverse array, target
   arrayTarget(array,target) {
     for(var i = 0; i < array.length; i++) {
-      if(array[i] === target) {
+      if(array[i] == target) {
         return false;
       }
     }
@@ -232,12 +232,15 @@ export class HomeComponent implements OnInit {
       userid: userid,
       blockid: blockid
     };
+
+    //console.log(userinfo);
+
     this.homeService.blockuser(userinfo)
     .map((data: any) => data)
     .subscribe(data =>  {
       if(data){
         // console.log(data); 
-        $("#more-modal").modal('toggle'); 
+        $('#'+data).toggleClass('active');
         this.getblockids(this.homeUserid);
         this.getpost();      
       }
@@ -264,6 +267,15 @@ export class HomeComponent implements OnInit {
 		});
   }
 
+
+  modalclick(id){
+    // alert(id)
+    $('#'+id).toggleClass('active');
+  }
+
+  close() {
+    $('.mymodal').removeClass('active');
+  }
 
 
 }
