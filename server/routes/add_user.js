@@ -5,6 +5,24 @@ const users = require('../models/user'); //create new post schema
 
 const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
+const mongoose = require('mongoose');
+
+
+//checking... Array targat
+function checklikeid(array, target) {
+    // console.log(array, target);
+   // console.log(target);
+    for (var i = 0; i < array.length; i++) {
+        // console.log('array first element', array[0]);
+        if (array[i] == target) {
+           
+            console.log('true');
+            return true;
+        }
+    }
+    console.log('false');
+    return false;
+}
 
 exports.adduser = function(req,res){
 
@@ -92,18 +110,75 @@ exports.getalluser = function(req,res){
     });
 };
 
-//block user for spam posts
+//block & unblock user
 exports.blockuser = function(req,res){
-    let query = {'_id': req.body.userid};
-    let update = {blockids: req.body.blockid };
-    var options = {new: true};
-    users.findOneAndUpdate(query, {$push:update}, options, function(err, data) {
-        if(err) {
-            res.send(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+    if( req.body.userid && req.body.blockid){
+
+        users.findOne({_id: req.body.userid} ,function(err, userdata){
+            if(err){
+                res.send(err);
+            }
+            else {
+                // res.send(userdata['blockids']);
+
+                if( checklikeid(userdata['blockids'], req.body.blockid ) ) {
+                    let query = {'_id': req.body.userid};
+                    let update = {blockids: req.body.blockid };
+                    var options = {new: true};
+                    users.findOneAndUpdate(query, {$pull:update}, options, function(err, data) {
+                        if(err) {
+                            res.send(err);
+                        }
+                        else {
+                            res.send(data);
+                        }
+                    });
+                }
+                else {
+                    let query = {'_id': req.body.userid};
+                    let update = {blockids: req.body.blockid };
+                    var options = {new: true};
+                    users.findOneAndUpdate(query, {$push:update}, options, function(err, data) {
+                        if(err) {
+                            res.send(err);
+                        }
+                        else {
+                            res.send(data);
+                        }
+                    });
+                }
+            }
+        }) 
+    }
+    else {
+        req.send({
+            status: false,
+            msg: 'Waiting for inputs'
+        })
+    }
+
+}
+
+
+
+//get all blockids of requested userid
+exports.getblockids = function(req,res){
+    if( req.body.userid){
+
+        users.findOne( {_id: req.body.userid} , function(err, userdata){
+            if(err){
+                res.send(err);
+            }
+            else {
+                res.send(userdata['blockids']);
+            }
+        }) 
+    }
+    else {
+        req.send({
+            status: false,
+            msg: 'Waiting for inputs'
+        })
+    }
 
 }
