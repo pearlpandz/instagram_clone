@@ -112,7 +112,8 @@ export class HomeComponent implements OnInit {
         console.log("something went wrong");
       }
       else {
-        this.fd.append('_id',data['id']);        
+        this.fd.append('_id',data['id']);   
+
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
           this.getpost();
           $("#write-post").hide();

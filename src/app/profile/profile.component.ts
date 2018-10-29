@@ -47,14 +47,15 @@ postcount: {};
       this.names = params['name'];
    //   console.log('checl', this.names);
     });
-
+    // console.log(this.names);
     this.getProfile(this.names);
 
   }
  getProfile(names) {
+   alert();
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
-
+    // console.log('name', name);
     this.profileservice.getProfile(names) 
     .map(response => response.json())
     .subscribe(response => {
@@ -67,10 +68,10 @@ postcount: {};
       this.userpost = response[1];
       this.postcount = response[1].length;
      
-      console.log( this.followersc);
+      // console.log( this.followersc);
      
 
-      console.log(this.profile);
+      // console.log('profile data', this.profile);
 
 
 

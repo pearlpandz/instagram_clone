@@ -67,7 +67,7 @@ exports.adduser = function(req,res){
                         token: token,
                         email: user.email,
                         name: user.name,
-                        id: user.id,
+                        id: user._id,
                         profilepic: user.profilepic
                     });
                 }
