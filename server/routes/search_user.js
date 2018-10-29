@@ -22,7 +22,7 @@ exports.search = function (req, res) {
 
     if (suche) {
     
-        users.find({ 'name': { '$regex': req.params.name, '$options': 'i' } }, function (err, post) {
+        users.find({ 'name': { '$regex': req.params.name, '$options': 'i' } },{password: 0}, function (err, post) {
             // console.log(post)
             if (err) {
                 res.json({
@@ -41,8 +41,8 @@ exports.search = function (req, res) {
                 }
                 else {
                     res.send({
-                        msg: 'data success'
-
+                        msg: 'data success',
+                        data: post
                     })
                 }
             }

@@ -1,0 +1,17 @@
+{
+    " all apis": "  insta_clone apis  ",
+    "post_user": " app.post('/post', routes_posts.create); ",
+    "upload post pic": " app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);",
+    " get posts middleware.checkToken": "app.post('/getpost', routes_getposts.getpost)",
+    "create user for signup": "app.post('/adduser', create_user.adduser);",
+    "create user for login": "app.post('/userlogin', userlogin.login);",
+    " search user": "app.post('/search/:name', searchuser.search);",
+    "like post": "app.post('/likepost', likepost.likepost);",
+    "comment post": "app.post('/commentpost', likepost.commentpost);",
+    "comment delete": "app.post('/deletecomment', likepost.deletecomment);",
+    " get all userid": "app.post('/getalluser', create_user.getalluser); ",
+    "block user": "app.post('/blockuser', create_user.blockuser);",
+    "get block ids list": "app.post('/getblockids', create_user.getblockids);",
+    "follow and following": "app.post('/follows', follows.follow); ",
+    "find particular user through URL": "app.post('/:name', findusers.finde);"
+}

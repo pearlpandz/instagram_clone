@@ -22,7 +22,7 @@ exports.upload = function(req,res){
     var query = {"_id": mangooseid};
     var update = {sampleFile: regularpath};
     var options = {new: true};
-    Posts.findOneAndUpdate(query, {$set:{sampleFile:regularpath}}, options, function(err, post) {
+    Posts.findOneAndUpdate(query, {password: 0} ,{$set:{sampleFile:regularpath}}, options, function(err, post) {
       console.log('000000 = ',err, post)
       if (err) {
         console.log('got an error');

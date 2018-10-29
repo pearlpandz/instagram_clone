@@ -15,16 +15,16 @@
                   </div>
 
                   <div class="follow-details row no-margin">
-                      <div class="post">
-                          <p><b>6 </b>Posts</p>
+                      <div class="post" >
+                          <p><b>{{postcount}}</b>Posts</p>
                       </div>
 
                       <div class="follow">
-                          <a href="#" data-toggle="modal" data-target="#followers"><b>6 </b>Follwers</a>
+                          <a href="#" data-toggle="modal" data-target="#followers"><b>{{followersc}} </b>Follwers</a>
                       </div>
 
                       <div class="follow">
-                          <a href="#" data-toggle="modal" data-target="#following"><b>6 </b>Following</a>
+                          <a href="#" data-toggle="modal" data-target="#following"><b>{{followingc}}</b>Following</a>
                       </div>
                   </div>
 
@@ -41,70 +41,20 @@
       <div class="user-photos">
           <div class="user-photos-inner row no-margin">
 
-              <div class="col-xs-4 user-photos-column">
-                  <div class="outer-box feed-images" style="background-image: url(../../assets/img/model.jpg);">
-                      <div class="ratio-content">
+              <div class="col-xs-4 user-photos-column" *ngFor="let qualifica of userpost; let i=index;">
+             
+      <div class="outer-box feed-images"  [ngStyle]="{'background-image': 'url('+ qualifica.sampleFile[0]+  ')'}">                      <div class="ratio-content">
                           <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
                               <div class="chat-like">
-                                  <span class="chat-icons"><i class="fa fa-heart"></i>20</span>
-                                  <span class="chat-icons"><i class="fa fa-comment"></i>10</span>
+                                  <span class="chat-icons"><i class="fa fa-heart"></i>{{qualifica.likecount}}</span>
+                                  <span class="chat-icons"><i class="fa fa-comment"></i>{{qualifica.comments.length}}</span>
                               </div> 
                           </a>  
                       </div>
                   </div>
               </div><!--end of column-->
 
-              <div class="col-xs-4 user-photos-column">
-                  <div class="outer-box feed-images" style="background-image: url(../../assets/img/model.jpg);">
-                      <div class="ratio-content">
-                          <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
-                              <div class="chat-like">
-                                  <span class="chat-icons"><i class="fa fa-heart"></i>20</span>
-                                  <span class="chat-icons"><i class="fa fa-comment"></i>10</span>
-                              </div> 
-                          </a>  
-                      </div>
-                  </div>
-              </div><!--end of column-->
-
-              <div class="col-xs-4 user-photos-column">
-                  <div class="outer-box feed-images" style="background-image: url(../../assets/img/model.jpg);">
-                      <div class="ratio-content">
-                          <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
-                              <div class="chat-like">
-                                  <span class="chat-icons"><i class="fa fa-heart"></i>20</span>
-                                  <span class="chat-icons"><i class="fa fa-comment"></i>10</span>
-                              </div> 
-                          </a>  
-                      </div>
-                  </div>
-              </div><!--end of column-->
-
-              <div class="col-xs-4 user-photos-column">
-                  <div class="outer-box feed-images" style="background-image: url(../../assets/img/model.jpg);">
-                      <div class="ratio-content">
-                          <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
-                              <div class="chat-like">
-                                  <span class="chat-icons"><i class="fa fa-heart"></i>20</span>
-                                  <span class="chat-icons"><i class="fa fa-comment"></i>10</span>
-                              </div> 
-                          </a>  
-                      </div>
-                  </div>
-              </div><!--end of column-->
-
-              <div class="col-xs-4 user-photos-column">
-                  <div class="outer-box feed-images" style="background-image: url(../../assets/img/model.jpg);">
-                      <div class="ratio-content">
-                          <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
-                              <div class="chat-like">
-                                  <span class="chat-icons"><i class="fa fa-heart"></i>20</span>
-                                  <span class="chat-icons"><i class="fa fa-comment"></i>10</span>
-                              </div> 
-                          </a>  
-                      </div>
-                  </div>
-              </div><!--end of column-->
+             
           </div><!--end of user-photos-inner-->
       </div><!--end of user-photos-->
   </div><!--end of user-profile-panel-->
@@ -640,7 +590,9 @@
                       <div class="comment-wrap">
                           <div class="like-count">
                               <div class="float-left">
-                                  <p class="no-margin"><b>20 Likes</b></p>
+                                  <p class="no-margin"><b>20
+
+                                  </b></p>
                               </div>
                               
                               <div class="float-right">
