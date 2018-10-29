@@ -29,11 +29,14 @@ export class ProfileComponent implements OnInit {
  followercount: '';
  following: '';
  pic:'';
-
+postcount: {};
+ followersc : {};
+ followingc: {};
   names: number;
   private sub: any;
   
   profile = {};
+  userpost= [];
   ngOnInit() {
 
     // this.profileName = this.cookieService.get('name');
@@ -56,11 +59,21 @@ export class ProfileComponent implements OnInit {
     .map(response => response.json())
     .subscribe(response => {
       this.profile = response;
-      this.name = response['name'];
-      this.pic = response['profilepic'];
-      this.email= response['email'];
-      //this.followercount
-      //this.followingcount
+      this.name = response[0]['name'];
+      this.pic = response[0]['profilepic'];
+      this.email= response[0]['email'];
+      this.followersc =response[0]['followers'].length;
+      this.followingc = response[0] ['following'].length;
+      this.userpost = response[1];
+      this.postcount = response[1].length;
+     
+      console.log( this.followersc);
+     
+
+      console.log(this.profile);
+
+
+
     }
     )
   }
