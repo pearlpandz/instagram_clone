@@ -42,7 +42,8 @@ export class SignupComponent implements OnInit {
 
       this.cookieEmail = this.cookieService.get('email'); 
       this.cookieToken = this.cookieService.get('token');
-      
+    //  console.log('USEREID', this.cookieService.get('id'))
+      // console.log('hi datat', data);
       if(this.cookieEmail){
         this.router.navigate(['/home']);
       }
