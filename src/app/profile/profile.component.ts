@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProfileService } from './profile.service';
 import { TouchSequence } from 'selenium-webdriver';
+import { HomeService } from '../home/home.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -22,7 +23,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private cookieService: CookieService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private homes: HomeService
   ) { }
  name: '';
  email: '';
@@ -34,25 +36,32 @@ postcount: {};
  followingc: {};
   names: number;
   private sub: any;
-  
+// like: any;
   profile = {};
   userpost= [];
+  popupdetail= {};
   ngOnInit() {
 
     // this.profileName = this.cookieService.get('name');
     // this.profileEmail = this.cookieService.get('email');
     // this.profilePic = this.cookieService.get('profilepic');
     // console.log(this.profilePic);
+   
       this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
    //   console.log('checl', this.names);
     });
     // console.log(this.names);
     this.getProfile(this.names);
-
+    
   }
+  getpopupinfo(data){
+  
+  }
+  
+
  getProfile(names) {
-   alert();
+  
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
     // console.log('name', name);
