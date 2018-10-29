@@ -219,10 +219,10 @@ export class HomeComponent implements OnInit {
     .map((data: any) => data)
     .subscribe(data =>  {
       if(data){
-        this.getpost();
+       console.log(data)
       }
       else{
-        this.getpost();
+       console.log('error')
       }
 		});
 

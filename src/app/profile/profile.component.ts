@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProfileService } from './profile.service';
 import { TouchSequence } from 'selenium-webdriver';
+import { HomeService } from '../home/home.service';
+import { CommentStmt } from '@angular/compiler';
 
 declare var jquery: any;
 declare var $: any;
@@ -22,7 +24,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private cookieService: CookieService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private homes: HomeService
   ) { }
  name: '';
  email: '';
@@ -34,24 +37,41 @@ postcount: {};
  followingc: {};
   names: number;
   private sub: any;
-  
+// like: any;
   profile = {};
   userpost= [];
+ 
+popcomment ={};
+// popup variables
+
+  sampleFile = [];
+  likecount : any;
+  description: any;
+  location : any;
+  profilepic: any;
+ username : any;
+ post_id: any;
+ current_user: any;
+
   ngOnInit() {
 
-    // this.profileName = this.cookieService.get('name');
+    this.current_user = this.cookieService.get('name');
     // this.profileEmail = this.cookieService.get('email');
     // this.profilePic = this.cookieService.get('profilepic');
     // console.log(this.profilePic);
+   
       this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
    //   console.log('checl', this.names);
     });
     // console.log(this.names);
     this.getProfile(this.names);
-
+    
   }
+ 
+
  getProfile(names) {
+  
   //  alert();
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
@@ -90,5 +110,42 @@ postcount: {};
     }
 
   }
+
+
+  popup(data) {
+   
+   this.post_id =data._id;
+    this.username = data.username;
+    this.likecount = data.likecount;
+    this.description = data.description;
+    this.location  = data.location ;
+    this.profilepic = data.profilepic;
+    this.sampleFile= data.sampleFile;
+   console.log('asdsddfs',data);
+  }
+
+  
+  commentpost1(postid, comment, commented_name) {
+    let commentpost = {
+      post_id: postid,
+      comment:comment,
+      commented_id: this.current_user,
+    };
+
+    console.log(commentpost);
+    
+    this.homes.commentpost(commentpost)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        console.log('-------------',data.comments);
+      }
+      else{
+       console.log(data, 'error')
+      }
+		});
+
+  }
+
 
 };

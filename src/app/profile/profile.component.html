@@ -42,7 +42,7 @@
           <div class="user-photos-inner row no-margin">
 
             <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;">
-                <div class="user-photos-column">
+                <div class="user-photos-column" (click)="popup(qualifica)">
                     <div class="outer-box feed-images">
                         <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">   
                     </div>                    
@@ -570,7 +570,7 @@
               <div class="col-sm-8 no-padding">
                   <div class="popup-image-outer">
                       <div class="popup-image">
-                          <img src={{profilePic}} class="pop-img">
+                          <img src={{sampleFile[0]}} class="pop-img">
                       </div>
                   </div>
               </div>
@@ -579,7 +579,7 @@
                   <div class="comment-like">
                       <div class="comment-profile">
                           <div class="user-img float-left">
-                              <a href="user-profile.html"><img src="{{profilePic}}"></a>
+                              <a ><img src="{{profilepic}}"></a>
                           </div>
 
                           <div  class="user-name">
@@ -605,47 +605,20 @@
                               </div>
                           </div>
 
-                          <div class="comment">
-                              <p class="no-margin"><a href="view-profile">aliana casandra</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                          </div>
-
+                  
                           <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
+                              <p  class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
                               <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
                           </div>
 
-                          <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
-                              <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
-                          </div>
-
-
-                          <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
-                              <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
-                          </div>
-
-                          <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
-                              <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
-                          </div>
-
-                          <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
-                              <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
-                          </div>
-
-                          <div class="replay-comment">
-                              <p class="float-left" style="width: 90%;"><a href="view-profile">Marcel</a>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p> 
-                              <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
-                          </div>
+                         
                       </div><!--end of comment-wrap-->
 
                       <div class="row feed-footer profile-foot no-margin">
 
                           <div class="input-group">
                             <span class="input-group-addon like-btn"><a class="like"><i class="ion-ios-heart-outline"></i></a></span>
-                            <input type="text" class="form-control comment" placeholder="Add a comment...">
+                            <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost1(post_id, comment_msg.value, commented_name)">
                             <span class="input-group-addon more"><a href="#" data-toggle="modal" data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
                           </div>
 
