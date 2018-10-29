@@ -39,7 +39,16 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
-
+// Import Social Login Module
+import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
+  
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('106481729892658')
+  }
+]);
 
 @NgModule({
   declarations: [
@@ -78,7 +87,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
           return '';
         }
       }
-    })
+    }),
+    SocialLoginModule.initialize(config)
   ],
   providers: [
     HomeService,

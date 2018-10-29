@@ -4,6 +4,13 @@ import { ToastmsgsService } from './../../common/toastmsgs.service';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from "@angular/router";
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
+import { 
+  AuthService, 
+  SocialUser, 
+  FacebookLoginProvider } from "angular4-social-login";
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -12,12 +19,14 @@ import {Router} from "@angular/router";
 export class SignupComponent implements OnInit {
   cookieEmail = '';
   cookieToken = '';
+  user: SocialUser; 
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     private router: Router,
-    private toastmsgsService: ToastmsgsService
+    private toastmsgsService: ToastmsgsService,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -28,6 +37,9 @@ export class SignupComponent implements OnInit {
     if(this.cookieEmail) {
       this.router.navigate(['/home']);
     }
+
+     
+
   }
 
   Submit(newUser: any) {
@@ -48,6 +60,29 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/home']);
       }
 		});
+  }
+
+  signInWithFB(): void {
+    this.auth.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.auth.authState.subscribe((user) => { 
+      this.user = user; 
+       console.log('sign in with fb',this.user);
+     });
+
+     let newUser = {
+      name : this.user.name,
+      email: this.user.email,
+      profilepic: this.user.photoUrl,
+      provider: this.user.provider,
+      firstname: this.user.firstName,
+      lastname: this.user.lastName
+     }
+
+     console.log(newUser);
+
+    // this.http.post('http://localhost:3000/adduser', newUser).subscribe(data => {
+     
+    // })
   }
 
 

@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 
-// define mongo port
+// define port
 const port = process.env.PORT || 3000;
 
 
