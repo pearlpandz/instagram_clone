@@ -37,6 +37,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 
@@ -54,7 +55,8 @@ import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
     FaqComponent,
     FooterComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    EditProfileComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
