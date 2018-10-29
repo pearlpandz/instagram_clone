@@ -842,26 +842,26 @@ a.dark:hover,a.dark:focus,a.dark:active{
   float: right;
 }
 
-.feed-images{
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center; 
-  width: 100%;
+.user-photos-column {
   position: relative;
-  cursor: pointer;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
-.chat-like-block{
-  background-color: rgba(0,0,0,0.5);
+.user-photos-column:hover .ratio-content {
+  background: rgba(0, 0, 0, 0.50);
   position: absolute;
-  display: none;
-  top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  color: #fff;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: block;
+  transition: 0.3s;
 }
+
+.ratio-content {
+  display: none;
+}
+
 
 .chat-like{
   top: 50%;
@@ -1497,12 +1497,18 @@ a.dark:hover,a.dark:focus,a.dark:active{
 .outer-box {
   position: relative;
 }
-.outer-box:before {
+
+/* .outer-box:before {
   display: block;
   content: " ";
   width: 100%;
-  padding-top: 120%;/* Aspect ratio 5:6 */
+  padding-top: 120%;
+} */
+
+.img-responsvie {
+  width: 100%;
 }
+
 .outer-box > .ratio-content {
   position: absolute;
   top: 0;

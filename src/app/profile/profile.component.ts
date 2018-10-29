@@ -52,7 +52,7 @@ postcount: {};
 
   }
  getProfile(names) {
-   alert();
+  //  alert();
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
     // console.log('name', name);
