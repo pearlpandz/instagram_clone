@@ -7,6 +7,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProfileService } from './profile.service';
 import { TouchSequence } from 'selenium-webdriver';
 import { HomeService } from '../home/home.service';
+import { CommentStmt } from '@angular/compiler';
 
 declare var jquery: any;
 declare var $: any;
@@ -39,10 +40,22 @@ postcount: {};
 // like: any;
   profile = {};
   userpost= [];
-  popupdetail= {};
+ 
+popcomment ={};
+// popup variables
+
+  sampleFile = [];
+  likecount : any;
+  description: any;
+  location : any;
+  profilepic: any;
+ username : any;
+ post_id: any;
+ current_user: any;
+
   ngOnInit() {
 
-    // this.profileName = this.cookieService.get('name');
+    this.current_user = this.cookieService.get('name');
     // this.profileEmail = this.cookieService.get('email');
     // this.profilePic = this.cookieService.get('profilepic');
     // console.log(this.profilePic);
@@ -55,10 +68,7 @@ postcount: {};
     this.getProfile(this.names);
     
   }
-  getpopupinfo(data){
-  
-  }
-  
+ 
 
  getProfile(names) {
   
@@ -100,5 +110,42 @@ postcount: {};
     }
 
   }
+
+
+  popup(data) {
+   
+   this.post_id =data._id;
+    this.username = data.username;
+    this.likecount = data.likecount;
+    this.description = data.description;
+    this.location  = data.location ;
+    this.profilepic = data.profilepic;
+    this.sampleFile= data.sampleFile;
+   console.log('asdsddfs',data);
+  }
+
+  
+  commentpost1(postid, comment, commented_name) {
+    let commentpost = {
+      post_id: postid,
+      comment:comment,
+      commented_id: this.current_user,
+    };
+
+    console.log(commentpost);
+    
+    this.homes.commentpost(commentpost)
+    .map((data: any) => data)
+    .subscribe(data =>  {
+      if(data){
+        console.log('-------------',data.comments);
+      }
+      else{
+       console.log(data, 'error')
+      }
+		});
+
+  }
+
 
 };
