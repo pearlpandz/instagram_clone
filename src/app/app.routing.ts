@@ -12,7 +12,7 @@ import { PrivacyComponent } from './cms/privacy/privacy.component';
 import { TermsComponent } from './cms/terms/terms.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -45,6 +45,11 @@ const routes: Routes = [
     path: 'explore',
     component: ExploreComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    //canActivate: [AuthGuard]
   },
   {
     path: ':name',
