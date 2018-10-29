@@ -48,6 +48,7 @@ const likepost = require('./routes/like_post');
 const follows = require('./routes/follow_user');
 const findusers = require('./routes/find_user');
 
+const nodemail = require('./routes/nodemail');
 
 
 // file upload multer function
@@ -99,6 +100,9 @@ app.post('/follows', follows.follow);
 
 //find particular user through URL
 app.post('/:name', findusers.finde);
+
+//nodemailer function
+app.post('/mail', nodemail.mail);
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
