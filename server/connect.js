@@ -75,6 +75,7 @@ app.post('/getpost', routes_getposts.getpost);
 
 //create user
 app.post('/adduser', create_user.adduser);
+app.post('/socialuser', create_user.socialuser);
 
 //create user
 app.post('/userlogin', userlogin.login);
@@ -90,7 +91,6 @@ app.post('/commentpost', likepost.commentpost);
 app.post('/deletecomment', likepost.deletecomment);
 
 //get all userid
-app.post('/getalluser', create_user.getalluser);
 app.post('/blockuser', create_user.blockuser);
 app.post('/getblockids', create_user.getblockids);
 
