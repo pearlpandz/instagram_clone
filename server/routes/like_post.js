@@ -2,6 +2,7 @@ const router = require('express').Router();
 // var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
+const Users = require('../models/user'); //create new user schema
 
 // check target in array or not
 function checklikeid(array,target){
@@ -57,10 +58,33 @@ exports.likepost = function(req,res){
                         res.send(err);
                     }
                     else {
-                        res.send({
-                            status: true,
-                            msg: 'you liked this post'
-                        }); 
+                        // res.send({
+                        //     status: true, //it's very important because used in client side 
+                        //     msg: 'you liked this post',
+                        //     data: post1.userid
+                        // }); 
+
+                        Users.findOneAndUpdate(
+                            {"_id": post1.userid}, 
+                            {$push: 
+                                {notification: 
+                                    {
+                                        'post_id': post_id, 
+                                        'liker_id':current_userid, 
+                                        'action': 'like' 
+                                    } 
+                                } 
+                            }, 
+                            {new: true}, function(err_notfi, data_notifi) {
+                                if(err_notfi) {
+                                    res.send(err_notfi);
+                                }
+                                else {
+                                    console.log('after notif', data_notifi);
+                                    res.send(data_notifi);
+                                }
+                        });
+
                     }
                 })
             }

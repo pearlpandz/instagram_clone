@@ -23,6 +23,13 @@ const newUserSchema = new mongoose.Schema({
     createdat: {type: String },
     id: {type: String},
     provider: {type: String},
+    notification: [
+        {   
+            post_id: { type: String },
+            liker_id: { type: String },
+            action: { type: String },
+        }
+    ]
 });
 
 var users = mongoose.model('users', newUserSchema);
