@@ -69,6 +69,8 @@ app.post('/post', routes_posts.create);
 
 //upload post pic
 app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
+app.post('/uploadSingle', upload.single('myFile'), create_user.uploadSingle);
+
 
 //get posts middleware.checkToken,
 app.post('/getpost', routes_getposts.getpost);

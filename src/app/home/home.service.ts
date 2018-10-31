@@ -18,6 +18,10 @@ export class HomeService {
     return this.http.post('http://localhost:3000/upload', postdata);
   }
 
+  uploadSingleImg(postdata) {
+    return this.http.post('http://localhost:3000/uploadSingle', postdata);
+  }
+
   getPost() {
     // console.log();
     return this.http.post('http://localhost:3000/getpost', '');

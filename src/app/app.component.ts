@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   cookieEmail;
   cookieBoolen;
   constructor(
@@ -21,10 +22,13 @@ export class AppComponent {
 
   isLoginPage(): boolean {
     this.cookieEmail = this.cookieService.get('email');
-    if(this.cookieEmail) {
-      return true;
+    
+    // console.log('cookie', this.cookieEmail);
+    
+    if( (!this.cookieEmail) || (this.cookieEmail == 'undefined')   ) {
+      return false;
     }
-    return false;
+    return true;
   }
 
     

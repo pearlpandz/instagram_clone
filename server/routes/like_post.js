@@ -41,6 +41,7 @@ exports.likepost = function(req,res){
                     }
                     else {
                         res.send({
+                             data: post3,
                             status: false,
                             msg: 'you dis liked this post'
                         }); 

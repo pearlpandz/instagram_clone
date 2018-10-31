@@ -18,9 +18,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
    this.name = this.cookieService.get('name');
-     console.log('current',this.name)
+    //  console.log('current',this.name)
   
-      console.log('checl', this.name);
+    //   console.log('checl', this.name);
     
   }
 

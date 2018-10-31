@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef ,Output, EventEmitter} from '@angular/core';
 // import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 import 'rxjs/Rx';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -16,13 +16,14 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    
+  @ViewChild('newPost') formValues;
+
   // variable declaration
   homeName = '';
   homePic = '';
   homeEmail = '';
   model: any = {}; //to create object
-  location: any; //to crate object.location
+  location: any; //to create object.location
   newPost: any = [];
   lat: number;
   lon: number;
@@ -58,13 +59,13 @@ export class HomeComponent implements OnInit {
     this.homeUserid = this.cookieService.get('id');
     // console.log(this.homeUserid);
 
-    navigator.geolocation.getCurrentPosition((position) => { 
+    navigator.geolocation.getCurrentPosition((position) => {
       // console.log("Got position", position.coords);
-      this.lat = position.coords.latitude; 
+      this.lat = position.coords.latitude;
       this.lon = position.coords.longitude;
-    
 
-      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lon+"&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
+
+      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
         var dummy = data['results'][0]['formatted_address'];
         this.location = dummy;
         // console.log(this.location);
@@ -83,15 +84,15 @@ export class HomeComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    
+
     this.selectedFile = <Array<File>>event.target.files;
-    for (var i =0; i < this.selectedFile.length; i++) {
+    for (var i = 0; i < this.selectedFile.length; i++) {
       this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     }
     // console.log(this.fd);
   }
 
-  readUrl(event:any) {
+  readUrl(event: any) {
     this.urls = [];
     let files = event.target.files;
     if (files) {
@@ -108,56 +109,61 @@ export class HomeComponent implements OnInit {
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
     this.homeService.createPost(newPost.value).subscribe(data => {
-      if(!data['id']){
+      if (!data['id']) {
         console.log("something went wrong");
       }
       else {
-        this.fd.append('_id',data['id']);   
+        this.fd.append('_id', data['id']);
 
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
           this.getpost();
+
           $("#write-post").hide();
           $("#write-post").modal('toggle');
+          this.formValues.resetForm();
+          this.urls = [''];
         });
       }
-		});
+    });
   }
 
-  
+
   // get post
   getpost() {
     this.homeService.getPost()
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      this.postdata = data; 
-      ///console.log(this.postdata);
-      this.post_create = data.createdat;
-      
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        this.postdata = data;
+        ///console.log(this.postdata);
+        this.post_create = data.createdat;
+
+      });
   }
 
-  like(post_id, current_userid){
+  like(post_id, current_userid) {
     this.likeinfo = [{
       post_id: post_id.value,
-      current_userid:current_userid.value}];
+      current_userid: current_userid.value
+    }];
 
     this.homeService.likePost(this.likeinfo[0])
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      if(data['status']){
-        this.likestatus = data['status'];
-        this.getpost();
-      }
-      else{
-        this.likestatus = data['status'];
-        this.getpost();
-      }
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        if (data['status']) {
+          this.likestatus = data['status'];
+          this.getpost();
+        }
+        else {
+          this.likestatus = data['status'];
+          this.getpost();
+        }
+      });
   }
-  
-  checklikeid(array,target) {
-    for(var i = 0; i < array.length; i++) {
-      if(array[i] === target) {
+
+  checklikeid(array, target) {
+   // console.log("him working")
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === target) {
         return true;
       }
     }
@@ -165,9 +171,9 @@ export class HomeComponent implements OnInit {
   }
 
   //work reverse array, target
-  arrayTarget(array,target) {
-    for(var i = 0; i < array.length; i++) {
-      if(array[i] == target) {
+  arrayTarget(array, target) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] == target) {
         return false;
       }
     }
@@ -176,7 +182,7 @@ export class HomeComponent implements OnInit {
 
   //work reverse equal check
   isNotEqual(postuser, currentuser) {
-    if(postuser == currentuser){
+    if (postuser == currentuser) {
       return false;
     }
     return true;
@@ -184,7 +190,7 @@ export class HomeComponent implements OnInit {
 
 
   isYourComment(commentuser, currentuser) {
-    if(commentuser==currentuser){
+    if (commentuser == currentuser) {
       return true;
     }
     return false;
@@ -193,38 +199,38 @@ export class HomeComponent implements OnInit {
   deletecomment(postid, comment_id) {
     let deletecomment = {
       post_id: postid,
-      comment_id:comment_id
+      comment_id: comment_id
     };
 
     this.homeService.deletecomment(deletecomment)
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      if(data){
-        this.getpost();
-      }
-      else{
-        this.getpost();
-      }
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        if (data) {
+          this.getpost();
+        }
+        else {
+          this.getpost();
+        }
+      });
   }
 
   commentpost(postid, comment, commented_name) {
     let commentpost = {
       post_id: postid,
-      comment:comment,
+      comment: comment,
       commented_id: commented_name
     };
-    
+
     this.homeService.commentpost(commentpost)
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      if(data){
-       console.log(data)
-      }
-      else{
-       console.log('error')
-      }
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        if (data) {
+          console.log(data)
+        }
+        else {
+          console.log('error')
+        }
+      });
 
   }
 
@@ -237,41 +243,41 @@ export class HomeComponent implements OnInit {
     //console.log(userinfo);
 
     this.homeService.blockuser(userinfo)
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      if(data){
-        // console.log(data); 
-        $('#'+data).toggleClass('active');
-        this.getblockids(this.homeUserid);
-        this.getpost();      
-      }
-      else{
-        console.log('data is empty');
-      }
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        if (data) {
+          // console.log(data); 
+          $('#' + data).toggleClass('active');
+          this.getblockids(this.homeUserid);
+          this.getpost();
+        }
+        else {
+          console.log('data is empty');
+        }
+      });
   }
 
-  getblockids(userid){
+  getblockids(userid) {
     let userinfo = {
       userid: userid
     };
     this.homeService.getblockids(userinfo)
-    .map((data: any) => data)
-    .subscribe(data =>  {
-      if(data){
-        this.blockids = data;
-        // console.log(this.blockids);        
-      }
-      else{
-        console.log('data is empty');
-      }
-		});
+      .map((data: any) => data)
+      .subscribe(data => {
+        if (data) {
+          this.blockids = data;
+          // console.log(this.blockids);        
+        }
+        else {
+          console.log('data is empty');
+        }
+      });
   }
 
 
-  modalclick(id){
+  modalclick(id) {
     // alert(id)
-    $('#'+id).toggleClass('active');
+    $('#' + id).toggleClass('active');
   }
 
   close() {
