@@ -222,3 +222,29 @@ exports.getblockids = function(req,res){
     }
 
 }
+
+
+
+exports.uploadSingle = function(req,res){
+    var receiveArrayFiles = req.file;
+    var regularpath;
+   
+    regularpath = req.protocol + "://" + req.get('host') + '/' + receiveArrayFiles.path;
+
+    console.log(regularpath);
+    
+    let mangooseid = req.body.id;
+    console.log(mangooseid);
+    var query = {"_id": mangooseid};
+    var options = {new: true};
+
+    users.findOneAndUpdate(query, {$set:{profilepic:regularpath}}, options, function(err, user) {
+    //   console.log('000000 = ',err, post)
+      if (err) {
+        console.log('got an error');
+      }
+      else {
+        res.send(user); 
+      }
+    }); 
+}

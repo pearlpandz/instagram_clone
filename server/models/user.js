@@ -23,6 +23,12 @@ const newUserSchema = new mongoose.Schema({
     createdat: {type: String },
     id: {type: String},
     provider: {type: String},
+    username:  {type: String},
+    website: {type: String},
+    bio: {type: String},
+    phonenumber: {type: String},
+    gender: {type: String},
+    
     notification: [
         {   
             post_id: { type: String },

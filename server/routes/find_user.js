@@ -10,31 +10,27 @@ exports.finde = function (req, res) {
     var arraydata = [];
 
 
-    users.findOne({'name': req.params.name }, {password: 0}, function(err, post) {
+    users.findOne({ 'name': req.params.name }, { password: 0 }, function (err, post) {
         // console.log(post);
-     
 
-            if (post) {
-                console.log(post['_id']);
-                arraydata.push(post);
-                posts.find({userid: post['_id']}, function(err,  data){
+        if (post) {
+            console.log(post['_id']);
+            arraydata.push(post);
+            posts.find({ userid: post['_id'] }, function (err, data) {
 
-                  if(data){
-                      console.log(data)
+                if (data) {
+                    console.log(data)
                     arraydata.push(data);
                     res.send(arraydata);
-           
-                  }else{
 
-
+                } else {
                     res.send(err);
-                  }
+                }
 
-                })
-            }
-        })
-            
-    
-    };
-    
-    
+            })
+        }
+    })
+
+
+};
+
