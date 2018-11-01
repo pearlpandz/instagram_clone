@@ -13,7 +13,6 @@ exports.finde = function (req, res) {
     users.findOne({ 'name': req.params.name }, { password: 0 }, function (err, post) {
         // console.log(post);
 
-
         if (post) {
             console.log(post['_id']);
             arraydata.push(post);

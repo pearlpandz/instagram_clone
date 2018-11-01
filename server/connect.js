@@ -49,6 +49,7 @@ const follows = require('./routes/follow_user');
 const findusers = require('./routes/find_user');
 const editusers = require('./routes/edit_user');
 const nodemail = require('./routes/nodemail');
+const changepass = require('./routes/pwd_change');
 
 // file upload multer function
 var upload = multer({
@@ -95,7 +96,6 @@ app.post('/deletecomment', likepost.deletecomment);
 app.post('/blockuser', create_user.blockuser);
 app.post('/getblockids', create_user.getblockids);
 
-
 //follow users
 app.post('/follows', follows.follow);
 
@@ -106,13 +106,11 @@ app.post('/mail', nodemail.mail);
 //nodemailer function
 app.post('/updateuser', editusers.create);
 
-
-
-
-
-
 //find particular user through URL
 app.post('/:name', findusers.finde);
+
+//change password api
+app.post('/changepassword', changepass.changepwd );
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
