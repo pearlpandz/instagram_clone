@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit {
     for (var i =0; i < this.selectedFile.length; i++) {
       this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     }
-    // console.log(this.fd);
   }
 
   readUrl(event:any) {
@@ -107,20 +106,21 @@ export class HomeComponent implements OnInit {
 
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
-    this.homeService.createPost(newPost.value).subscribe(data => {
-      if(!data['id']){
-        console.log("something went wrong");
-      }
-      else {
-        this.fd.append('_id',data['id']);   
-
-        this.homeService.uploadPostImg(this.fd).subscribe(data => {
-          this.getpost();
-          $("#write-post").hide();
-          $("#write-post").modal('toggle');
-        });
-      }
-		});
+    console.log(newPost.value);
+    // this.homeService.createPost(newPost.value).subscribe(data => {
+    //   if(!data['id']){
+    //     console.log("something went wrong");
+    //   }
+    //   else {
+    //     this.fd.append('_id',data['id']);   
+    //     // console.log(this.fd);
+    //     this.homeService.uploadPostImg(this.fd).subscribe(data => {
+    //       this.getpost();
+    //       $("#write-post").hide();
+    //       $("#write-post").modal('toggle');
+    //     });
+    //   }
+		// });
   }
 
   

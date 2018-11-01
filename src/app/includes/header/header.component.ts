@@ -10,18 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 export class HeaderComponent implements OnInit {
   name: any;
   private sub: any;
-  constructor(private cookieService: CookieService,
+  constructor(
+    private cookieService: CookieService,
     private route: ActivatedRoute
-
   ) { }
 
   ngOnInit() {
-
-   this.name = this.cookieService.get('name');
-     console.log('current',this.name)
-  
-      console.log('checl', this.name);
-    
+   this.name = this.cookieService.get('name');    
   }
 
 }

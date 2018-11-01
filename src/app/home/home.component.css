@@ -1,25 +1,32 @@
 body {background: #eee;}
-.post-box 
-{max-width: 600px;
+.post-box {
+  max-width: 600px;
   background: #fff;
   text-align: center;
   border-radius: 3px;
   border: 1px solid #efefef;
- 
-  display: block;
   margin: 15px auto;
-  padding: 15px 10px 6px 10px;
-  box-sizing: border-box;}
-.post-box .btn-container 
-{ border-top: 1px solid #efefef;;padding: 10px;text-align: left;}
+  padding: 15px;
+  box-sizing: border-box;
+}
+.post-box .btn-container {
+  padding: 10px;
+  text-align: left;
+}
 .post-box .btn-container .btn 
 {background: #f7f7f7;width: 18%;outline: none;text-align: left;border: none;padding: 10px 18px;border-radius: 25px;color: #777;cursor: pointer;margin: 0 5px;}
 .post-box .btn-container .btn:hover 
 {background: #eee;}
-.post-box textarea 
-{border: none;background: transparent;resize: none;min-height: 100px;color: #888;padding: 15px;box-sizing: border-box;display: inline-block;width: 80%;vertical-align: top;}
-.post-box img 
-{width: 45px;height: 45px;display: inline-block;border-radius: 50%;}
+.post-box textarea {
+  border: none;
+  background: transparent;
+  resize: none;color: #888;padding: 15px;box-sizing: border-box;display: inline-block;width: 80%;vertical-align: top;
+  box-shadow: none;
+}
+.post-box img {
+  display: inline-block;
+  border-radius: 50%;
+}
 .post-box .btn-container .btn i 
 {margin-right: 8px;vertical-align: bottom;}
 .post-box .btn-container button.btn.bntn 
@@ -40,4 +47,43 @@ body {background: #eee;}
   background: rgba(0, 0, 0, 0.5);
   top: 0;
   z-index: 10;
+}
+
+.modal .post-box {
+  margin: 0;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+
+.mybutton {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0;
+  padding: 10px;
+  width: 100px;
+  margin-left: 10px;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 0px 0px rgba(0,0,0,0.15);
+}
+
+.mybutton.submit {
+  background: #FF9800;
+}
+
+.mybutton.submit[disabled] {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.post-box .preview_img img {
+  border-radius: 0 !important;
+  object-fit: contain;
+}
+
+.preview-img {
+  background: #f7f7f7;
+  margin-right: 5px;
+  display: inline-block;
 }

@@ -661,10 +661,6 @@ a.dark:hover,a.dark:focus,a.dark:active{
   margin-bottom: 0;
 }
 
-.foot-list li{
- /* margin-bottom: 5px;*/
-}
-
 .foot-term{
   display: inline-block;
   text-transform: uppercase;
@@ -674,7 +670,7 @@ a.dark:hover,a.dark:focus,a.dark:active{
   font-weight: 400;
 }
 
-..foot-term:hover,
+.foot-term:hover,
 .foot-term:active,
 .foot-term:focus{
   text-decoration: none;
@@ -708,6 +704,7 @@ a.dark:hover,a.dark:focus,a.dark:active{
   border-radius: 50%;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 
@@ -785,7 +782,6 @@ a.dark:hover,a.dark:focus,a.dark:active{
 }
 
 .follow a{
-  display: inline-block;
   float: left;
   margin-right: 40px;
   color: #262626;
@@ -923,22 +919,10 @@ a.dark:hover,a.dark:focus,a.dark:active{
   text-align: center;
 }
 
-.popup-image{
-  /*top: 50%;*/
-  /*left: 50%;*/
-  /*transform: translate(-50%,-50%);*/
-  /*position: absolute;*/
-  /*width: 100%;*/
-}
-
 .popup-image img{
   max-width: 100%;
   height: auto;
   margin: 0 auto;
-}
-
-.photo-popup{
-  /*min-height: 600px;*/
 }
 
 .popup-close {
@@ -991,10 +975,6 @@ a.dark:hover,a.dark:focus,a.dark:active{
 .comment-profile .user-name h5{
   margin: 0;
   margin-top: 5px;
-}
-
-.comment-like{
-  /*padding: 0 20px;*/
 }
 
 .comment-profile{
@@ -1072,10 +1052,6 @@ a.dark:hover,a.dark:focus,a.dark:active{
   border: 1px solid #dbdbdb;
   border-radius: 3px;
   min-height: 500px;
-}
-
-.edit-tabs{
-  /*min-height: 500px;*/
 }
 
 .edit-tabs .nav-tabs{
@@ -1179,10 +1155,6 @@ a.dark:hover,a.dark:focus,a.dark:active{
   color: #262626;
 }
 
-.submit-button{
-  /*margin-bottom: 30px ;*/
-}
-
 .submit{
   background: transparent;
   border-color: #3897f0;
@@ -1284,8 +1256,13 @@ a.dark:hover,a.dark:focus,a.dark:active{
 }
 
 #write-post .submit-button{
+  width: 100%;
   clear: both;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  display: inline-block;
+  border-top: 1px solid #ededed;
+  padding-top: 20px;
+  text-align: right;
 }
 
 #write-post .modal-header .modal-title{
@@ -1673,11 +1650,10 @@ Login CSS
 .comment-wrap::-webkit-scrollbar-thumb
 {
   border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: #ccc;
 }
-
-
 /*========================================================
  Responsive CSS 
 ========================================================*/
