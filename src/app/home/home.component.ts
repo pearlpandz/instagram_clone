@@ -133,7 +133,10 @@ export class HomeComponent implements OnInit {
       }
       else {
         
-        // console.log(this.selectedFile.length);
+        for (var i = 0; i < this.selectedFile.length; i++) {
+          this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
+        }
+        console.log(this.selectedFile);
 
         this.fd.append('_id', data['id']);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
