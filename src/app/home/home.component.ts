@@ -86,9 +86,9 @@ export class HomeComponent implements OnInit {
   onFileSelected(event: any) {
 
     this.selectedFile = <Array<File>>event.target.files;
-    for (var i = 0; i < this.selectedFile.length; i++) {
-      this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
-    }
+    // for (var i = 0; i < this.selectedFile.length; i++) {
+    //   this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
+    // }
   }
 
   readUrl(event: any) {
@@ -105,6 +105,26 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  remove(index) {
+    let array = [];
+
+    for (let i = 0; i < this.selectedFile.length; i++) {
+      array.push(this.selectedFile[i]);
+    }
+    
+    array.splice(index, 1);
+    this.urls.splice(index, 1);
+    this.selectedFile = array;
+    // console.log(this.selectedFile);
+    
+    for (let i = 0; i < this.selectedFile.length; i++) {
+      this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
+    }
+
+    
+    
+  }
+
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
     this.homeService.createPost(newPost.value).subscribe(data => {
@@ -112,8 +132,10 @@ export class HomeComponent implements OnInit {
         console.log("something went wrong");
       }
       else {
-        this.fd.append('_id', data['id']);
+        
+        // console.log(this.selectedFile.length);
 
+        this.fd.append('_id', data['id']);
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
           this.getpost();
 
@@ -224,10 +246,13 @@ export class HomeComponent implements OnInit {
       .map((data: any) => data)
       .subscribe(data => {
         if (data) {
-          console.log(data)
+          this.getpost();
+          // console.log(data);
+         
         }
         else {
           console.log('error')
+          this.getpost();
         }
       });
 

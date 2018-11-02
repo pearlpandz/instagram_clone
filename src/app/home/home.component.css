@@ -67,6 +67,8 @@ textarea:focus {
   color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 0px 0px rgba(0,0,0,0.15);
+  text-align: center;
+  display: inline-block;
 }
 
 .mybutton.submit {
@@ -86,4 +88,25 @@ textarea:focus {
   background: #f7f7f7;
   margin-right: 5px;
   display: inline-block;
+  padding: 5px;
+  position: relative;
+}
+
+.preview-img .remove {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e5e5e5;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  display: none;
+  transition: 0.3s;
+}
+
+.preview-img:hover .remove {
+  display: block;
+  transition: 0.3s;
 }
