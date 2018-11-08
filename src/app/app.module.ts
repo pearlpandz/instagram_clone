@@ -23,7 +23,7 @@ import { AppRoutingModule } from './app.routing';
 //others
 import { AgmCoreModule } from '@agm/core';
 import {TimeAgoPipe} from 'time-ago-pipe';
-
+import { DeferLoadModule } from '@trademe/ng-defer-load';
 //components
 import { ExploreComponent } from './explore/explore.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -81,6 +81,7 @@ const config = new AuthServiceConfig([
     CommonModule,
     ToastrModule.forRoot({positionClass: 'inline'}),
     ToastContainerModule,
+    DeferLoadModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

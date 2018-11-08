@@ -24,6 +24,7 @@
     "@auth0/angular-jwt": "^2.0.0",
     "@google/maps": "^0.5.5",
     "@ng-bootstrap/ng-bootstrap": "^3.3.0",
+    "@trademe/ng-defer-load": "^2.0.0",
     "angular-font-awesome": "^3.1.2",
     "angular2-image-upload": "^1.0.0-rc.1",
     "angular4-social-login": "^1.1.1",

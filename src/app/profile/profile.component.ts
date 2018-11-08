@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
         this.userpost = response[1];
         this.postcount = response[1].length;
 // 
-// console.log(this.profile);
+ //console.log(this.profile);
         // console.log( this.followersc);
 
 

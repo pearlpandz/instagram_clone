@@ -10,7 +10,8 @@
                 </div> -->
     </div>
 
-    <div *ngFor='let post of postdata;let i=index;'>
+    <div *ngFor='let post of postdata;let i=index;' (deferLoad)="post.show = true">
+            <ng-container *ngIf="post.show">
         <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)">
             <div class="row feed-head no-margin">
 
@@ -110,7 +111,7 @@
             </div>
         </div>
 
-
+</ng-container>
     </div>
 </div>
 

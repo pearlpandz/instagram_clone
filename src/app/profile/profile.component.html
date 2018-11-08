@@ -46,10 +46,12 @@
         <div class="user-photos">
             <div class="user-photos-inner row no-margin">
 
-                <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;">
+                <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true">
                     <div class="user-photos-column" (click)="popup(qualifica)">
                         <div class="outer-box feed-images">
+                                <ng-container *ngIf="qualifica.show">
                             <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
+                                </ng-container>
                         </div>
                         <div class="ratio-content">
                             <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
