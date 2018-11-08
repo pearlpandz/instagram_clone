@@ -41,25 +41,34 @@ exports.adduser = function(req,res){
         createdat: new Date().toLocaleString()
       });
 
-      users.findOne( {email: req.body.email}, function(err, data){
+      users.findOne( {email: req.body.email, name: req.body.name}, function(err, data){
         if (err) { 
-            res.send(err);
+            // res.send(err);
+            console.log('some errror hapeens')
         }
         if (data) {
             res.json({ success: false, message: 'User Already Exist!' });
         } 
         else  {
-            // console.log(req.body.name);
-            // console.log('secret = ',config.secret, req.body.name)
-            var token = jwt.sign({name:req.body.name}, config.secret, {
-                expiresIn: 60*60*24 // expires in 24 hours
-            });
-            // console.log('created token', token);
+            console.log(req.body.name);
+
             user.save(function(err,result){
                 if(err){
-                    res.send(err);
+                    console.log('err')
+                    // res.send(err);
+                    res.json({
+                        success: false,
+                        msg: 'change ur username'
+                    })
                 }
                 else {
+                    // console.log('secret = ',config.secret, req.body.name)
+                    var token = jwt.sign({name: req.body.name}, config.secret, {
+                        expiresIn: 60*60*24 // expires in 24 hours
+                    });
+                    console.log('created token', token);
+
+
                     // return the information including token as JSON
                     res.json({
                         success: true,
@@ -92,8 +101,13 @@ let Userdata = new users ({
 // console.log(Userdata);
     users.findOne( {email: req.body.email}, function(err, data){
         if (err) { 
-            // console.log('err');
-            res.send(err);
+            console.log('err');
+            // res.send(err);
+            res.json({
+                success: false
+            })
+
+            
         }
         if (data) {
             
@@ -126,7 +140,11 @@ let Userdata = new users ({
             // console.log('created token', token);
             Userdata.save(function(err,result){
                 if(err){
-                    res.send(err);
+                    res.json({
+
+                        success: false,
+                        msg: "signup with username name new"
+                    });
                 }
                 else {
                     // return the information including token as JSON
@@ -145,10 +163,49 @@ let Userdata = new users ({
           }
     });
 }
+// set unique name for user
+exports.Uniquename = function(req,res){
+console.log(req.body);
+    users.distinct(req.body.field, function(err,names){
 
+        console.log('wsdde',names);
+        
+     if( checklikeid(names, req.body.name) ){
 
+            res.json({
+                success: true,
+                msg: "username already exists...please try with anothor name",
+            })
+          
+        }else{
+            res.json({
+                msg: 'proceed',
+                success: false
+            })
+        }
 
+      })
+}
 
+// set unique name for email
+exports.Uniquemail = function(req,res){
+    // console.log(req.body.name);
+        users.distinct('email', function(err,email){
+            if( checklikeid(email, req.body.email) ){
+                res.json({
+                    success: true,
+                    msg: "email already exists...please try with anothor name"
+                })
+              
+            }else{
+                res.json({
+                    msg: 'proceed',
+                    success: false
+                })
+            }
+    
+        })
+    }
 
 //block & unblock user
 exports.blockuser = function(req,res){
@@ -180,7 +237,8 @@ exports.blockuser = function(req,res){
                     var options = {new: true};
                     users.findOneAndUpdate(query, {$push:update}, options, function(err, data) {
                         if(err) {
-                            res.send(err);
+                            // res.send(err);
+                        msg:"error"
                         }
                         else {
                             res.send(data._id);
@@ -207,7 +265,8 @@ exports.getblockids = function(req,res){
 
         users.findOne( {_id: req.body.userid} , function(err, userdata){
             if(err){
-                res.send(err);
+                // res.send(err);
+                console.log('some erorr')
             }
             else {
                 res.send(userdata['blockids']);

@@ -106,11 +106,15 @@ app.post('/mail', nodemail.mail);
 //nodemailer function
 app.post('/updateuser', editusers.create);
 
-//find particular user through URL
-app.post('/:name', findusers.finde);
-
 //change password api
 app.post('/changepassword', changepass.changepwd );
+//unique user name
+app.post('/uniquename', create_user.Uniquename);
+
+
+//find particular user through URL
+ app.post('/:name', findusers.finde);
+
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));

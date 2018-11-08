@@ -45,8 +45,8 @@
 
             </div>
 
-            <div class="row feed-image no-margin">
-                <img *ngFor='let imgurl of post.sampleFile;' src='{{imgurl}}'>
+            <div class="row feed-image no-margin"  lazy-load-images>
+                <img *ngFor='let imgurl of post.sampleFile;'  [attr.data-src]="imgurl">
             </div>
 
             <div class="row feed-content no-margin">

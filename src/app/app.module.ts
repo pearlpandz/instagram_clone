@@ -42,7 +42,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 // Import Social Login Module
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
-  
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -82,6 +82,7 @@ const config = new AuthServiceConfig([
     ToastrModule.forRoot({positionClass: 'inline'}),
     ToastContainerModule,
     DeferLoadModule,
+    LazyLoadImagesModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

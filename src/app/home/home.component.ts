@@ -5,6 +5,7 @@ declare var jquery: any;
 declare var $: any;
 import 'rxjs/Rx';
 import { CookieService } from 'ngx-cookie-service';
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 
 // service calling
 import { HomeService } from './home.service';
@@ -15,6 +16,7 @@ import { ThrowStmt } from '@angular/compiler';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
 

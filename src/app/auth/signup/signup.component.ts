@@ -23,7 +23,8 @@ export class SignupComponent implements OnInit {
   cookieName: string;
   cookieProfilepic: string;
   toastrService: any;
-
+  errorUsername : any;
+  errorUseremail : any;
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -41,30 +42,49 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/home']);
     }
 
-     
-
-  }
-
+     }
+     //uniquename
+  uniquenames(name: any){
+// console.log('success', name.value) ;
+  this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} ).subscribe(data =>{
+    this.errorUsername = data['success'];
+    // console.log(this.errorUsername);
+    
+  })
+}
+uniqueemail(email:any){
+  this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} ).subscribe(data =>{
+    this.errorUseremail = data['success'];
+})}
   Submit(newUser: any) {
     this.http.post('http://localhost:3000/adduser', newUser.value).subscribe(data => {
-      // console.log(data);
-      this.toastmsgsService.showSuccess();
-      this.cookieService.set( 'email', data['email'] );
-      this.cookieService.set( 'token', data['token'] );
-      this.cookieService.set( 'name', data['name'] );
-      this.cookieService.set('profilepic', data['profilepic']);
-      this.cookieService.set('id', data['id']);
+     
+      if(data['success']){
+        console.log(data);
 
-      this.cookieEmail = this.cookieService.get('email'); 
-      this.cookieToken = this.cookieService.get('token');
+        this.toastmsgsService.showSuccess();
+        this.cookieService.set( 'email', data['email'] );
+        this.cookieService.set( 'token', data['token'] );
+        this.cookieService.set( 'name', data['name'] );
+        this.cookieService.set('profilepic', data['profilepic']);
+        this.cookieService.set('id', data['id']);
+  
+        this.cookieEmail = this.cookieService.get('email'); 
+        this.cookieToken = this.cookieService.get('token');
+        if(this.cookieEmail){
+          this.router.navigate(['/home']);
+        }else{
+          this.router.navigate(['/signup']);
+        }
+      }else{
 
-      // console.log('token', this.cookieToken);
+        console.log(data);
+      }
+    //    console.log('token', this.cookieToken);
 
     //  console.log('USEREID', this.cookieService.get('id'))
-      // console.log('hi datat', data);
-      if(this.cookieEmail){
-        this.router.navigate(['/home']);
-      }
+    //    console.log('hi datat', data);
+      
 		});
   }
 
@@ -84,7 +104,7 @@ export class SignupComponent implements OnInit {
       lastname: this.user.lastName
      }
 
-    //  console.log(newUser);
+     console.log(newUser);
 
     this.http.post('http://localhost:3000/socialuser', newUser).subscribe(data => {
      if(data) {
