@@ -8,7 +8,7 @@ import { ProfileService } from './profile.service';
 import { TouchSequence } from 'selenium-webdriver';
 import { HomeService } from '../home/home.service';
 import { CommentStmt } from '@angular/compiler';
-
+import { OwlModule } from 'ngx-owl-carousel';
 declare var jquery: any;
 declare var $: any;
 
@@ -45,9 +45,31 @@ export class ProfileComponent implements OnInit {
   // like: any;
   profile = {};
   userpost = [];
-
+  slidepost = [];
   popcomment = {};
   selectedFile: File;
+  //postts variable
+  height: string = '400px';
+  minHeight: string;
+  arrowSize: string = '30px';
+  showArrows: boolean = true;
+  disableSwiping: boolean =  true ;
+   autoPlay: boolean = false;
+  PlayInterval: number = 100;
+  stopAutoPlayOnSlide: boolean = true;
+  debug: boolean = false;
+  backgroundSize: string = 'cover';
+  backgroundPosition: string = 'center center';
+  backgroundRepeat: string = 'no-repeat';
+  // showDots: boolean = true;
+  dotsPosition: string = 'center';
+  dotColor: string = '#FFF';
+  showCaptions: boolean = true;
+  captionColor: string = '#FFF';
+  captionBackground: string = 'rgba(0, 0, 0, .35)';
+  lazyLoad: boolean = true;
+  hideOnNoSlides: boolean = true;
+  width: string = '100%';
   // popup variables
 
   sampleFile = [];
@@ -102,9 +124,9 @@ export class ProfileComponent implements OnInit {
         this.followingc = response[0]['following'].length;
         this.userpost = response[1];
         this.postcount = response[1].length;
-// 
- //console.log(this.profile);
-        // console.log( this.followersc);
+     this.slidepost = response[1];
+ console.log( this.slidepost );
+        console.log( this.slidepost );
 
 
         // console.log('profile data', this.profile);

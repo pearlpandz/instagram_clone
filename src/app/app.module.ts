@@ -8,7 +8,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './includes/header/header.component';
 import { HomeComponent } from './home/home.component';
-
+import {SlideshowModule} from 'ng-simple-slideshow';
 // services
 import { HomeService } from './home/home.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -24,6 +24,8 @@ import { AppRoutingModule } from './app.routing';
 import { AgmCoreModule } from '@agm/core';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
+import { OwlModule } from 'ngx-owl-carousel';
+
 //components
 import { ExploreComponent } from './explore/explore.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -83,6 +85,8 @@ const config = new AuthServiceConfig([
     ToastContainerModule,
     DeferLoadModule,
     LazyLoadImagesModule,
+    SlideshowModule,
+    OwlModule ,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

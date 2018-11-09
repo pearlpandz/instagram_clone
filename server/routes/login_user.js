@@ -4,7 +4,8 @@ var url = "mongodb://localhost:27017/";
 const users = require('../models/user'); //create new post schema
 const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
-
+var bcrypt = require('bcrypt');
+let salt= bcrypt.genSaltSync(8);
 exports.login = function(req,res){
 
     if(!req.body){
@@ -42,7 +43,7 @@ exports.login = function(req,res){
                 )
             }
             else {
-                if(req.body.password==data.password){
+                if (bcrypt.compare(req.body.password==data.password)){
                     // console.log(req.body.name);
                     // console.log('secret = ',config.secret, req.body.name)
                     var token = jwt.sign({name:req.body.name}, config.secret, {

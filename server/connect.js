@@ -2,6 +2,7 @@
 const express = require('express');
 var multer = require('multer');
 const app = express();
+
 var cors = require('cors');
 const server = require('http').createServer(app);
 const jwt = require('jsonwebtoken');
@@ -110,6 +111,7 @@ app.post('/updateuser', editusers.create);
 app.post('/changepassword', changepass.changepwd );
 //unique user name
 app.post('/uniquename', create_user.Uniquename);
+
 
 
 //find particular user through URL

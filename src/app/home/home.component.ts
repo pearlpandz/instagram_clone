@@ -6,6 +6,8 @@ declare var $: any;
 import 'rxjs/Rx';
 import { CookieService } from 'ngx-cookie-service';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
+import {SlideshowModule} from 'ng-simple-slideshow';
+
 
 // service calling
 import { HomeService } from './home.service';
@@ -53,7 +55,27 @@ export class HomeComponent implements OnInit {
     private cookieService: CookieService,
   ) {
   }
-
+  height: string = '400px';
+  minHeight: string;
+  arrowSize: string = '30px';
+  showArrows: boolean = true;
+  disableSwiping: boolean =  true ;
+   autoPlay: boolean = false;
+  PlayInterval: number = 100;
+  stopAutoPlayOnSlide: boolean = true;
+  debug: boolean = false;
+  backgroundSize: string = 'cover';
+  backgroundPosition: string = 'center center';
+  backgroundRepeat: string = 'no-repeat';
+  // showDots: boolean = true;
+  dotsPosition: string = 'center';
+  dotColor: string = '#FFF';
+  showCaptions: boolean = true;
+  captionColor: string = '#FFF';
+  captionBackground: string = 'rgba(0, 0, 0, .35)';
+  lazyLoad: boolean = true;
+  hideOnNoSlides: boolean = true;
+  width: string = '100%';
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');

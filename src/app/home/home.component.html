@@ -46,7 +46,29 @@
             </div>
 
             <div class="row feed-image no-margin"  lazy-load-images>
-                <img *ngFor='let imgurl of post.sampleFile;'  [attr.data-src]="imgurl">
+                <!-- {{post.sampleFile}} -->
+                <!-- <img src="post.sampleFile" alt=""> -->
+            <slideshow #slideshow
+            [imageUrls]="post.sampleFile"
+            [height]="height"
+            [minHeight]="minHeight"
+            [arrowSize]="arrowSize"
+            [showArrows]="showArrows"
+            [disableSwiping]="disableSwiping"
+            [autoPlay]="autoPlay"
+            [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
+            [debug]="debug"
+            [backgroundSize]="backgroundSize"
+            [backgroundPosition]="backgroundPosition"
+            [backgroundRepeat]="backgroundRepeat"
+            [showDots]="showDots"
+            [dotColor]="dotColor"
+            [showCaptions]="showCaptions"
+            [captionColor]="captionColor"
+            [captionBackground]="captionBackground"
+            [lazyLoad]="lazyLoad"
+            [hideOnNoSlides]="hideOnNoSlides">
+ </slideshow>
             </div>
 
             <div class="row feed-content no-margin">

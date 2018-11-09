@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'node_modules/ngx-toastr/toastr.css';
+@import "node_modules/owl.carousel/dist/assets/owl.carousel.css";
+@import "node_modules/owl.carousel/dist/assets/owl.theme.default.css";
 
 .toast-container {
     top: 0;
@@ -11,4 +13,30 @@
 
 .toast-container .toast {
     margin: 0 auto 6px !important;
+}
+
+.owl-carousel .owl-nav  {
+    position: absolute;
+    top: 25%; 
+    width: 100%;
+}
+
+.owl-carousel .owl-nav .owl-next span {
+    font-size: 120px;
+    position: absolute;
+    right: -50px;
+   
+}
+
+.owl-carousel .owl-nav button.owl-prev span{
+    font-size: 120px;
+    position: absolute;
+    left: -50px;
+}
+
+button.close.popup-close {
+    height: auto;
+    width: auto;
+    color: #ffffff;
+    opacity: 1;
 }

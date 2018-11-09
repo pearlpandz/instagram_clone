@@ -6,7 +6,8 @@ const posts = require('../models/index'); //create new post schema
 const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
 const mongoose = require('mongoose');
-
+var bcrypt = require('bcrypt');
+let salt= bcrypt.genSaltSync(8);
 
 //checking... Array targat
 function checklikeid(array, target) {
@@ -36,7 +37,8 @@ exports.adduser = function(req,res){
     let user = new users ({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password, salt),
+
         profilepic: profilepic,
         createdat: new Date().toLocaleString()
       });

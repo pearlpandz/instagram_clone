@@ -39,6 +39,7 @@
               "src/assets/js/bootstrap-imageupload.min.js",
               "src/assets/js/jquery-migrate-1.2.1.min.js",
               "src/assets/js/slick.min.js",
+              "node_modules/owl.carousel/dist/owl.carousel.js",
               "src/assets/js/scripts.js"
             ]
           },
