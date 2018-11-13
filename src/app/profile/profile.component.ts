@@ -9,6 +9,7 @@ import { TouchSequence } from 'selenium-webdriver';
 import { HomeService } from '../home/home.service';
 import { CommentStmt } from '@angular/compiler';
 import { OwlModule } from 'ngx-owl-carousel';
+import 'hammerjs';
 declare var jquery: any;
 declare var $: any;
 
@@ -70,8 +71,9 @@ export class ProfileComponent implements OnInit {
   lazyLoad: boolean = true;
   hideOnNoSlides: boolean = true;
   width: string = '100%';
-  // popup variables
 
+  // popup variables
+i : any;
   sampleFile = [];
   likecount: any;
   description: any;
@@ -125,11 +127,9 @@ export class ProfileComponent implements OnInit {
         this.userpost = response[1];
         this.postcount = response[1].length;
      this.slidepost = response[1];
- console.log( this.slidepost );
-        console.log( this.slidepost );
-
-
-        // console.log('profile data', this.profile);
+//  console.log( this.slidepost );
+//         console.log( this.slidepost );
+// console.log('profile data', this.profile);
 
 
 
@@ -162,7 +162,7 @@ export class ProfileComponent implements OnInit {
     this.comments = data.comments;
     this.likeids = data.likeids;
 
-    // console.log('asdsddfs', this.likeids);
+     console.log('asdsddfs', this.slidepost);
 
   }
 
@@ -293,6 +293,5 @@ export class ProfileComponent implements OnInit {
           this.getProfile(this.names);
         });
   }
- 
- 
+
 };

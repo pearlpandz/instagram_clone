@@ -50,7 +50,7 @@
                     <div class="user-photos-column" (click)="popup(qualifica)">
                         <div class="outer-box feed-images">
                                 <ng-container *ngIf="qualifica.show">
-                            <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
+                            <img src="{{qualifica.sampleFile}}" alt="" class="img-responsvie">
                                 </ng-container>
                         </div>
                         <div class="ratio-content">
@@ -683,6 +683,7 @@
                             <div class="popup-image-outer">
                                 <div class="popup-image">
                                  <!-- <img src={{sampleFile}} class="pop-img">!-->
+                                
                                  <slideshow #slideshow
                                  [imageUrls]="singlepost.sampleFile"
                                  [height]="height"

@@ -12,7 +12,7 @@ export class ProfileService {
     private http: Http
   ) { }
   getProfile(name) {
-    return this.http.post(`http://localhost:3000/` + name, '');
+    return this.http.post('http://localhost:3000/updateuser' ,name );
   }
 
 }

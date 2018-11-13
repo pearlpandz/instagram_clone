@@ -5,9 +5,9 @@ const users = require('../models/user'); //create new post schema
 
 exports.create = function (req, res) {
 
-    let query = {'_id': req.body.id};
+    let query = {'name': req.body.name};
 
-    users.findByIdAndUpdate(query,
+    users.findOneAndUpdate(query,
         { $set: {
             name: req.body.name,
              email: req.body.email,

@@ -5,7 +5,7 @@ var validateEmail = function(email) {
 };
 
 const newUserSchema = new mongoose.Schema({
-    name: {type: String, index: true,  sparse: true, unique: true  },
+    name: {type: String,  unique: true  },
     email: {
         type: String,
         trim: true,
