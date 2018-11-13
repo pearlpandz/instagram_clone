@@ -11,8 +11,13 @@ export class ProfileService {
   constructor(
     private http: Http
   ) { }
-  getProfile(name) {
-    return this.http.post('http://localhost:3000/updateuser' ,name );
+ 
+  getdetails(name) {
+    return this.http.post(`http://localhost:3000/` + name, '');
+  }
+
+  editusers(name) {
+    return this.http.post('http://localhost:3000/updateuser' ,name , '');
   }
 
 }

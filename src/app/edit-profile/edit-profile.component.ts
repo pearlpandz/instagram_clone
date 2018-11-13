@@ -14,24 +14,60 @@ export class EditProfileComponent implements OnInit {
   private profileservices : ProfileService ,
   private cookieservice :  CookieService
     ) { }
-  profile : {}
+    // edit user array and variables
+  edit : {}
+  // user details array and variables
+  userdetails : {}
+  name;
+  bio;
+  website;
+  email;
+  phonenum;
+  gender;
+
   ngOnInit() {
+    
     this.current_user = this.cookieservice.get('name');
     this.current_id = this.cookieservice.get('id');
-     this.edituser( this.current_user);
+  //  this.Submit( this.current_user);
+    this. getdetail(this.current_user);
+    
   }
-  edituser(name){
-    console.log('currentusrename', name);
-  //  let names = { name : uname };
-   this.profileservices.getProfile(name)
-  .subscribe(response => {
-      this.profile = response;
-      console.log('mmsc' , this.profile ); 
-      }
-   
-      )
-   
-      console.log('hisc' , this.profile ); 
 
-}
+// function for  get user
+  getdetail(username){
+    let names = {name : username};
+    this.profileservices.getdetails(username)
+    .map(Response =>Response.json ())
+    .subscribe( Response =>
+      
+      {
+        this.userdetails = Response[0];
+        this.bio = Response[0].bio;
+        this.name = Response[0].name;
+        this.email = Response[0].email;
+        this.phonenum = Response [0].phonenumber;
+        console.log( 'hi this is my user details',this.userdetails);
+
+      })
+
+  }
+  
+    //function for edit user api 
+    Submit( updateUser :  any ) {
+    // alert();
+    // let names = { name : updateUser };
+     console.log('currentusername', updateUser.value);
+  //   let names = { name : updateUser };
+  //   this.profileservices.editusers(names)
+  //  .map(res=>res.json()
+
+  // .subscribe(response => {
+  //     this.edit = response;
+       
+  //     console.log('eprofiless1' , this.edit ); 
+  //     }
+  //  )}
+  
+    }
 }
