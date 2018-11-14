@@ -38,16 +38,19 @@
                                       <div class="form-group row">
                                           <label for="example-text-input" class="col-sm-3 col-form-label">Name</label>
                                           <div class="col-sm-9">
-                                                <input type="hidden" [(ngModel)]="name"  name="name"  value="{{name}}"   />
-                                              <input class="form-control"[(ngModel)]="name" type="text" placeholder="{{name}}" name = "name"  id="example-text-input">
-                                          </div>
+                                            <input class="form-control" type="hidden" id="name" name="name" [(ngModel)]="name"
+                                            value="{{name}}" />
+                                              <input class="form-control"[(ngModel)]="named" type="text" placeholder="{{name}}" name="named"    id="example-text-input">
+                                              
+                                            </div>
                                       </div>
 
                                       <div class="form-group row">
                                           <label for="example-text-input" class="col-sm-3 col-form-label">User Name</label>
                                           <div class="col-sm-9">
-                                              <input class="form-control" [(ngModel)]="uname" name = "uname" type="text" placeholder="{{name}}" id="example-text-input">
-                                          </div>
+                                              <input class="form-control" [(ngModel)]="username" name = "username" #uname (ngModelChange)="uniquenames(uname)" type="text" placeholder="{{name}}" id="example-text-input">
+                                              <p *ngIf="errorname"> existing user please try with another username</p>
+                                            </div>
                                       </div>
 
                                       <div class="form-group row">
@@ -77,8 +80,9 @@
                                       <div class="form-group row">
                                           <label for="example-text-input" class="col-sm-3 col-form-label">Email</label>
                                           <div class="col-sm-9">
-                                              <input type="email" [(ngModel)]="email" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{email}}">
-                                          </div>
+                                              <input type="email" [(ngModel)]="email" name="email" class="form-control"   id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{email}}"  #emails (ngModelChange)="uniqueemail(emails)">
+                                              <p *ngIf="errormail"> existing user please try with another mailid</p>
+                                            </div>
                                       </div>
 
                                       <div class="form-group row">

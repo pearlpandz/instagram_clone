@@ -6,7 +6,8 @@ const app = express();
 var cors = require('cors');
 const server = require('http').createServer(app);
 const jwt = require('jsonwebtoken');
-
+http = require('http');
+var io = require('socket.io')(server);
 //node dependencies - mangoose
 const mongoose = require('mongoose');
 

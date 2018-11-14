@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService  } from "../edit-profile/edit.service";
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+declare var $: any;
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -12,7 +14,8 @@ export class EditProfileComponent implements OnInit {
    current_id;
   constructor(
   private profileservices : ProfileService ,
-  private cookieservice :  CookieService
+  private cookieservice :  CookieService,
+  private http: HttpClient,
     ) { }
     // edit user array and variables
   edit : {}
@@ -24,7 +27,9 @@ export class EditProfileComponent implements OnInit {
   email;
   phonenum;
   gender;
-
+//unique user &email
+errorname;
+errormail;
   ngOnInit() {
     
     this.current_user = this.cookieservice.get('name');
@@ -48,6 +53,7 @@ export class EditProfileComponent implements OnInit {
         this.email = Response[0].email;
         this.phonenum = Response [0].phonenumber;
         console.log( 'hi this is my user details',this.userdetails);
+        console.log('sdsfnamessss',  this.name );
 
       })
 
@@ -57,17 +63,35 @@ export class EditProfileComponent implements OnInit {
     Submit( updateUser :  any ) {
     // alert();
     // let names = { name : updateUser };
-     console.log('currentusername', updateUser.value);
-  //   let names = { name : updateUser };
-  //   this.profileservices.editusers(names)
-  //  .map(res=>res.json()
-
-  // .subscribe(response => {
-  //     this.edit = response;
-       
-  //     console.log('eprofiless1' , this.edit ); 
-  //     }
-  //  )}
   
-    }
+    //  console.log('currentusername', updateUser.value);
+    
+    let names = { name : updateUser };
+    this.profileservices.editusers(updateUser.value ) .subscribe(response => {
+      this.edit = response;
+       
+     console.log('eprofiless1' , this.edit ); 
+    })
+  
+}
+  
+uniquenames(name: any){
+  // console.log('success', name.value) ;
+    this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} ).subscribe(data =>{
+      this.errorname = data['success'];
+      // console.log(this.errorUsername);
+      
+    })
+  }
+  uniqueemail(email:any){
+    this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} ).subscribe(data =>{
+      this.errormail = data['success'];
+  })}
+  
+  
+ 
+
+
+
+  
 }
