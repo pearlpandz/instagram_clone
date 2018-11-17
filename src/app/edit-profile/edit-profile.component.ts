@@ -80,12 +80,22 @@ errormail;
 }
   
 uniquenames(name: any){
-  // console.log('success', name.value) ;
-    this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} ).subscribe(data =>{
+  
+  if( name.value == this.current_user) {
+    console.log('true');
+    alert('this is current user name');
+  }
+  else {
+    console.log(name.value);
+    // console.log('false');
+      this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} ).subscribe(data =>{
       this.errorname = data['success'];
-      // console.log(this.errorUsername);
+      console.log(data);
       
     })
+  }
+  
+  
   }
   uniqueemail(email:any){
     this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} ).subscribe(data =>{
