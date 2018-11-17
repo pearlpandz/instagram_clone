@@ -65,16 +65,16 @@ errormail;
   
     //function for edit user api 
     Submit( updateUser :  any ) {
-    // alert();
+    //  alert();
     // let names = { name : updateUser };
   
     // console.log('currentusername', updateUser.value);
     
     let names = { name : updateUser };
-    this.profileservices.editusers(updateUser.value ).map(response => response.json()) .subscribe(response => {
-      this.edit = response;
+    this.profileservices.editusers(updateUser.value ).subscribe(response => {
+          this.edit = response;
        
-     console.log('eprofiless1' , this.edit ); 
+             console.log('eprofiless1' ,this.edit); 
     })
   
 }
