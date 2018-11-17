@@ -19,14 +19,13 @@ export class ProfileService {
   editusers(name) {
     return this.http.post('http://localhost:3000/updateuser' ,name , '');
   }
-  uniquenames(name: any){
-    // console.log('success', name.value) ;
-   return   this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} );
-        // this.errorUsername = data['success'];
-        // console.log(this.errorUsername);
-  }
-    uniqueemail(email:any){
-   return   this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} );
-        // this.errorUseremail = data['success'];
-}
-}
+//   uniquenames(name: any){
+//     // console.log('success', name.value) ;
+//    return   this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} );
+      
+//   }
+//     uniqueemail(email:any){
+//    return   this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} );
+//         // this.errorUseremail = data['success'];
+// }
+ }

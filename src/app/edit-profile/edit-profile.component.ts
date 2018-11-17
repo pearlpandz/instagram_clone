@@ -27,6 +27,8 @@ export class EditProfileComponent implements OnInit {
   email;
   phonenum;
   gender;
+  username;
+  profilepic;
 //unique user &email
 errorname;
 errormail;
@@ -50,8 +52,10 @@ errormail;
         this.userdetails = Response[0];
         this.bio = Response[0].bio;
         this.name = Response[0].name;
+        this.username = Response[0].name;
         this.email = Response[0].email;
         this.phonenum = Response [0].phonenumber;
+        this.profilepic = Response[0].profilepic
         console.log( 'hi this is my user details',this.userdetails);
         console.log('sdsfnamessss',  this.name );
 
@@ -64,10 +68,10 @@ errormail;
     // alert();
     // let names = { name : updateUser };
   
-    //  console.log('currentusername', updateUser.value);
+    // console.log('currentusername', updateUser.value);
     
     let names = { name : updateUser };
-    this.profileservices.editusers(updateUser.value ) .subscribe(response => {
+    this.profileservices.editusers(updateUser.value ).map(response => response.json()) .subscribe(response => {
       this.edit = response;
        
      console.log('eprofiless1' , this.edit ); 

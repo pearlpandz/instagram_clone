@@ -9,6 +9,14 @@ const mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 let salt= bcrypt.genSaltSync(8);
 
+function isEmpty(req) {
+    console.log(req);
+    for (var key in req) {
+        if (req.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
 //checking... Array targat
 function checklikeid(array, target) {
     // console.log(array, target);
@@ -165,6 +173,49 @@ let Userdata = new users ({
           }
     });
 }
+//set unique name for edituser
+
+exports.editUniqueName = function(req, res){
+// console.log(req.body);
+users.findOne({name: req.body.name}, function(err,detail){
+
+
+    if(isEmpty(detail)){
+    //    console.log("no user like");
+    users.distinct(req.body.name, function(err,names){
+
+        // console.log('wsdde',names);
+        
+     if( checklikeid(names, req.body.name) ){
+
+            res.json({
+                success: true,
+                msg: "username already exists...please try with anothor name",
+            })
+          
+        }else{
+            res.json({
+                msg: 'proceed',
+                success: false
+            })
+        }
+
+      })
+    }else{
+        // console.log('supr', detail.name);
+        if(req.body.name == detail.name){
+
+             console.log("yess curr");
+   
+        }
+    } 
+}
+
+
+
+)
+}
+
 // set unique name for user
 exports.Uniquename = function(req,res){
 console.log(req.body);

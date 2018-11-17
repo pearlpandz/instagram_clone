@@ -114,6 +114,8 @@ app.post('/changepassword', changepass.changepwd );
 //unique user name
 app.post('/uniquename', create_user.Uniquename);
 
+//uniquename set for edit user
+app.post('/edituniquename',create_user.editUniqueName );
 
 
 //find particular user through URL
