@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfileService  } from "../edit-profile/edit.service";
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 declare var $: any;
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit {
 
+export class EditProfileComponent implements OnInit {
+  @ViewChild('changepwd') forms;
    current_user ;
    current_id;
    current_mail;
@@ -17,6 +20,7 @@ export class EditProfileComponent implements OnInit {
   private profileservices : ProfileService ,
   private cookieservice :  CookieService,
   private http: HttpClient,
+  private toastrService: ToastrService,
     ) { }
     // edit user array and variables
   edit : {}
@@ -58,8 +62,8 @@ errormail;
         this.email = Response[0].email;
         this.phonenum = Response [0].phonenumber;
         this.profilepic = Response[0].profilepic
-        console.log( 'hi this is my user details',this.userdetails);
-        console.log('sdsfnamessss',  this.name );
+        // console.log( 'hi this is my user details',this.userdetails);
+        // console.log('sdsfnamessss',  this.name );
 
       })
 
@@ -76,7 +80,8 @@ errormail;
     this.profileservices.editusers(updateUser.value ).subscribe(response => {
           this.edit = response;
        
-              console.log('eprofiless1' ,this.edit); 
+              //  console.log('eprofiless1' ,this.edit); 
+              this.toastrService.success( 'profile saved success');
             
     })
   
@@ -89,11 +94,11 @@ uniquenames(name: any){
     // alert('this is current user name');
   }
   else {
-    console.log(name.value);
+    // console.log(name.value);
     // console.log('false');
       this.http.post('http://localhost:3000/uniquename', {name: name.value, field: 'name'} ).subscribe(data =>{
       this.errorname = data['success'];
-      console.log(data);
+      // console.log(data);
       
     })
   }
@@ -116,7 +121,9 @@ uniquenames(name: any){
     this.profileservices.passwordchange(changepwd.value ).subscribe(response => {
       this.pass_change = response;
    
-         console.log('changes' ,this.pass_change); 
+        //  console.log('changes' ,this.pass_change); 
+        this.forms.resetForm();
+        this.toastrService.success('password changed success');
 })
  }
 
