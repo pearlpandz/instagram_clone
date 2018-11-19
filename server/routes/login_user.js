@@ -43,9 +43,9 @@ exports.login = function(req,res){
                 )
             }
             else {
-                if (bcrypt.compare(req.body.password==data.password)){
-                    // console.log(req.body.name);
-                    // console.log('secret = ',config.secret, req.body.name)
+                bcrypt.compare(req.body.password, data.password, function (err, result) {
+                    if(result == true){
+                    //   console.log(result);
                     var token = jwt.sign({name:req.body.name}, config.secret, {
                         expiresIn: 60*60*24 // expires in 24 hours
                     });
@@ -61,18 +61,19 @@ exports.login = function(req,res){
                             profilepic: data.profilepic
                           
 
-                        }
-                    )
-                }
-                else {
-                    res.send(
-                        {
-                            success: false,
-                            message: 'user password wrong'
-                        }
-                    )
-                }
-                
+                        })
+                    }else{
+                       
+                        res.send(
+                            {
+                                success: false,
+                                message: 'user password wrong'
+                            }
+                        )
+                    }
+                })
+             
+             
             }
         });
     }

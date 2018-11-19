@@ -136,7 +136,7 @@
                                 <div class="profile-user row no-margin">
                                     <div class="col-sm-3">
                                         <div class="profile-img float-left">
-                                            <a href="#"><img src="img/model-user.jpg"></a>
+                                            <a href="#"><img src="{{profilepic}}"></a>
                                         </div>
                                     </div>
 
@@ -144,7 +144,7 @@
                                     <div class="col-sm-9">
                                         <div class="profile-name">
                                             <a href="#">
-                                                <h5 class="no-margin" style="font-weight: 400;">aliana casandra</h5>
+                                                <h5 class="no-margin" style="font-weight: 400;">{{username}}</h5>
                                             </a>
                                         </div>
                                     </div>
@@ -153,18 +153,20 @@
                                 <!--end of profile-user-->
 
                                 <div class="edit-profile-form">
-                                    <form>
+                                    <form (ngSubmit)="submits(changepwd)" #changepwd="ngForm">
                                         <div class="form-group row">
+                                                
                                             <label for="password" class="col-sm-3 col-form-label">Old Password</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" type="password" placeholder="" id="password" name="password" [(ngModel)]="password">
+                                                <input  class="form-control" type="password" placeholder="" id="password" name="oldpass"  [(ngModel)]="password">
+                                                
                                             </div>
                                         </div>
-
+                                        <input class="form-control" type="hidden" id="cookiename" name="name" [(ngModel)]="username" value="{{username}}" >
                                         <div class="form-group row">
                                             <label for="cnf_password" class="col-sm-3 col-form-label">New Password</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" type="password" placeholder="" id="cnf_password" name="cnf_password" [(ngModel)]="cnf_password">
+                                                <input class="form-control" type="password" placeholder="" id="changed_password" name="newpass" [(ngModel)]="changed_password">
                                             </div>
                                         </div>
 
@@ -181,7 +183,7 @@
                                             </div>
 
                                             <div class="col-sm-9 no-padding">
-                                                <button type="submit" class="btn btn-primary float-left submit">Change Password</button>
+                                                <button type="submit" [disabled]="changed_password!=retype_password" class="btn btn-primary float-left submit">Change Password</button>
                                             </div>
                                         </div>
                                         <!--end of submit-button-->

@@ -17,7 +17,7 @@ export class ProfileService {
   }
 
   editusers(name) {
-    return this.http.post('http://localhost:3000/updateuser' ,name , '');
+    return this.http.post('http://localhost:3000/updateuser' ,name, '');
   }
 //   uniquenames(name: any){
 //     // console.log('success', name.value) ;
@@ -28,4 +28,8 @@ export class ProfileService {
 //    return   this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} );
 //         // this.errorUseremail = data['success'];
 // }
- }
+ passwordchange(pass){
+   return this.http.post('http://localhost:3000/changepassword' ,pass, '');
+ } 
+
+}

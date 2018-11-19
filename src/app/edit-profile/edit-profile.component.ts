@@ -12,6 +12,7 @@ export class EditProfileComponent implements OnInit {
 
    current_user ;
    current_id;
+   current_mail;
   constructor(
   private profileservices : ProfileService ,
   private cookieservice :  CookieService,
@@ -36,6 +37,7 @@ errormail;
     
     this.current_user = this.cookieservice.get('name');
     this.current_id = this.cookieservice.get('id');
+    this.current_mail = this.cookieservice.get('email');
   //  this.Submit( this.current_user);
     this. getdetail(this.current_user);
     
@@ -74,7 +76,8 @@ errormail;
     this.profileservices.editusers(updateUser.value ).subscribe(response => {
           this.edit = response;
        
-             console.log('eprofiless1' ,this.edit); 
+              console.log('eprofiless1' ,this.edit); 
+            
     })
   
 }
@@ -82,8 +85,8 @@ errormail;
 uniquenames(name: any){
   
   if( name.value == this.current_user) {
-    console.log('true');
-    alert('this is current user name');
+    // console.log('true');
+    // alert('this is current user name');
   }
   else {
     console.log(name.value);
@@ -98,12 +101,24 @@ uniquenames(name: any){
   
   }
   uniqueemail(email:any){
+    if( email.value == this.current_mail) {
+      // console.log('true');
+      // alert('this is current user name');
+    }else{
     this.http.post('http://localhost:3000/uniquename', {name: email.value, field: 'email'} ).subscribe(data =>{
       this.errormail = data['success'];
-  })}
+    })}
+  }
   
-  
- 
+  pass_change : {}
+  submits(changepwd:any ){
+   console.log('fdz',changepwd.value);
+    this.profileservices.passwordchange(changepwd.value ).subscribe(response => {
+      this.pass_change = response;
+   
+         console.log('changes' ,this.pass_change); 
+})
+ }
 
 
 
