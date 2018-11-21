@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
     //  this.searchuser(this.name);
 
   }
-  searchuser(name: any){
+  valueChanged(name: any){
   this.http.post('http://localhost:3000/search/' + name, '').map(res => res.json()).subscribe( response => {
     
       this.list = response['data'];
@@ -53,7 +53,5 @@ export class HeaderComponent implements OnInit {
   
   
   }
-  valueChanged(newVal) {
-    console.log("Case 2: value is changed to ", newVal);
-  }
+  
 }
