@@ -113,9 +113,12 @@
         </ul>
 
        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
+        
+        <div ngui-auto-complete  [source]="list " name = "search" #search  (searchuser)="searchuser(search)">  
+    <input [(ngModel)] ="searches" placeholder="search here" >
+    </div>
+    
+          
         </form>
 
     </div><!--/.nav-collapse -->
