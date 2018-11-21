@@ -17,7 +17,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 import { ToastmsgsService } from './common/toastmsgs.service';
-
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import 'hammerjs';
 //Routing
@@ -94,7 +94,7 @@ const config = new AuthServiceConfig([
     OwlModule ,
     Angular2ImageGalleryModule,
     NguiAutoCompleteModule,
-  
+    Ng2AutoCompleteModule ,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

@@ -6,6 +6,7 @@ import {HeaderService} from './header.service';
 import { Http, Response } from '@angular/http';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import {Observable} from 'rxjs';
 @Component({
@@ -22,7 +23,8 @@ export class HeaderComponent implements OnInit {
   name: any;
  searchres: {};
   myuser : {};
-   list  = [];
+   list = [];
+   
   arrayOfStrings = ['this', 'is', 'list', 'of', 'string', 'element'];
 
   private sub: any;
@@ -43,7 +45,8 @@ export class HeaderComponent implements OnInit {
 
   }
   valueChanged(name: any){
-  this.http.post('http://localhost:3000/search/' + name, '').map(res => res.json()).subscribe( response => {
+// console.log(name.value);
+  this.http.post('http://localhost:3000/search/'  + name, '').map(res => res.json()).subscribe( response => {
     
       this.list = response['data'];
     // this.searchres = response as this.list['data']
@@ -53,5 +56,5 @@ export class HeaderComponent implements OnInit {
   
   
   }
-  
+ 
 }
