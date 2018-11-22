@@ -219,18 +219,15 @@ console.log('userpost',this.userpost)
           $( ".likecount" ).val( count );
           $(".poplikecount").val(count);
         } */
-        alert($("a").hasClass("like"));
         if ($("a").hasClass("like")) {
           $("a").removeClass("like");
           var count = parseInt( $(".likecount").html() );
-          console.log(count);
           count = count-1;
           $( ".likecount" ).html(count );
        }
        else {
           $("a").addClass("like");
           var count = parseInt( $(".likecount").html());
-          console.log(count);
           count = count+1;
           $( ".likecount" ).html(count );
        }
