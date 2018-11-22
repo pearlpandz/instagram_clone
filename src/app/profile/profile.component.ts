@@ -54,8 +54,8 @@ export class ProfileComponent implements OnInit {
   minHeight: string;
   arrowSize: string = '30px';
   showArrows: boolean = true;
-  disableSwiping: boolean =  true ;
-   autoPlay: boolean = false;
+  disableSwiping: boolean = true;
+  autoPlay: boolean = false;
   PlayInterval: number = 100;
   stopAutoPlayOnSlide: boolean = true;
   debug: boolean = false;
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
   width: string = '100%';
 
   // popup variables
-i : any;
+  i: any;
   sampleFile = [];
   likecount: any;
   description: any;
@@ -126,11 +126,11 @@ i : any;
         this.followingc = response[0]['following'].length;
         this.userpost = response[1];
         this.postcount = response[1].length;
-     this.slidepost = response[1];
-//  console.log( this.slidepost );
-//         console.log( this.slidepost );
-// console.log('profile data', this.profile);
-
+        this.slidepost = response[1];
+        //  console.log( this.slidepost );
+        //         console.log( this.slidepost );
+        // console.log('profile data', this.profile);
+console.log('userpost',this.userpost)
 
 
       }
@@ -151,7 +151,7 @@ i : any;
 
 
   popup(data) {
-    // console.log(data);
+    console.log(data);
     this.post_id = data._id;
     this.username = data.username;
     this.likecount = data.likecount;
@@ -162,7 +162,7 @@ i : any;
     this.comments = data.comments;
     this.likeids = data.likeids;
 
-     console.log('asdsddfs', this.slidepost);
+    console.log('asdsddfs', this.slidepost);
 
   }
 
@@ -186,7 +186,7 @@ i : any;
           this.getProfile(this.names);
         }
         else {
-       
+
           console.log(data, 'error')
 
         }
@@ -206,22 +206,44 @@ i : any;
     this.homes.likePost(this.likeinfo[0])
       .map((data: any) => data)
       .subscribe(data => {
-        console.log(data);
+/*         if ($("a").hasClass("like")) {
+          $("a").removeClass("like");
+          var count = $(".likecount").html();
+          count = parseInt(count)-1;
+          $( ".likecount" ).val(count );
+          $(".poplikecount").val(count);
+        } else {
+          $("a").addClass("like");
+          var count = $(".likecount").html();
+          count = parseInt(count)+1;
+          $( ".likecount" ).val( count );
+          $(".poplikecount").val(count);
+        } */
+        alert($("a").hasClass("like"));
+        if ($("a").hasClass("like")) {
+          $("a").removeClass("like");
+          var count = parseInt( $(".likecount").html() );
+          console.log(count);
+          count = count-1;
+          $( ".likecount" ).html(count );
+       }
+       else {
+          $("a").addClass("like");
+          var count = parseInt( $(".likecount").html());
+          console.log(count);
+          count = count+1;
+          $( ".likecount" ).html(count );
+       }
         if (data['status']) {
-
           this.likestatus = data['status'];
-          //  console.log('this.userpost',this.userpost);
-
-
-           console.log(data);
-          this.popup(data);
-
+          //console.log('this.userpost',this.userpost);
+          //console.log(data);
+          //this.popup(data);
         }
         else {
           this.likestatus = data['status'];
-          console.log(data.data);
-          this.popup(data.data);
-
+          console.log('else', data.data);
+         // this.popup(data.data);
         }
       });
   }
@@ -274,24 +296,27 @@ i : any;
       comment_id: comment_id
     }
   }
-  onFileChanged(event){
+  onFileChanged(event) {
     this.uploadData.append('id', this.current_id);
     // console.log( 'hi calling');
     this.selectedFile = event.target.files[0];
     // console.log(this.selectedFile);
     // console.log(event.target.files[0]);
     this.uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-     console.log('uploaddata',this.uploadData);
+    console.log('uploaddata', this.uploadData);
     // this.onUpload(this.uploadData);
- 
-    // console.log(this.current_id);
-    
-    // console.log('upload', this.uploadData);
-        this.homes.uploadSingleImg(this.uploadData).subscribe(data => {
-          // console.log(data);
-          $('#change-photo').modal('toggle');
-          this.getProfile(this.names);
-        });
-  }
 
+    // console.log(this.current_id);
+
+    // console.log('upload', this.uploadData);
+    this.homes.uploadSingleImg(this.uploadData).subscribe(data => {
+      // console.log(data);
+      $('#change-photo').modal('toggle');
+      this.getProfile(this.names);
+    });
+  }
+ /*  popup_close() {
+    this.getProfile(this.names);
+  } */
 };
+
