@@ -113,10 +113,21 @@
         </ul>
 
        <form class="navbar-form navbar-right" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </form>
+    
+    <!-- <div ng2-auto-complete  [source]="list" name = "search" #search  (valueChanged)="valueChanged(search)">  
+ <input  placeholder="search here" value-property-name="key"
+ display-property-name="name" name="searchs" [(ngModel)]="searchs" #search (ngModelChange)="valueChanged(search)" autofocus/>  -->
+    <!-- <input ng2-auto-complete [source]="list"
+    [(ngModel)]="model3"
+    placeholder="enter text"
+    value-property-name="key"
+    display-property-name="name"
+    list-formatter="myListFormatter"
+    #search  (ngModelChange)="valueChanged(search)"/> -->
+    <!-- </div> -->
+    <input auto-complete [source]="list"  name="searchs" [(ngModel)]="searchs" value-property-name="(key)name" 
+    list-formatter="name" display-property-name= "name"  #search  (valueChanged)="valueChanged(search)"  [(ngModel)]="model3"/>
+     </form>
 
     </div><!--/.nav-collapse -->
   </div>

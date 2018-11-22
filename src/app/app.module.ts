@@ -17,6 +17,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 import { ToastmsgsService } from './common/toastmsgs.service';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+
 import 'hammerjs';
 //Routing
 import { AppRoutingModule } from './app.routing';
@@ -26,6 +28,7 @@ import { AgmCoreModule } from '@agm/core';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { OwlModule } from 'ngx-owl-carousel';
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
 //components
 import { ExploreComponent } from './explore/explore.component';
@@ -37,6 +40,7 @@ import { FaqComponent } from './cms/faq/faq.component';
 import { FooterComponent } from './includes/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+
 
 import { CommonModule } from '@angular/common';
 import { ToastrModule, ToastContainerModule  } from 'ngx-toastr';
@@ -89,6 +93,8 @@ const config = new AuthServiceConfig([
     SlideshowModule,
     OwlModule ,
     Angular2ImageGalleryModule,
+    NguiAutoCompleteModule,
+    Ng2AutoCompleteModule ,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
