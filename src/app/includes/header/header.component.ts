@@ -7,7 +7,7 @@ import { Http, Response } from '@angular/http';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-
+import { Router } from "@angular/router";
 import {Observable} from 'rxjs';
 @Component({
   selector: 'app-header',
@@ -16,16 +16,15 @@ import {Observable} from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   //
-  
+  name: any;
+ 
+  list = [];
   
   
   //
-  name: any;
- searchres: {};
-  myuser : {};
-   list = [];
+
    
-  arrayOfStrings = ['this', 'is', 'list', 'of', 'string', 'element'];
+
 
   private sub: any;
   constructor(
@@ -33,6 +32,7 @@ export class HeaderComponent implements OnInit {
     private route: ActivatedRoute,
     private headerservice: HeaderService,
     private http : Http,
+    private router : Router
   ) { }
 
   ngOnInit() {
@@ -46,14 +46,20 @@ export class HeaderComponent implements OnInit {
   }
   valueChanged(name: any){
 // console.log(name.value);
-  this.http.post('http://localhost:3000/search/'  + name, '').map(res => res.json()).subscribe( response => {
+  this.http.post('http://localhost:3000/search/'  + name.value, '').map(res => res.json()).subscribe( response => {
     
       this.list = response['data'];
     // this.searchres = response as this.list['data']
      console.log(this.list );
 
   })
-  
+  this.router.navigateByUrl(name.value).then(e => {
+    if (e) {
+      console.log("Navigation is successful!");
+    } else {
+      console.log("Navigation has failed!");
+    }
+  });
   
   }
  
