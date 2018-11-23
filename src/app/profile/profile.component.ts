@@ -43,10 +43,12 @@ export class ProfileComponent implements OnInit {
   followingc: {};
   names: number;
   private sub: any;
+  _id:any;
   // like: any;
   profile = {};
   userpost = [];
   slidepost = [];
+  modalpost = {};
   popcomment = {};
   selectedFile: File;
   //postts variable
@@ -161,7 +163,7 @@ console.log('userpost',this.userpost)
     this.sampleFile = data.sampleFile;
     this.comments = data.comments;
     this.likeids = data.likeids;
-
+    this.modalpost = data;
     console.log('asdsddfs', this.slidepost);
 
   }
@@ -219,15 +221,15 @@ console.log('userpost',this.userpost)
           $( ".likecount" ).val( count );
           $(".poplikecount").val(count);
         } */
-        if ($("a").hasClass("like")) {
+        var count = parseInt( $(".likecount").html() );
+        console.log($('.heart').parent());
+        if ($("a.heart").hasClass("like") && (count > 0)) {
           $("a").removeClass("like");
-          var count = parseInt( $(".likecount").html() );
           count = count-1;
           $( ".likecount" ).html(count );
        }
        else {
           $("a").addClass("like");
-          var count = parseInt( $(".likecount").html());
           count = count+1;
           $( ".likecount" ).html(count );
        }
@@ -248,7 +250,7 @@ console.log('userpost',this.userpost)
   checklikeid(array, target) {
     // console.log("array", array)
     // console.log('target', target);
-
+if( array !== '' && array !== undefined) {
     for (var i = 0; i < array.length; i++) {
       if (array[i] == target) {
         //  console.log(array, target);
@@ -256,6 +258,7 @@ console.log('userpost',this.userpost)
         return true;
       }
     }
+  }
     //  console.log('false');
     return false;
   }
@@ -312,8 +315,8 @@ console.log('userpost',this.userpost)
       this.getProfile(this.names);
     });
   }
- /*  popup_close() {
+  popup_close() {
     this.getProfile(this.names);
-  } */
+  }
 };
 
