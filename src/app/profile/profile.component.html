@@ -50,7 +50,7 @@
                     <div class="user-photos-column" (click)="popup(qualifica)">
                         <div class="outer-box feed-images">
                                 <ng-container *ngIf="qualifica.show">
-                            <img src="{{qualifica.sampleFile}}" alt="" class="img-responsvie">
+                            <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
                                 </ng-container>
                         </div>
                         <div class="ratio-content">
@@ -79,7 +79,7 @@
 
 <!-- change-photo Modal -->
 <div id="change-photo" class="modal fade" role="dialog">
-    <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+    <button type="button" class="close popup-close" data-dismiss="modal" (onclick)="popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -662,7 +662,7 @@
 
 <!--photo-popup-->
 <div id="photo-popup" class="modal fade" role="dialog">
-    <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+    <button type="button" class="close popup-close" data-dismiss="modal" (click)= "popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
         
 
@@ -685,7 +685,7 @@
                                  <!-- <img src={{sampleFile}} class="pop-img">!-->
                                 
                                  <slideshow #slideshow
-                                 [imageUrls]="singlepost.sampleFile"
+                                 [imageUrls]="modalpost.sampleFile"
                                  [height]="height"
                                  [minHeight]="minHeight"
                                  [arrowSize]="arrowSize"
@@ -713,12 +713,12 @@
                             <div class="comment-like">
                                 <div class="comment-profile">
                                     <div class="user-img float-left">
-                                        <a><img src="{{singlepost.profilepic}}"></a>
+                                        <a><img src="{{modalpost.profilepic}}"></a>
                                     </div>
 
                                     <div class="user-name">
                                         <a href="view-profile.html">
-                                            <h5>{{singlepost.username}}</h5>
+                                            <h5>{{modalpost.username}}</h5>
                                         </a>
                                     </div>
                                 </div>
@@ -728,7 +728,7 @@
                                 <div class="comment-wrap">
                                     <div class="like-count">
                                         <div class="float-left">
-                                            <p class="no-margin"><b class="likecount">{{singlepost.likecount}}
+                                            <p class="no-margin"><b class="likecount">{{modalpost.likecount}}
 
                                                 </b></p>
                                         </div>
@@ -741,7 +741,7 @@
                                     </div>
 
 
-                                    <div class="replay-comment" *ngFor="let comment of singlepost.comments">
+                                    <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
                                         <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
                                     </div>
@@ -754,16 +754,16 @@
 
                                     <div class="input-group">
 
-                                        <span *ngIf="checklikeid(singlepost.likeids, current_id); else elseblock" class="input-group-addon like-btn">
+                                        <span *ngIf="checklikeid(modalpost.likeids, current_id); else elseblock" class="input-group-addon like-btn">
 
-                                            <a class="heart like" (click)="like(post_id, current_id)">
+                                            <a class="heart like" (click)="like(post_id, current_id)" id="{{post_id}}">
                                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                             </a>
                                         </span>
 
                                         <ng-template #elseblock>
                                             <span class="input-group-addon like-btn">
-                                                <a class="heart" (click)="like(singlepost._id, current_id)">
+                                                <a class="heart" (click)="like(modalpost._id, current_id)" id="{{post_id}}">
                                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </a>
                                             </span>
@@ -772,7 +772,7 @@
 
 
                                         <input type="text" class="form-control comment" placeholder="Add a comment..."
-                                            #comment_msg (keyup.enter)="commentpost1(singlepost._id, comment_msg.value, singlepost.username)">
+                                            #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
                                         <span class="input-group-addon more"><a href="#" data-toggle="modal"
                                                 data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
                                     </div>
