@@ -335,7 +335,18 @@ exports.getblockids = function(req,res){
 
 }
 
+exports.allfind = function(req,res){
 
+    users.find({},function(err, user){
+
+if(err){
+    res.send("err no users");
+}else{
+    res.send(user);
+}
+
+    })
+}
 
 exports.uploadSingle = function(req,res){
     var receiveArrayFiles = req.file;

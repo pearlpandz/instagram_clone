@@ -9,6 +9,9 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { Router } from "@angular/router";
 import {Observable} from 'rxjs';
+import { AutocompleteModule } from 'ng2-input-autocomplete';
+declare var jquery: any;
+declare var $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,7 +19,7 @@ import {Observable} from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   //
-  name: any;
+  // name :any;
  
   list = [];
   
@@ -42,25 +45,43 @@ export class HeaderComponent implements OnInit {
   
     //   console.log('checl', this.name);
     //  this.searchuser(this.name);
-
+  this.  getall();
   }
-  valueChanged(name: any){
-// console.log(name.value);
-  this.http.post('http://localhost:3000/search/'  + name.value, '').map(res => res.json()).subscribe( response => {
-    
-      this.list = response['data'];
-    // this.searchres = response as this.list['data']
-     console.log(this.list );
-
+  getall(){
+  this.http.get('http://localhost:3000/findall').map(res => res.json()).subscribe(responses =>{
+         this.searcharray = responses;
+      console.log('alldata',this.searcharray);
+      // console.log('itemssss',this. items2)
   })
-  this.router.navigateByUrl(name.value).then(e => {
-    if (e) {
-      console.log("Navigation is successful!");
-    } else {
-      console.log("Navigation has failed!");
-    }
-  });
+  }
   
+  
+ 
+  name = 'Angular 5';
+  selectedItem: any = '';
+  inputChanged: any = '';
+searcharray : any = '';
+  // items2: any[] = this.searcharray;
+  config2: any = {'placeholder': 'search', 'sourceField': ['name']};
+
+  onSelect(item: any) {
+    // console.log(item.name)
+    window.location.reload();
+    this.selectedItem = item;
+     this.router.navigateByUrl(item.name).then(e => {
+   if (e) {
+
+     console.log("Navigation is successful!");
+   } else {
+     console.log("Navigation has failed!");
+    }
+   });
+  
+  }
+ 
+  onInputChangedEvent(val: string) {
+    
+    this.inputChanged = val;
   }
  
 }

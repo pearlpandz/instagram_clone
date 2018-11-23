@@ -112,12 +112,18 @@
             
         </ul>
 
-       <form class="navbar-form navbar-right" role="search">
+       <!-- <form class="navbar-form navbar-right" role="search">
     
 
         <a > <input auto-complete [source]="list"  name="searchs" [(ngModel)]="searchs" value-property-name="(key)name" 
-     list-formatter="name"   display-property-name= "name"  #search  (valueChanged)="valueChanged(search)"  [(ngModel)]="name" value="{{search.value}}"/></a>
+     list-formatter="name"   display-property-name= "name"  #search  (click)="valueChanged(search)"  [(ngModel)]="name"/></a>
      
+</form> -->
+<form autocomplete="off">
+
+<input autocomplete [config]="config2" [items]="searcharray"
+      (inputChangedEvent)="onInputChangedEvent($event)"
+      (selectEvent)="onSelect($event)">
 </form>
 
     </div><!--/.nav-collapse -->

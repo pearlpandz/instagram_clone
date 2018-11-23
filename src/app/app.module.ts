@@ -18,7 +18,7 @@ import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 import { ToastmsgsService } from './common/toastmsgs.service';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-
+import { AutocompleteModule } from 'ng2-input-autocomplete';
 import 'hammerjs';
 //Routing
 import { AppRoutingModule } from './app.routing';
@@ -95,6 +95,7 @@ const config = new AuthServiceConfig([
     Angular2ImageGalleryModule,
     NguiAutoCompleteModule,
     Ng2AutoCompleteModule ,
+    AutocompleteModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
