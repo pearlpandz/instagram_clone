@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
     this.getblockids(this.homeUserid);
-    this.getpost();
+     this.getpost();
 
   }
 
@@ -199,11 +199,11 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         if (data['status']) {
           this.likestatus = data['status'];
-          this.getpost();
+           this.getpost();
         }
         else {
           this.likestatus = data['status'];
-          this.getpost();
+           this.getpost();
         }
       });
   }
