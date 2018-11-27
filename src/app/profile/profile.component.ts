@@ -157,9 +157,8 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  popup(data, index) {
+  popup(data) {
     console.log(data);
-    this.modelindex = index;
     this.post_id = data._id;
     this.username = data.username;
     this.likecount = data.likecount;
@@ -181,7 +180,7 @@ export class ProfileComponent implements OnInit {
       comment: comment,
       commented_id: this.current_user,
     };
-
+     
     // console.log(commentpost);
 
     this.homes.commentpost(commentpost)
@@ -192,6 +191,8 @@ export class ProfileComponent implements OnInit {
           this.comments = data.data.comments;
           this.el.nativeElement.value = "";
           this.getProfile(this.names);
+          this.modalpost = data.data;
+          console.log(this.modalpost);
         }
         else {
 
