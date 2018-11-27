@@ -48,3 +48,15 @@ a.next{
 
 }
 
+.round {
+    border-radius: 50%;
+}
+.user-profile-inner .user-img img {
+  
+   -o-object-fit: cover;
+    object-fit: cover;
+    background-size: cover;
+    border-radius: 50% 50% 50% 50%;
+    width: 100px;
+    height: 100px;
+}

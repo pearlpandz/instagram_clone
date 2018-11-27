@@ -119,12 +119,36 @@
      list-formatter="name"   display-property-name= "name"  #search  (click)="valueChanged(search)"  [(ngModel)]="name"/></a>
      
 </form> -->
-<form autocomplete="off">
+<form class="navbar-form navbar-right" role="search">
 
-<input autocomplete [config]="config2" [items]="searcharray"
-      (inputChangedEvent)="onInputChangedEvent($event)"
-      (selectEvent)="onSelect($event)">
-</form>
+    <section class="filter-wrapper">
+    <div class="keyword-wrapper">
+       <input name="searchs" [(ngModel)]="searchs"  placeholder="search" #search (ngModelChange)="valueChanged(search)" [(ngModel)]="name" value="{{search.value}}" />
+    </div>
+    <ul class="filter-select" *ngIf="liststatus; else elseblock">
+    <li class="filter-select-list" *ngFor="let list of lists">
+    <a href="{{list.name}}" >
+    <img src="{{list.profilepic}}" alt="" width="50" height="50" class="imgsrc">
+    <p class="artist-name">
+    <b  style="color:black" > {{list.name}}</b><br>
+   <li style="color:#999; font-family :Aclonica; font-weight: 700;">{{list.name}}</li>
+    </p>
+    </a>
+    </li>
+    </ul>
+    
+    <ng-template #elseblock>
+    <ul class="filter-select">
+    <li class="filter-select-list" >
+    <p>
+    No Result Found
+    </p>
+    </li>
+    </ul>
+    </ng-template>
+    </section>
+    
+    </form>
 
     </div><!--/.nav-collapse -->
   </div>
