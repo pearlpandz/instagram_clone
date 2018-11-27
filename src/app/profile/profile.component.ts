@@ -43,7 +43,9 @@ export class ProfileComponent implements OnInit {
   followingc: {};
   names: number;
   private sub: any;
-  _id:any;
+  getafterpostlist: any;
+  getbeforepostlist:any;
+  _id: any;
   // like: any;
   profile = {};
   userpost = [];
@@ -85,6 +87,7 @@ export class ProfileComponent implements OnInit {
   post_id: any;
   current_user: any;
   comments = [];
+  modelindex: any;
   //like variables
 
   likeinfo = [];
@@ -132,7 +135,7 @@ export class ProfileComponent implements OnInit {
         //  console.log( this.slidepost );
         //         console.log( this.slidepost );
         // console.log('profile data', this.profile);
-console.log('userpost',this.userpost)
+        console.log('userpost', this.userpost)
 
 
       }
@@ -151,9 +154,9 @@ console.log('userpost',this.userpost)
 
   }
 
-
-  popup(data) {
+  popup(data, index) {
     console.log(data);
+    this.modelindex = index;
     this.post_id = data._id;
     this.username = data.username;
     this.likecount = data.likecount;
@@ -208,31 +211,31 @@ console.log('userpost',this.userpost)
     this.homes.likePost(this.likeinfo[0])
       .map((data: any) => data)
       .subscribe(data => {
-/*         if ($("a").hasClass("like")) {
-          $("a").removeClass("like");
-          var count = $(".likecount").html();
-          count = parseInt(count)-1;
-          $( ".likecount" ).val(count );
-          $(".poplikecount").val(count);
-        } else {
-          $("a").addClass("like");
-          var count = $(".likecount").html();
-          count = parseInt(count)+1;
-          $( ".likecount" ).val( count );
-          $(".poplikecount").val(count);
-        } */
-        var count = parseInt( $(".likecount").html() );
+        /*         if ($("a").hasClass("like")) {
+                  $("a").removeClass("like");
+                  var count = $(".likecount").html();
+                  count = parseInt(count)-1;
+                  $( ".likecount" ).val(count );
+                  $(".poplikecount").val(count);
+                } else {
+                  $("a").addClass("like");
+                  var count = $(".likecount").html();
+                  count = parseInt(count)+1;
+                  $( ".likecount" ).val( count );
+                  $(".poplikecount").val(count);
+                } */
+        var count = parseInt($(".likecount").html());
         console.log($('.heart').parent());
         if ($("a.heart").hasClass("like") && (count > 0)) {
           $("a").removeClass("like");
-          count = count-1;
-          $( ".likecount" ).html(count );
-       }
-       else {
+          count = count - 1;
+          $(".likecount").html(count);
+        }
+        else {
           $("a").addClass("like");
-          count = count+1;
-          $( ".likecount" ).html(count );
-       }
+          count = count + 1;
+          $(".likecount").html(count);
+        }
         if (data['status']) {
           this.likestatus = data['status'];
           //console.log('this.userpost',this.userpost);
@@ -242,7 +245,7 @@ console.log('userpost',this.userpost)
         else {
           this.likestatus = data['status'];
           console.log('else', data.data);
-         // this.popup(data.data);
+          // this.popup(data.data);
         }
       });
   }
@@ -250,15 +253,15 @@ console.log('userpost',this.userpost)
   checklikeid(array, target) {
     // console.log("array", array)
     // console.log('target', target);
-if( array !== '' && array !== undefined) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] == target) {
-        //  console.log(array, target);
-        // console.log('true'); 
-        return true;
+    if (array !== '' && array !== undefined) {
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] == target) {
+          //  console.log(array, target);
+          // console.log('true'); 
+          return true;
+        }
       }
     }
-  }
     //  console.log('false');
     return false;
   }
@@ -315,8 +318,25 @@ if( array !== '' && array !== undefined) {
       this.getProfile(this.names);
     });
   }
+
+  getnextpost(modelpost_id) {
+    console.log('next',modelpost_id);
+    this.profileservice.postafter(modelpost_id).map( afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
+      this.modalpost = afterpostlist;
+      console.log('here',this.modalpost);
+    });
+  }
+  getprevpost(modelpost_id) {
+    console.log('prev',modelpost_id);
+    this.profileservice.postbefore(modelpost_id).map( beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
+      this.modalpost = beforepostlist;
+      console.log('herei',this.modalpost);
+    });
+  }
   popup_close() {
     this.getProfile(this.names);
   }
+  // get posts by  after id
+
 };
 

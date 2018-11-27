@@ -670,13 +670,14 @@
         <div class="modal-content">
             <div class="modal-body">
 
-                <owl-carousel
+            <!--     <owl-carousel
                     [options]="{items: 1, dots: false, nav: true}"
                     [items]="slidepost"
-                    [carouselClasses]="['owl-theme', 'row', 'sliding']" >
+                    [carouselClasses]="['owl-theme', 'row', 'sliding']" > -->
                     
-                
-                <div class=" item" *ngFor="let singlepost of slidepost;let i = index">
+                    <a  class="previous" (click)="getprevpost(modalpost._id)">&laquo; Previous</a>
+                    <a class="next" (click)="getnextpost(modalpost._id)">Next &raquo;</a>
+                <!-- <div class=" item" *ngFor="let singlepost of slidepost;let i = index"> -->
                     <div class="photo-popup">
                     <div class="photo-popup-inner row no-margin">
                         <div class="col-sm-8 no-padding">
@@ -787,9 +788,9 @@
                     <!--end of photo-popup-inner-->
 
                 </div>
-                </div>
+                <!-- </div> -->
                 <!--end of photo-popup-->
-            </owl-carousel>
+            <!-- </owl-carousel> -->
             </div>
         </div>
 

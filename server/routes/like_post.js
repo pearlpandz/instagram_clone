@@ -82,7 +82,7 @@ exports.likepost = function(req,res){
                                 }
                                 else {
                                     console.log('after notif', data_notifi);
-                                    res.send(data_notifi);
+                                    res.json({data:data_notifi});
                                 }
                         });
 
