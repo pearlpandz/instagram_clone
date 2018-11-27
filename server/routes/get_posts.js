@@ -9,19 +9,25 @@ exports.getpost = function(req,res){
         res.json(err);
       }
       else {
-        res.send(post);
+        res.json(post);
       }  
     });
 };
-exports.singlepostsfter =  function(req,res, next)
+exports.singlepostafter =  function(req,res, next)
 {
   // console.log(req.body.id);
   Posts.findOne({_id: {$gt:(req.body.id) }}).sort({_id: 0 }).limit(1).exec(function(err1,post1){
     // console.log(post1);
 if(err1){
-  res.send('err',err1);
+  res.json({
+    data:err1,
+    msg : false
+  });
 }else{
-  res.send(post1);
+  res.json({
+    data:post1,
+    msg:true
+  });
 }
   })
 }
@@ -31,9 +37,15 @@ exports.singlepostsprevious =  function(req,res, next)
   Posts.findOne({_id: {$lt:(req.body.id) }}).sort({_id: -1}).limit(1).exec(function(err2,post2){
     // console.log(post1);
 if(err2){
-  res.send('err',err2);
+  res.json({
+    data:err2,
+    msg: false
+  });
 }else{
-  res.send(post2);
+  res.json({
+    data:post1,
+    msg:true
+  });
 }
   })
 }
