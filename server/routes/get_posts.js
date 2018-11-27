@@ -43,7 +43,7 @@ if(err2){
   });
 }else{
   res.json({
-    data:post1,
+    data:post2,
     msg:true
   });
 }
