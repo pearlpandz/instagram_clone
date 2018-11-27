@@ -42,32 +42,33 @@ export class HeaderComponent implements OnInit {
   }
   getall() {
     this.http.get('http://localhost:3000/findall').map(res => res.json()).subscribe(responses => {
-      this.searcharray = responses;
-      console.log('alldata', this.searcharray);
-
+    
     })
   }
+  lists = [];
+  liststatus:boolean;
+  valueChanged(name: any){
 
-  selectedItem: any = '';
-  inputChanged: any = '';
-  searcharray: any = '';
-  config2: any = { 'placeholder': 'search', 'sourceField': ['name'] };
-
-  onSelect(item: any) {
-    window.location.reload();
-    this.selectedItem = item;
-    this.router.navigateByUrl(item.name).then(e => {
-      if (e) {
-        console.log("Navigation is successful!");
-      } else {
-        console.log("Navigation has failed!");
-      }
-    });
-  }
-
-  onInputChangedEvent(val: string) {
-
-    this.inputChanged = val;
-  }
-
+    if(name.value){
+    // console.log('input value', name.value);
+    this.http.post('http://localhost:3000/search/' + name.value, '')
+    .map(res => res.json())
+    .subscribe( response => {
+    $('.filter-select').addClass('show');
+    this.lists = response['data'];
+    // this.searchres = response as this.list['data']
+    //  console.log(this.lists );
+    if(this.lists.length > 0) {
+    this.liststatus = true;
+    }
+    else {
+    this.liststatus = false;
+    }
+    })
+    }
+    else {
+    $('.filter-select').removeClass('show');
+    }
+    }
+    
 }
