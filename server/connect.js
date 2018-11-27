@@ -123,7 +123,7 @@ app.post('/edituniquename',create_user.editUniqueName );
 app.get('/findall',create_user.allfind);
 
 //find particular user through URL
-  // app.post('/:name', findusers.finde);
+   app.post('/:name', findusers.finde);
 
 
 // run server
