@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
   profile = {};
   userpost = [];
   slidepost = [];
+  owlpost = [];
   modalpost = {};
   popcomment = {};
   selectedFile: File;
@@ -132,12 +133,9 @@ export class ProfileComponent implements OnInit {
         this.userpost = response[1];
         this.postcount = response[1].length;
         this.slidepost = response[1];
+        this.owlpost = response[1];
         //  console.log( this.slidepost );
         //         console.log( this.slidepost );
-        // console.log('profile data', this.profile);
-        console.log('userpost', this.userpost)
-
-
       }
       )
   }
