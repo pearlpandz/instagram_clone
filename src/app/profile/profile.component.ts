@@ -318,17 +318,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getnextpost(modelpost_id) {
-    console.log('next',modelpost_id);
-    this.profileservice.postafter(modelpost_id).map( afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
+    this.profileservice. postafter(modelpost_id).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
       this.modalpost = afterpostlist;
-      console.log('here',this.modalpost);
     });
   }
   getprevpost(modelpost_id) {
-    console.log('prev',modelpost_id);
-    this.profileservice.postbefore(modelpost_id).map( beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
+    this.profileservice.postbefore(modelpost_id).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
       this.modalpost = beforepostlist;
-      console.log('herei',this.modalpost);
     });
   }
   popup_close() {

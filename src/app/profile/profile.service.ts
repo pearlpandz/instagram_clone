@@ -13,11 +13,11 @@ export class ProfileService {
   getProfile(name) {
     return this.http.post(`http://localhost:3000/` + name, '');
   }
-  postafter(_id) {
-    return this.http.post(`http://localhost:3000/singlepostsafter` , _id, '');
+  postafter(id) {
+    return this.http.post(`http://localhost:3000/singlepostafter` ,{ "id" : id});
   }
-  postbefore(_id) {
-    return this.http.post(`http://localhost:3000/singlepostprevious` , _id, '');
+  postbefore(id) {
+    return this.http.post(`http://localhost:3000/singlepostprevious` ,{ "id" : id});
   }
 
 }
