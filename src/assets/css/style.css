@@ -395,7 +395,8 @@ a.dark:hover,a.dark:focus,a.dark:active{
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 100%;
+  /* width: 100%; */
+  width: 70%;
 }
 .modal-body{
   padding: 0;

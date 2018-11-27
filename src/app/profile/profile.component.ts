@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
   names: number;
   private sub: any;
   getafterpostlist: any;
-  getbeforepostlist:any;
+  getbeforepostlist: any;
   _id: any;
   // like: any;
   profile = {};
@@ -95,8 +95,13 @@ export class ProfileComponent implements OnInit {
   likestatus;
   current_id: any;
   uploadData = new FormData();
+  nextbuttonDisabled: boolean;
+  prevbuttonDisabled: boolean;
   ngOnInit() {
-
+/*     this.nextbuttonDisabled = false;
+    this.prevbuttonDisabled = true; */
+    this.nextbuttonDisabled = true;
+    this.prevbuttonDisabled = false; 
     this.current_user = this.cookieService.get('name');
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
@@ -198,7 +203,6 @@ export class ProfileComponent implements OnInit {
   }
 
   like(post_id, current_userid) {
-
     this.likeinfo = [{
       post_id: post_id,
       current_userid: this.current_id
@@ -318,13 +322,34 @@ export class ProfileComponent implements OnInit {
   }
 
   getnextpost(modelpost_id) {
-    this.profileservice. postafter(modelpost_id).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
-      this.modalpost = afterpostlist;
+    console.log(modelpost_id);
+    this.profileservice.postafter(modelpost_id).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
+      this.getbeforepostlist = afterpostlist.data;
+      if (this.getbeforepostlist) {
+        this.modalpost = this.getbeforepostlist;
+        // this.prevbuttonDisabled = false;
+        this.prevbuttonDisabled = true;
+      } else if (this.getbeforepostlist == null) {
+        /* this.nextbuttonDisabled = true;
+        this.prevbuttonDisabled = false; */
+        this.nextbuttonDisabled = false;
+        this.prevbuttonDisabled = true;
+      }
     });
   }
   getprevpost(modelpost_id) {
     this.profileservice.postbefore(modelpost_id).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
-      this.modalpost = beforepostlist;
+      this.getafterpostlist = beforepostlist.data;
+      if (this.getafterpostlist) {
+        this.modalpost = this.getafterpostlist;
+        // this.nextbuttonDisabled = false;
+        this.nextbuttonDisabled = true;
+      } else if (this.getafterpostlist == null) {
+        /* this.prevbuttonDisabled = true;
+        this.nextbuttonDisabled = false; */
+        this.prevbuttonDisabled = false;
+        this.nextbuttonDisabled = true;
+      }
     });
   }
   popup_close() {
