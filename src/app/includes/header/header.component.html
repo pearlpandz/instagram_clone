@@ -123,7 +123,7 @@
 
     <section class="filter-wrapper">
     <div class="keyword-wrapper">
-       <input name="searchs" [(ngModel)]="searchs"  placeholder="search" #search (ngModelChange)="valueChanged(search)" [(ngModel)]="name" value="{{search.value}}" />
+       <input placeholder="&#61442; Search" class="searchip" name="searchs" [(ngModel)]="searchs" #search (ngModelChange)="valueChanged(search)" [(ngModel)]="name" value="{{search.value}}" />
     </div>
     <ul class="filter-select" *ngIf="liststatus; else elseblock">
     <li class="filter-select-list" *ngFor="let list of lists">

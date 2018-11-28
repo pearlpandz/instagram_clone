@@ -1,3 +1,17 @@
+.wrapper input[type="text"] {
+    position: relative; 
+}
+
+input { font-family: 'FontAwesome'; } /* This is for the placeholder */
+
+.wrapper:before {
+    font-family: 'FontAwesome';
+    color:red;
+    position: relative;
+    left: -10px;
+    content: "\f007";
+}
+
 section.filter-wrapper {
     position: relative;
     }
@@ -38,4 +52,9 @@ section.filter-wrapper {
     .artist-name{
     padding-left: 15px;
    
+    }
+    .searchip{
+        width: 222px;
+        text-align: center;
+        border-radius: 0px;
     }
