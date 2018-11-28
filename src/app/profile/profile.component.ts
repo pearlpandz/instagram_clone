@@ -98,10 +98,10 @@ export class ProfileComponent implements OnInit {
   nextbuttonDisabled: boolean;
   prevbuttonDisabled: boolean;
   ngOnInit() {
-/*     this.nextbuttonDisabled = false;
-    this.prevbuttonDisabled = true; */
+    /*     this.nextbuttonDisabled = false;
+        this.prevbuttonDisabled = true; */
     this.nextbuttonDisabled = true;
-    this.prevbuttonDisabled = false; 
+    this.prevbuttonDisabled = false;
     this.current_user = this.cookieService.get('name');
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
@@ -170,7 +170,6 @@ export class ProfileComponent implements OnInit {
     this.likeids = data.likeids;
     this.modalpost = data;
     console.log('asdsddfs', this.slidepost);
-
   }
 
 
@@ -180,7 +179,7 @@ export class ProfileComponent implements OnInit {
       comment: comment,
       commented_id: this.current_user,
     };
-     
+
     // console.log(commentpost);
 
     this.homes.commentpost(commentpost)
@@ -301,6 +300,16 @@ export class ProfileComponent implements OnInit {
       post_id: postid,
       comment_id: comment_id
     }
+    this.profileservice.deletemodalcomment(deletecomment)
+      .map((data: any) => data.json())
+      .subscribe(data => {
+        if (data) {
+          this.modalpost = data.data;
+        }
+        else {
+          console.log('else', data);
+        }
+      });
   }
   onFileChanged(event) {
     this.uploadData.append('id', this.current_id);

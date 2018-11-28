@@ -721,7 +721,7 @@
 
                                         <div class="float-right">
                                             <a href="#" class="hours">
-                                                8h
+                                                {{modalpost.createdat | timeAgo }}
                                             </a>
                                         </div>
                                     </div>
@@ -729,7 +729,7 @@
 
                                     <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
-                                        <a href="#" class="float-right comment-delete"><i class="fa fa-times"></i></a>
+                                        <a  class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i class="fa fa-times"></i></a>
                                     </div>
 
 

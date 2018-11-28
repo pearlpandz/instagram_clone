@@ -19,5 +19,7 @@ export class ProfileService {
   postbefore(id) {
     return this.http.post(`http://localhost:3000/singlepostprevious` ,{ "id" : id});
   }
-
+  deletemodalcomment(deletecomment){
+    return this.http.post('http://localhost:3000/deletecomment', deletecomment);
+  }
 }

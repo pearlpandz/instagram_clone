@@ -79,7 +79,7 @@
                     <p *ngFor="let comment of post.comments; let i = index;">
                         <a href="view-profile.html" class="dark">{{comment.username}}</a>
 
-                        {{comment.msg}} <span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)">remove</span>
+                        {{comment.msg}} <span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
                     </p>
                 </div>
             </div>

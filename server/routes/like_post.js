@@ -132,7 +132,8 @@ exports.deletecomment = function(req,res){
         else {
             res.send({
                 status: true,
-                msg: 'successfully comment deleted'
+                msg: 'successfully comment deleted',
+                data:comment
             }); 
         }
     })
