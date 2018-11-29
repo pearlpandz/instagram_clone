@@ -113,3 +113,6 @@ textarea:focus {
   display: block;
   transition: 0.3s;
 }
+.loadmore{
+  cursor: pointer;
+}

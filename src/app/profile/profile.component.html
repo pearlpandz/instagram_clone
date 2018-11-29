@@ -780,9 +780,9 @@
             </div>
 
         </div>
-        <a class="previous" (click)="getprevpost(modalpost._id)"  *ngIf="prevbuttonDisabled"><i class="fa fa-angle-left fa-4x"
+        <a class="previous" (click)="getprevpost(modalpost._id,current_id)"  *ngIf="prevbuttonDisabled && postcount > 1"><i class="fa fa-angle-left fa-4x"
             aria-hidden="true"></i> </a>
-    <a class="next" (click)="getnextpost(modalpost._id)"  *ngIf ="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    <a class="next" (click)="getnextpost(modalpost._id,current_id)"  *ngIf ="nextbuttonDisabled && postcount > 1"><i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
     </a>
     </div>
 </div>

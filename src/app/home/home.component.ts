@@ -21,7 +21,8 @@ import { ThrowStmt } from '@angular/compiler';
 
 export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
-
+  pageStart:number = 0;
+  pageEnd:number = 2;
   // variable declaration
   homeName = '';
   homePic = '';
@@ -31,7 +32,7 @@ export class HomeComponent implements OnInit {
   newPost: any = [];
   lat: number;
   lon: number;
-
+  commentlist:number;
   postdata: Array<any> = [];
   selectedFile: Array<File> = [];
   fd = new FormData();
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit {
   userpic;
   userid;
   homeUserid;
-
+  showMore : boolean = true;
   likeinfo = [];
   likecount;
   likestatus;
@@ -274,6 +275,7 @@ export class HomeComponent implements OnInit {
       .map((data: any) => data)
       .subscribe(data => {
         if (data) {
+          this.commentlist = data.length;
           this.getpost();
           // console.log(data);
          
@@ -335,6 +337,9 @@ export class HomeComponent implements OnInit {
   close() {
     $('.mymodal').removeClass('active');
   }
-
+  loadmore () {
+    this.pageEnd = this.commentlist;
+    this.showMore = false;
+  }
 
 }
