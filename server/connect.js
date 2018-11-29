@@ -79,7 +79,7 @@ app.post('/getpost', routes_getposts.getpost);
 //get next post
 app.post('/singlepostafter', routes_getposts.singlepostafter);
 //get previous post
-app.post('/singlepostprevious',routes_getposts.singlepostsprevious);
+app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
 //create user
 app.post('/adduser', create_user.adduser);
 app.post('/socialuser', create_user.socialuser);
@@ -123,7 +123,7 @@ app.post('/edituniquename',create_user.editUniqueName );
 app.get('/findall',create_user.allfind);
 
 //find particular user through URL
-   app.post('/:name', findusers.finde);
+  app.post('/:name', findusers.finde);
 
 
 // run server

@@ -80,8 +80,9 @@ export class HomeComponent implements OnInit {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');
     this.homePic = this.cookieService.get('profilepic');
+    console.log(this.homePic);
     this.homeUserid = this.cookieService.get('id');
-    // console.log(this.homeUserid);
+     console.log('apic',  this.homePic);
 
     navigator.geolocation.getCurrentPosition((position) => {
       // console.log("Got position", position.coords);
@@ -99,7 +100,7 @@ export class HomeComponent implements OnInit {
     this.username = this.cookieService.get('name');
     // console.log(this.userid);
     this.userpic = this.cookieService.get('profilepic')
-    // console.log(this.userpic);
+    console.log('cvbnm,',this.userpic);
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
     this.getblockids(this.homeUserid);
