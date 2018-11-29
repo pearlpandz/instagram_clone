@@ -8,6 +8,7 @@ body {background: #eee;}
   margin: 15px auto;
   padding: 15px;
   box-sizing: border-box;
+
 }
 .post-box .btn-container {
   padding: 10px;
@@ -26,6 +27,8 @@ body {background: #eee;}
 .post-box img {
   display: inline-block;
   border-radius: 50%;
+  object-fit: cover;
+  background-size: cover;
 }
 .post-box .btn-container .btn i 
 {margin-right: 8px;vertical-align: bottom;}

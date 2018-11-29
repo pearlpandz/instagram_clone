@@ -20,32 +20,50 @@ exports.singlepostafter =  function(req,res, next)
     // console.log(post1);
 if(err1){
   res.json({
-    data:err1,
+    data: err1,
     msg : false
   });
 }else{
-  res.json({
-    data:post1,
-    msg:true
-  });
+  if(req.body.userid == post1.userid){
+    // res.send(post1);
+    Posts.findOne({_id: {$gt:(req.body.id) }}).sort({_id: 0 }).limit(1).exec(function(err2,post2){
+if(err2){
+  res.json({data:err2,
+  message: false})
+}else{
+  res.json({data: post2})
+}  })
+ }else{
+   res.json({message:'not a current user'});
+  
+}
 }
   })
 }
 exports.singlepostsprevious =  function(req,res, next)
 {
   // console.log(req.body.id);
-  Posts.findOne({_id: {$lt:(req.body.id) }}).sort({_id: -1}).limit(1).exec(function(err2,post2){
+  Posts.findOne({_id: {$lt:(req.body.id) }}).sort({_id: -1 }).limit(1).exec(function(err1,post1){
     // console.log(post1);
-if(err2){
+if(err1){
   res.json({
-    data:err2,
-    msg: false
+    data: err1,
+    msg : false
   });
 }else{
-  res.json({
-    data:post2,
-    msg:true
-  });
+  if(req.body.userid == post1.userid){
+    // res.send(post1);
+    Posts.findOne({_id: {$lt:(req.body.id) }}).sort({_id: -1 }).limit(1).exec(function(err2,post2){
+if(err2){
+  res.json({data:err2,
+  message: false})
+}else{
+  res.json({data: post2})
+}  })
+ }else{
+   res.json({message:'not a current user'});
+  
+}
 }
   })
 }

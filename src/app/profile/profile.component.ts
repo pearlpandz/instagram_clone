@@ -33,6 +33,9 @@ export class ProfileComponent implements OnInit {
     private homes: HomeService,
     private http: HttpClient,
   ) { }
+
+  //cookie variables
+  profilepics:any;
   name: '';
   email: '';
   followercount: '';
@@ -106,8 +109,8 @@ export class ProfileComponent implements OnInit {
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
     // this.profileEmail = this.cookieService.get('email');
-    // this.profilePic = this.cookieService.get('profilepic');
-    // console.log(this.profilePic);
+    this.profilepics = this.cookieService.get('profilepic');
+    console.log(this.profilepics);
 
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
@@ -132,6 +135,7 @@ export class ProfileComponent implements OnInit {
         // console.log(this.profile);
         this.name = response[0]['name'];
         this.pic = response[0]['profilepic'];
+        this.cookieService.set('profilepic', response[0]['profilepic']);
         this.email = response[0]['email'];
         this.followersc = response[0]['followers'].length;
         this.followingc = response[0]['following'].length;
