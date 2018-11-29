@@ -13,11 +13,11 @@ export class ProfileService {
   getProfile(name) {
     return this.http.post(`http://localhost:3000/` + name, '');
   }
-  postafter(id) {
-    return this.http.post(`http://localhost:3000/singlepostafter` ,{ "id" : id});
+  postafter(id,userid) {
+    return this.http.post(`http://localhost:3000/singlepostafter` ,{ "id" : id, "userid":userid});
   }
-  postbefore(id) {
-    return this.http.post(`http://localhost:3000/singlepostprevious` ,{ "id" : id});
+  postbefore(id, userid) {
+    return this.http.post(`http://localhost:3000/singlepostprevious` ,{ "id" : id,"userid": userid});
   }
   deletemodalcomment(deletecomment){
     return this.http.post('http://localhost:3000/deletecomment', deletecomment);

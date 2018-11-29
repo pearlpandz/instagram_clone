@@ -34,7 +34,10 @@ if(err2){
   res.json({data: post2})
 }  })
  }else{
-   res.json({message:'not a current user'});
+   res.json({
+    data: err1,
+    message:'not a current user'
+    });
   
 }
 }

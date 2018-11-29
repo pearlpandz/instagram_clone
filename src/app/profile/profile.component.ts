@@ -335,9 +335,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getnextpost(modelpost_id) {
-    console.log(modelpost_id);
-    this.profileservice.postafter(modelpost_id).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
+  getnextpost(modelpost_id,current_userid) {
+    // console.log(modelpost_id);
+    this.profileservice.postafter(modelpost_id, current_userid).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
       this.getbeforepostlist = afterpostlist.data;
       if (this.getbeforepostlist) {
         this.modalpost = this.getbeforepostlist;
@@ -346,13 +346,15 @@ export class ProfileComponent implements OnInit {
       } else if (this.getbeforepostlist == null) {
         /* this.nextbuttonDisabled = true;
         this.prevbuttonDisabled = false; */
+        //  this.getnextpost(modelpost_id,current_userid) 
         this.nextbuttonDisabled = false;
         this.prevbuttonDisabled = true;
+        console.log(this.getafterpostlist)
       }
     });
   }
-  getprevpost(modelpost_id) {
-    this.profileservice.postbefore(modelpost_id).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
+  getprevpost(modelpost_id,current_userid) {
+    this.profileservice.postbefore(modelpost_id, current_userid).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
       this.getafterpostlist = beforepostlist.data;
       if (this.getafterpostlist) {
         this.modalpost = this.getafterpostlist;
