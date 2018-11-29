@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   selectedFile: Array<File> = [];
   fd = new FormData();
   urls = new Array<string>();
-
+  post_ids : any;
   post_create: any;
 
   username;
@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
   lazyLoad: boolean = true;
   hideOnNoSlides: boolean = true;
   width: string = '100%';
+  count_like : number;
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');
@@ -179,14 +180,13 @@ export class HomeComponent implements OnInit {
 
 
   // get post
-  getpost() {
+  getpost():any {
     this.homeService.getPost()
       .map((data: any) => data)
       .subscribe(data => {
         this.postdata = data;
         //console.log(this.postdata);
         this.post_create = data.createdat;
-
       });
   }
 
@@ -199,14 +199,26 @@ export class HomeComponent implements OnInit {
     this.homeService.likePost(this.likeinfo[0])
       .map((data: any) => data)
       .subscribe(data => {
-        if (data['status']) {
-          this.likestatus = data['status'];
-           this.getpost();
+        this.post_ids = data.data._id;
+        this.count_like = data.data.likecount;
+        console.log(data);
+        if($('#'+this.post_ids+'').find('a.heart').hasClass('like')){
+          alert("dislike");
+          $('#'+this.post_ids+'').find("a.heart").removeClass("like");
+          $('#'+this.post_ids+'').find(".likecount").html(this.count_like);
+        } else if($('#'+this.post_ids+'').find("span").hasClass("like-btn")) {
+          alert("like");
+          $('#'+this.post_ids+'').find("a.heart").addClass("like");
+          $('#'+this.post_ids+'').find("span").removeClass("like-btn");
+          $('#'+this.post_ids+'').find(".likecount").html(this.count_like);
         }
-        else {
+/*         if (data['status']) {
           this.likestatus = data['status'];
-           this.getpost();
-        }
+            this.getpost();
+        } else {
+          this.likestatus = data['status'];
+          this.getpost();
+        } */
       });
   }
 
