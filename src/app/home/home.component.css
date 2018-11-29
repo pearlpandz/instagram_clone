@@ -1,118 +1,149 @@
-body {background: #eee;}
-.post-box {
-  max-width: 600px;
-  background: #fff;
-  text-align: center;
-  border-radius: 3px;
-  border: 1px solid #efefef;
-  margin: 15px auto;
-  padding: 15px;
-  box-sizing: border-box;
+body {
+    background: #eee;
+}
 
+.post-box {
+    max-width: 600px;
+    background: #fff;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #efefef;
+    margin: 15px auto;
+    padding: 15px;
+    box-sizing: border-box;
 }
+
 .post-box .btn-container {
-  padding: 10px;
-  text-align: left;
+    padding: 10px;
+    text-align: left;
 }
-.post-box .btn-container .btn 
-{background: #f7f7f7;width: 18%;outline: none;text-align: left;border: none;padding: 10px 18px;border-radius: 25px;color: #777;cursor: pointer;margin: 0 5px;}
-.post-box .btn-container .btn:hover 
-{background: #eee;}
+
+.post-box .btn-container .btn {
+    background: #f7f7f7;
+    width: 18%;
+    outline: none;
+    text-align: left;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    color: #777;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.post-box .btn-container .btn:hover {
+    background: #eee;
+}
+
 .post-box textarea {
-  border: none;
-  background: transparent;
-  resize: none;color: #888;padding: 15px;box-sizing: border-box;display: inline-block;width: 80%;vertical-align: top;
-  box-shadow: none;
+    border: none;
+    background: transparent;
+    resize: none;
+    color: #888;
+    padding: 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 80%;
+    vertical-align: top;
+    box-shadow: none;
 }
+
 .post-box img {
-  display: inline-block;
-  border-radius: 50%;
-  object-fit: cover;
-  background-size: cover;
+    display: inline-block;
+    border-radius: 50%;
+    object-fit: cover;
+    background-size: cover;
 }
-.post-box .btn-container .btn i 
-{margin-right: 8px;vertical-align: bottom;}
-.post-box .btn-container button.btn.bntn 
-{width: auto;}
-.post-box .btn-container button.btn.bntn i 
-{margin: 0;}
+
+.post-box .btn-container .btn i {
+    margin-right: 8px;
+    vertical-align: bottom;
+}
+
+.post-box .btn-container button.btn.bntn {
+    width: auto;
+}
+
+.post-box .btn-container button.btn.bntn i {
+    margin: 0;
+}
 
 .mymodal {
-  display: none;
+    display: none;
 }
 
 .mymodal.active {
-  display: block;
-  position: fixed;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-  z-index: 10;
+    display: block;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    z-index: 10;
 }
 
 .modal .post-box {
-  margin: 0;
+    margin: 0;
 }
 
 textarea:focus {
-  outline: none;
+    outline: none;
 }
 
-
 .mybutton {
-  background: rgba(0, 0, 0, 0.5);
-  border: 0;
-  padding: 10px;
-  width: 100px;
-  margin-left: 10px;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 0px 0px rgba(0,0,0,0.15);
-  text-align: center;
-  display: inline-block;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0;
+    padding: 10px;
+    width: 100px;
+    margin-left: 10px;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    display: inline-block;
 }
 
 .mybutton.submit {
-  background: #FF9800;
+    background: #FF9800;
 }
 
 .mybutton.submit[disabled] {
-  background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .post-box .preview_img img {
-  border-radius: 0 !important;
-  object-fit: contain;
+    border-radius: 0 !important;
+    object-fit: contain;
 }
 
 .preview-img {
-  background: #f7f7f7;
-  margin-right: 5px;
-  display: inline-block;
-  padding: 5px;
-  position: relative;
+    background: #f7f7f7;
+    margin-right: 5px;
+    display: inline-block;
+    padding: 5px;
+    position: relative;
 }
 
 .preview-img .remove {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #e5e5e5;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  color: black;
-  cursor: pointer;
-  display: none;
-  transition: 0.3s;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e5e5e5;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: black;
+    cursor: pointer;
+    display: none;
+    transition: 0.3s;
 }
 
 .preview-img:hover .remove {
-  display: block;
-  transition: 0.3s;
+    display: block;
+    transition: 0.3s;
 }
-.loadmore{
-  cursor: pointer;
+
+.loadmore {
+    cursor: pointer;
 }
