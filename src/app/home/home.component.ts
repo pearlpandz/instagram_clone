@@ -195,31 +195,33 @@ export class HomeComponent implements OnInit {
       post_id: post_id.value,
       current_userid: current_userid.value
     }];
+    console.log( $('#'+post_id.value).find('#heart') );
+    console.log( $('#'+post_id.value).find('#heart').hasClass('like') );
 
-    this.homeService.likePost(this.likeinfo[0])
+    if( $('#'+post_id.value).find('#heart').hasClass('like') ){
+      alert("dislike");
+      this.homeService.likePost(this.likeinfo[0])
       .map((data: any) => data)
       .subscribe(data => {
-        this.post_ids = data.data._id;
         this.count_like = data.data.likecount;
-        console.log(data);
-        if($('#'+this.post_ids+'').find('a.heart').hasClass('like')){
-          alert("dislike");
-          $('#'+this.post_ids+'').find("a.heart").removeClass("like");
-          $('#'+this.post_ids+'').find(".likecount").html(this.count_like);
-        } else if($('#'+this.post_ids+'').find("span").hasClass("like-btn")) {
-          alert("like");
-          $('#'+this.post_ids+'').find("a.heart").addClass("like");
-          $('#'+this.post_ids+'').find("span").removeClass("like-btn");
-          $('#'+this.post_ids+'').find(".likecount").html(this.count_like);
-        }
-/*         if (data['status']) {
-          this.likestatus = data['status'];
-            this.getpost();
-        } else {
-          this.likestatus = data['status'];
-          this.getpost();
-        } */
+        console.log(''+this.count_like);
+        $('#'+post_id.value).find("#heart").removeClass("like");
+        $('#'+post_id.value).find(".likecount").text(''+data.data.likecount);
       });
+    } 
+    
+    else {
+      alert("like");
+      this.homeService.likePost(this.likeinfo[0])
+      .map((data: any) => data)
+      .subscribe(data => {
+        this.count_like = data.likecount;
+        console.log(''+this.count_like);
+        $('#'+post_id.value).find("#heart").addClass("like");
+        console.log($('#'+post_id.value).find(".likecount").text(''+data.likecount));
+        $('#'+post_id.value).find(".likecount").text(''+data.likecount);
+      });
+    }
   }
 
   checklikeid(array, target) {
