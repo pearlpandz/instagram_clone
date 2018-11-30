@@ -11,109 +11,140 @@
     </div>
 
     <div *ngFor='let post of postdata;let i=index;' (deferLoad)="post.show = true">
-        <ng-container *ngIf="post.show">
-            <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)" id="{{post._id}}">
-                <div class="row feed-head no-margin">
+            <ng-container *ngIf="post.show">
+        <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)" id="{{post._id}}">
+            <div class="row feed-head no-margin">
 
-                    <input class="form-control" type="hidden" id="post_id" name="post_id" value="{{post._id}}" #post_id />
+                <input class="form-control" type="hidden" id="post_id" name="post_id" value="{{post._id}}" #post_id />
 
-                    <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
+                <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
 
-                    <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}" #current_userid />
+                <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}"
+                    #current_userid />
 
-                    <div class="left">
-                        <div class="user-img">
+                <div class="left">
+                    <div class="user-img">
 
-                            <a href="view-profile.html">
-                                <img src="{{homePic}}">
-                            </a>
-                        </div>
-                        <div class="user-name">
-                            <a routerLink="/{{post.username}}">
-                                <h5>{{post.username}}</h5>
-                                <p>{{post.location}}</p>
-                            </a>
-                        </div>
+                        <a href="view-profile.html">
+                            <img src="{{homePic}}">
+                        </a>
                     </div>
+                    <div class="user-name">
+                        <a routerLink="/{{post.username}}">
+                            <h5>{{post.username}}</h5>
+                            <p>{{post.location}}</p>
+                        </a>
+                    </div>
+                </div>
 
-                    <div class="right">
-                        <a href="#">
+                <div class="right">
+                    <a href="#">
                         {{post.createdat | timeAgo }}
                     </a>
+                </div>
+
+            </div>
+
+            <div class="row feed-image no-margin"  lazy-load-images>
+                <!-- {{post.sampleFile}} -->
+                <!-- <img src="post.sampleFile" alt=""> -->
+            <slideshow #slideshow
+            [imageUrls]="post.sampleFile"
+            [height]="height"
+            [minHeight]="minHeight"
+            [arrowSize]="arrowSize"
+            [showArrows]="showArrows"
+            [disableSwiping]="disableSwiping"
+            [autoPlay]="autoPlay"
+            [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
+            [debug]="debug"
+            [backgroundSize]="backgroundSize"
+            [backgroundPosition]="backgroundPosition"
+            [backgroundRepeat]="backgroundRepeat"
+            [showDots]="showDots"
+            [dotColor]="dotColor"
+            [showCaptions]="showCaptions"
+            [captionColor]="captionColor"
+            [captionBackground]="captionBackground"
+            [lazyLoad]="lazyLoad"
+            [hideOnNoSlides]="hideOnNoSlides">
+ </slideshow>
+            </div>
+
+            <div class="row feed-content no-margin">
+                <h5 *ngIf="post.likecount>0"><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
+                <p><a href="#" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
+                <!-- <p class="view-comments">View all comments</p> -->
+                <div class="feed-comments">
+                    <p *ngFor="let comment of post.comments ; let i = index;">
+                        <a  href="view-profile.html" class="dark">{{comment.username}}</a>
+
+                        <span  class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
+                    </p>
+                    <!-- <a class="loadmore" (click)="loadmore(post._id)" *ngIf="showMore">Load More</a> -->
+                </div>
+<!--                 <div id="panel-group">
+                    <div class="panel panel-default" *ngFor="let item of post.comments; let i = index">
+                      <div class="panel-heading" (click) = "current = i">
+                        loadmore
+                      </div>
+                       <div id="collapse1" class="panel-collapse" [class.collapse]='current != i'>
+                        <div class="panel-body">{{item.msg}}</div>
+                      </div>
                     </div>
+                  </div> -->
+            </div>
 
-                </div>
+            <div class="row feed-footer no-margin">
 
-                <div class="row feed-image no-margin" lazy-load-images>
-                    <!-- {{post.sampleFile}} -->
-                    <!-- <img src="post.sampleFile" alt=""> -->
-                    <slideshow #slideshow [imageUrls]="post.sampleFile" [height]="height" [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug"
-                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor" [captionBackground]="captionBackground"
-                        [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
-                    </slideshow>
-                </div>
+                <div class="input-group">
 
-                <div class="row feed-content no-margin">
-                    <h5 *ngIf="post.likecount>0 || count_like > 0"><span class="count dark likecount">{{post.likecount  || count_like}}</span> likes</h5>
-                    <p><a href="#" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
-                    <!-- <p class="view-comments">View all comments</p> -->
-                    <div class="feed-comments">
-                        <p *ngFor="let comment of post.comments | slice:pageStart:pageEnd; let i = index;">
-                            <a href="view-profile.html" class="dark">{{comment.username}}</a> {{comment.msg}} <span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
-                        </p>
-                        <a class="loadmore" (click)="loadmore()" *ngIf="showMore">Load More</a>
-                    </div>
-                </div>
+                    <span *ngIf="checklikeid(post.likeids, homeUserid); else elseblock" class="input-group-addon like-btn">
 
-                <div class="row feed-footer no-margin">
-
-                    <div class="input-group">
-
-                        <span *ngIf="checklikeid(post.likeids, homeUserid); else elseblock" class="input-group-addon like-btn">
-
-                        <a class="like" id="heart" (click)="like(post_id, current_userid)">
+                        <a class="heart like" (click)="like(post_id, current_userid)">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                         </a>
                     </span>
 
-                        <ng-template #elseblock>
-                            <span class="input-group-addon like-btn">
-                            <a class="" id="heart" (click)="like(post_id, current_userid)">
+                    <ng-template #elseblock>
+                        <span class="input-group-addon like-btn">
+                            <a class="heart" (click)="like(post_id, current_userid)">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                             </a>
                         </span>
-                        </ng-template>
+                    </ng-template>
 
-                        <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
-                        <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
+                    <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg
+                        (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
+                    <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
                         <a (click)="modalclick(post._id)">
                             <i class="ion-ios-more-outline"></i>
                         </a>
                     </span>
-                    </div>
                 </div>
+            </div>
 
-                <div id="{{post._id}}" class="mymodal">
-                    <div class="modal_all">
-                        <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
-                        <div class="modal-dialog">
+            <div id="{{post._id}}" class="mymodal">
+                <div class="modal_all">
+                    <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+                    <div class="modal-dialog">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">More Action</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <a class="full" (click)="blockuser(homeUserid ,post.userid)">Block</a>
-                                    <a class="full no-border" data-dismiss="modal" (click)="close()">Cancel</a>
-                                </div>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">More Action</h4>
+                            </div>
+                            <div class="modal-body">
+                                <a class="full" (click)="blockuser(homeUserid ,post.userid)">Block</a>
+                                <a class="full no-border" data-dismiss="modal" (click)="close()">Cancel</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </ng-container>
+</ng-container>
     </div>
 </div>
 
@@ -129,44 +160,48 @@
         <div class="modal-content">
 
             <div class="post-box">
-                <form (ngSubmit)="postSubmit(newPost)" #newPost="ngForm" id="newPost">
-                    <div class="post_textarea">
-                        <img width="45px" height="45px" src="{{homePic}}">
-                        <textarea class="form-control" id="description" required [(ngModel)]="description" name="description" placeholder="Write Something Here.."></textarea>
-                        <div class="preview_img">
-                            <div *ngFor="let url of urls; let i=index;" class="preview-img">
-                                <img width="100" height="100" src="{{url}}" alt="">
-                                <span class="remove" (click)="remove(i)">
+                    <form (ngSubmit)="postSubmit(newPost)" #newPost="ngForm" id="newPost">
+                        <div class="post_textarea">
+                            <img width="45px" height="45px" src="{{homePic}}">
+                            <textarea class="form-control" id="description" required [(ngModel)]="description" name="description" placeholder="Write Something Here.."></textarea>
+                            <div class="preview_img">
+                                <div *ngFor="let url of urls; let i=index;" class="preview-img">
+                                    <img width="100" height="100" src="{{url}}" alt="">
+                                    <span class="remove" (click)="remove(i)">
                                         <i class="fa fa-times" aria-hidden="true"></i>
                                     </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location" value="{{location}}" />
-                    <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username" value="{{username}}" />
-                    <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic" value="{{userpic}}" />
-                    <input class="form-control" type="hidden" id="userid" name="userid" [(ngModel)]="userid" value="{{userid}}" />
+                        <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location"
+                                value="{{location}}" />
+                        <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username"
+                                value="{{username}}" />
+                        <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic"
+                                value="{{userpic}}" />
+                        <input class="form-control" type="hidden" id="userid" name="userid" [(ngModel)]="userid"
+                                value="{{userid}}" />
 
-                    <div class="btn-container">
-                        <label class="btn bnt1" for="sampleFile">
+                                <div class="btn-container">
+                                        <label class="btn bnt1" for="sampleFile">
                                             <input type="file" style="display: none" id="sampleFile" name="sampleFile" [(ngModel)]="sampleFile" required multiple (change)="onFileSelected($event);readUrl($event)" />
                                             <i class="fa fa-file-image-o" aria-hidden="true"></i>Photo
                                         </label>
-                        <!-- <button class="btn bnt1"><i class="fa fa-file-video-o" aria-hidden="true"></i>video</button>
+                                        <!-- <button class="btn bnt1"><i class="fa fa-file-video-o" aria-hidden="true"></i>video</button>
                                         <button class="btn bnt1"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i>Gif</button>
                                         <button class="btn bntn"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button> -->
-                    </div>
+                                    </div>
+                
+                                    <div class="submit-button">
+                                        <button type="submit" class="mybutton submit" [disabled]="!newPost.form.valid">Post</button>
+                                        <a class="mybutton cancel" (click)="close()">Cancel</a>
+                                    </div>
 
-                    <div class="submit-button">
-                        <button type="submit" class="mybutton submit" [disabled]="!newPost.form.valid">Post</button>
-                        <a class="mybutton cancel" (click)="close()">Cancel</a>
-                    </div>
-
-                </form>
+                    </form>
 
 
-
-            </div>
+                    
+                </div>
 
             <!-- <div class="modal-header">
                 <h4 class="modal-title">Write Post</h4>
