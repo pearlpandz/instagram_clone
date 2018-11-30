@@ -15,6 +15,7 @@ const newPostSchema = new mongoose.Schema({
         default: 0
     },
     likeids: [],
+    postids:[],
     comments: [
         {   
             username: { type: String },
