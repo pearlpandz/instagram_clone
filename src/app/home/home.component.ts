@@ -271,6 +271,7 @@ export class HomeComponent implements OnInit {
     this.homeService.deletecomment(deletecomment)
       .map((data: any) => data)
       .subscribe(data => {
+        this.commentlist = data.data.comments.length;
          for(var i in this.postdata){
           if(this.postdata[i]._id == data.data._id){
             this.postdata[i] = data.data;
@@ -295,12 +296,14 @@ export class HomeComponent implements OnInit {
     this.homeService.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
+        this.commentlist = data.data.comments.length;
         this.datapost = data.data;
         for(var i in this.postdata){
           if(this.postdata[i]._id == this.datapost._id){
             this.postdata[i] = this.datapost;
           }
         }
+
        /*  this.datapost.forEach((key) => {
          console.log(key);
         }) */
