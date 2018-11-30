@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
   pageStart:number = 0;
   pageEnd:number = 2;
+  current: number = 0;
   // variable declaration
   homeName = '';
   homePic = '';
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
   newPost: any = [];
   lat: number;
   lon: number;
+  datapost : any;
   commentlist:number;
   postdata: Array<any> = [];
   selectedFile: Array<File> = [];
@@ -269,12 +271,18 @@ export class HomeComponent implements OnInit {
     this.homeService.deletecomment(deletecomment)
       .map((data: any) => data)
       .subscribe(data => {
-        if (data) {
+        this.commentlist = data.data.comments.length;
+         for(var i in this.postdata){
+          if(this.postdata[i]._id == data.data._id){
+            this.postdata[i] = data.data;
+          }
+        } 
+        /* if (data) {
           this.getpost();
         }
         else {
           this.getpost();
-        }
+        } */
       });
   }
 
@@ -288,7 +296,19 @@ export class HomeComponent implements OnInit {
     this.homeService.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
-        if (data) {
+        this.commentlist = data.data.comments.length;
+        this.datapost = data.data;
+        for(var i in this.postdata){
+          if(this.postdata[i]._id == this.datapost._id){
+            this.postdata[i] = this.datapost;
+          }
+        }
+
+       /*  this.datapost.forEach((key) => {
+         console.log(key);
+        }) */
+        // this.postdata = data.response;
+       /*  if (data) {
           this.commentlist = data.length;
           this.getpost();
           // console.log(data);
@@ -297,7 +317,7 @@ export class HomeComponent implements OnInit {
         else {
           console.log('error')
           this.getpost();
-        }
+        } */
       });
 
   }
@@ -351,9 +371,13 @@ export class HomeComponent implements OnInit {
   close() {
     $('.mymodal').removeClass('active');
   }
-  loadmore () {
-    this.pageEnd = this.commentlist;
-    this.showMore = false;
+  loadmore (commentpost_id) {
+    //$(this).find('.commentmore').toggle();
+    console.log(commentpost_id);
+    $('#'+ commentpost_id).find('.commentmore').toggle(500,function(){
+      this.pageEnd = this.commentlist;
+      this.showMore = false;
+    });
   }
 
 }
