@@ -20,7 +20,20 @@ exports.create = function(req,res){
             console.log(err);
         }
         else {
-            res.json({id: result['_id'] });
+            // res.json({id: result['_id'] });
+        Posts.findOneAndUpdate({userid: req.body.userid}, { $push: { postids: result } },function(err1,post1){
+            if(err1){
+                res.send('err')
+            }else{
+                res.json({
+                    id: result['_id'],
+                     data:post1
+                  }  )
+            }
+
+
+        })
+            
         }
     });  
   };
