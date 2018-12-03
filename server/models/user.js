@@ -28,6 +28,7 @@ const newUserSchema = new mongoose.Schema({
     bio: {type: String},
     phonenumber: {type: String},
     gender: {type: String},
+    postids: [],
     
     notification: [
         {   
