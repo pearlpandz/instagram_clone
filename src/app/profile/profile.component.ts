@@ -171,8 +171,8 @@ postindex:number;
     console.log(data);
    
      this.postindex = i;
-    //  console.log("index",this.postindex );
-    
+     console.log("index",this.postindex );
+    this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
     this.username = data.username;
     this.likecount = data.likecount;
@@ -184,7 +184,6 @@ postindex:number;
     this.likeids = data.likeids;
       this.modalpost = data;
     //  this.modalpost = this.getbeforepostlist;
-    this. getnextpost(  this.current_id ,this.postindex);
     console.log('popup',  this.modalpost);
 
   }
@@ -348,9 +347,14 @@ postindex:number;
     });
   }
 //get next post
-  getnextpost( current_userid,index) {
-   
-      console.log(current_userid,index)
+  getnextpost( current_userid,postindex) {
+    this.likeinfo = [{
+
+        id: current_userid,
+        indexid: this.postindex,
+      }];
+
+      console.log( this.likeinfo )
     //  this.profileservice.postafter(this.likeinfo[0]).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
     //   this.getbeforepostlist = afterpostlist;
     //   // console.log("data", this.getbeforepostlist);
