@@ -78,8 +78,8 @@ app.post('/uploadSingle', upload.single('myFile'), create_user.uploadSingle);
 app.post('/getpost', routes_getposts.getpost);
 //get next post
 app.post('/singlepostafter', routes_getposts.singlepostafter);
-//get previous post
-// app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
+// get previous post
+app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
 //create user
 app.post('/adduser', create_user.adduser);
 app.post('/socialuser', create_user.socialuser);

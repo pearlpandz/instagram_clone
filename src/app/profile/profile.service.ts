@@ -18,9 +18,9 @@ export class ProfileService {
   postafter(data) {
     return this.http.post(`http://localhost:3000/singlepostafter` ,data);
   }
-  // postbefore(id) {
-  //   return this.http.post(`http://localhost:3000/singlepostprevious` ,{ "id" : id});
-  // }
+  postbefore(id) {
+    return this.http.post(`http://localhost:3000/singlepostprevious` ,id);
+  }
   deletemodalcomment(deletecomment){
     return this.http.post('http://localhost:3000/deletecomment', deletecomment);
   }
