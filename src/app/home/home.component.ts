@@ -7,11 +7,10 @@ import 'rxjs/Rx';
 import { CookieService } from 'ngx-cookie-service';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import {SlideshowModule} from 'ng-simple-slideshow';
-
-
 // service calling
 import { HomeService } from './home.service';
 import { ThrowStmt } from '@angular/compiler';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -48,6 +47,7 @@ export class HomeComponent implements OnInit {
   homeUserid;
   showMore : boolean = true;
   likeinfo = [];
+  limit : number;
   likecount;
   likestatus;
   blockids = [];
@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
     private http: HttpClient,
     private homeService: HomeService, //home service for {create post, get post}
     private cookieService: CookieService,
+    private spinner: NgxSpinnerService
   ) {
   }
   height: string = '400px';
@@ -271,10 +272,16 @@ export class HomeComponent implements OnInit {
     this.homeService.deletecomment(deletecomment)
       .map((data: any) => data)
       .subscribe(data => {
+
         this.commentlist = data.data.comments.length;
          for(var i in this.postdata){
           if(this.postdata[i]._id == data.data._id){
-            this.postdata[i] = data.data;
+            this.spinner.show();
+            setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.postdata[i] = data.data;
+                this.spinner.hide();
+            }, 9000);
           }
         } 
         /* if (data) {

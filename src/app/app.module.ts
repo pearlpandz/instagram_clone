@@ -50,6 +50,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
+import { NgxSpinnerModule } from 'ngx-spinner';
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -96,6 +97,7 @@ const config = new AuthServiceConfig([
     NguiAutoCompleteModule,
     Ng2AutoCompleteModule ,
     AutocompleteModule,
+    NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

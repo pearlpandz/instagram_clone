@@ -147,3 +147,6 @@ textarea:focus {
 .loadmore {
     cursor: pointer;
 }
+.black-overlay {
+    position : fixed;
+}
