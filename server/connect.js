@@ -52,6 +52,7 @@ const findusers = require('./routes/find_user');
 const editusers = require('./routes/edit_user');
 const nodemail = require('./routes/nodemail');
 const changepass = require('./routes/pwd_change');
+const explore = require('./routes/explore');
 
 // file upload multer function
 var upload = multer({
@@ -80,6 +81,7 @@ app.post('/getpost', routes_getposts.getpost);
 app.post('/singlepostafter', routes_getposts.singlepostafter);
 //get previous post
 app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
+app.post('/notes',routes_getposts.notes)
 //create user
 app.post('/adduser', create_user.adduser);
 app.post('/socialuser', create_user.socialuser);
@@ -125,6 +127,8 @@ app.get('/findall',create_user.allfind);
 //find particular user through URL
  app.post('/:name', findusers.finde);
 
+//explore 
+app.post('/getpost', explore.exploreposts);
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
