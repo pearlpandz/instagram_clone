@@ -18,8 +18,7 @@
 
                     <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
 
-                    <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}"
-                        #current_userid />
+                    <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}" #current_userid />
 
                     <div class="left">
                         <div class="user-img">
@@ -47,12 +46,9 @@
                 <div class="row feed-image no-margin" lazy-load-images>
                     <!-- {{post.sampleFile}} -->
                     <!-- <img src="post.sampleFile" alt=""> -->
-                    <slideshow #slideshow [imageUrls]="post.sampleFile" [height]="height" [minHeight]="minHeight"
-                        [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay"
-                        [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug" [backgroundSize]="backgroundSize"
-                        [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots"
-                        [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor"
-                        [captionBackground]="captionBackground" [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
+                    <slideshow #slideshow [imageUrls]="post.sampleFile" [height]="height" [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug"
+                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor" [captionBackground]="captionBackground"
+                        [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
                     </slideshow>
                 </div>
 
@@ -71,8 +67,7 @@
                     <div>
                         <div *ngFor="let comment of post.comments | slice:pageStart:pageEnd">
                             <a href="view-profile.html" class="dark">{{comment.username}}</a>
-                            <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
-                                (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span> </div>
+                            <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span> </div>
                         <!--                         <div class="panel-heading" (click)="current = i" *ngIf="commentlist > 3">
                             <a *ngIf="current != i">View More Comments</a>
                             <div id="collapse1" class="panel-collapse" [class.collapse]='current != i'>
@@ -90,18 +85,15 @@
                             <div id="accordion">
                                 <div class="card">
                                     <div class="card-header">
-                                        <a class="card-link" data-toggle="collapse" href="#collapseOne{{post._id}}"
-                                            *ngIf="post.comments.length > 2">
+                                        <a class="card-link" data-toggle="collapse" href="#collapseOne{{post._id}}" *ngIf="post.comments.length > 2">
                                             View More <span *ngIf="post.comments.length > 0">{{post.comments.length -
                                                 2}}</span> Comments</a>
                                     </div>
                                     <div id="collapseOne{{post._id}}" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
-                                            <div *ngFor="let comment of post.comments | slice:pageEnd:commentlist; let i = index"><a
-                                                    href="view-profile.html" class="dark">{{comment.username}}</a>
+                                            <div *ngFor="let comment of post.comments | slice:pageEnd:commentlist; let i = index"><a href="view-profile.html" class="dark">{{comment.username}}</a>
 
-                                                <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
-                                                    (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
+                                                <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
                                             </div>
                                             <ngx-spinner bdColor="" size="small" color="#000" type="ball-square-spin"></ngx-spinner>
                                         </div>
@@ -132,8 +124,7 @@
                             </span>
                         </ng-template>
 
-                        <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg
-                            (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
+                        <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
                         <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
                             <a (click)="modalclick(post._id)">
                                 <i class="ion-ios-more-outline"></i>
@@ -181,8 +172,7 @@
                 <form (ngSubmit)="postSubmit(newPost)" #newPost="ngForm" id="newPost">
                     <div class="post_textarea">
                         <img width="45px" height="45px" src="{{homePic}}">
-                        <textarea class="form-control" id="description" required [(ngModel)]="description" name="description"
-                            placeholder="Write Something Here.."></textarea>
+                        <textarea class="form-control" id="description" required [(ngModel)]="description" name="description" placeholder="Write Something Here.."></textarea>
                         <div class="preview_img">
                             <div *ngFor="let url of urls; let i=index;" class="preview-img">
                                 <img class="removeimage" width="100" height="100" src="{{url}}" alt="">
@@ -192,10 +182,8 @@
                             </div>
                         </div>
                     </div>
-                    <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location"
-                        value="{{location}}" />
-                    <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username"
-                        value="{{username}}" />
+                    <input class="form-control" type="hidden" id="location" name="location" [(ngModel)]="location" value="{{location}}" />
+                    <input class="form-control" type="hidden" id="username" name="username" [(ngModel)]="username" value="{{username}}" />
                     <input class="form-control" type="hidden" id="userpic" name="userpic" [(ngModel)]="userpic" value="{{userpic}}" />
                     <input class="form-control" type="hidden" id="userid" name="userid" [(ngModel)]="userid" value="{{userid}}" />
 

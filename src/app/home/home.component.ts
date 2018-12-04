@@ -9,6 +9,7 @@ import { HomeService } from './home.service';
 declare var jquery: any;
 declare var $: any;
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -116,6 +117,7 @@ export class HomeComponent implements OnInit {
   onFileSelected(event: any) {
 
     this.selectedFile = <Array<File>>event.target.files;
+    console.log(this.selectedFile);
     // for (var i = 0; i < this.selectedFile.length; i++) {
     //   this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     // }
@@ -145,7 +147,7 @@ export class HomeComponent implements OnInit {
     array.splice(index, 1);
     this.urls.splice(index, 1);
     this.selectedFile = array;
-    // console.log(this.selectedFile);
+    console.log(this.selectedFile);
 
     for (let i = 0; i < this.selectedFile.length; i++) {
       this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
@@ -157,6 +159,7 @@ export class HomeComponent implements OnInit {
 
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
+    // console.log(newPost.value, 'before post form data');
     this.homeService.createPost(newPost.value).subscribe(data => {
       if (!data['id']) {
         console.log("something went wrong");
@@ -166,28 +169,34 @@ export class HomeComponent implements OnInit {
         for (var i = 0; i < this.selectedFile.length; i++) {
           this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
         }
-        console.log(this.selectedFile);
+        // console.log(this.selectedFile);
         this.fd.append('_id', data['id']);
+        // console.log(this.fd, 'fd before push data');
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
           //  this.getpost();
-          console.log('data', data);
+          // console.log('data', data);
           // this.postdata.push(data);
           this.postdata.splice(0, 0, data);
-          console.log('push data', this.postdata);
+          // console.log('push data', this.postdata);
 
           $("#write-post").hide();
           $("#write-post").modal('toggle');
-          this.formValues.resetForm();
-          this.urls = [''];
-          console.log('selected',this.selectedFile);
-          console.log('fd',this.fd);
-          $('.preview-img img').html("");
-          $('.removeimage').val("");
-          $(this).find('form').trigger('reset');
+
+          this.urls = [];
+          // console.log('url array', this.urls);
+
+          
+          // console.log('selectedFile', this.selectedFile);
+          $("#description").val('');
+          this.fd.delete('sampleFile');
+          this.fd.delete('_id');
+          // console.log('this.fd data', this.fd);
         });
       }
     });
   }
+
+
   // get post
   getpost(): any {
     this.skipdata = {
