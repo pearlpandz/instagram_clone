@@ -350,22 +350,24 @@ export class ProfileComponent implements OnInit {
   }
   //get next post
   getnextpost(current_userid, postindex) {
+  
     this.likeinfo = [{
 
       id: current_userid,
       indexid: this.ipostindex,
     }];
-
+         
     console.log(this.likeinfo);
     this.profileservice.postafter(this.likeinfo[0]).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
       this.getafterpostlist = afterpostlist;
       // console.log("data", this.getafterpostlist);
       this.modalpost = this.getafterpostlist;
       console.log("buttoncall", this.likeinfo[0], this.modalpost)
-      this.increment(this.ipostindex);
+     
 
 
     });
+    this.increment(this.ipostindex);
   }
 
   increment(postindex) {
@@ -374,17 +376,19 @@ export class ProfileComponent implements OnInit {
   }
 
   decrement(postindex) {
-    this.dpostindex--;
-    console.log('dgyu', this.dpostindex);
+    this.ipostindex--;
+    console.log('dgyu', this.ipostindex);
   }
   getprevpost(current_userid, postindex) {
+   
     this.likeinfo = [{
 
       id: current_userid,
-      indexid: this.dpostindex,
+      indexid: this.ipostindex,
     }];
+    
     console.log("buttoncall", this.likeinfo);
-    this.decrement(this.dpostindex);
+   
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
       this.getbeforepostlist = beforepostlist;
       //  console.log("data", this.getbeforepostlist);
@@ -392,9 +396,10 @@ export class ProfileComponent implements OnInit {
       this.modalpost =  this.getbeforepostlist
       console.log("buttoncalld", this.likeinfo[0], this.modalpost)
 
-
+     
 
     });
+    this.decrement(this.ipostindex);
   }
 
   // getafterpostlist: any;
