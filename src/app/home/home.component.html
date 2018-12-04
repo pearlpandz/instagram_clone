@@ -9,7 +9,6 @@
                   <button class="btn bntn"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>!
                 </div> -->
     </div>
-
     <div *ngFor='let post of postdata;let i=index;' (deferLoad)="post.show = true">
         <ng-container *ngIf="post.show">
             <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)" id="{{post._id}}">
@@ -58,7 +57,7 @@
                 </div>
 
                 <div class="row feed-content no-margin">
-                    <h5 *ngIf="post.likecount>0"><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
+                    <h5><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
                     <p><a href="#" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
                     <!-- <p class="view-comments">View all comments</p> -->
                     <!--                 <div class="feed-comments">
@@ -186,7 +185,7 @@
                             placeholder="Write Something Here.."></textarea>
                         <div class="preview_img">
                             <div *ngFor="let url of urls; let i=index;" class="preview-img">
-                                <img width="100" height="100" src="{{url}}" alt="">
+                                <img class="removeimage" width="100" height="100" src="{{url}}" alt="">
                                 <span class="remove" (click)="remove(i)">
                                     <i class="fa fa-times" aria-hidden="true"></i>
                                 </span>
