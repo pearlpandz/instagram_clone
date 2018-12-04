@@ -47,9 +47,9 @@
             <div class="user-photos-inner row no-margin">
 
                 <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true">
-                    <div class="user-photos-column" (click)="popup(qualifica)">
+                    <div class="user-photos-column" (click)="popup(qualifica,i)">
                         <div class="outer-box feed-images">
-                            <ng-container *ngIf="qualifica.show">
+                            <ng-container *ngIf="qualifica.show">{{i}}
                                 <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
                             </ng-container>
                         </div>
@@ -385,6 +385,7 @@
                 <!--end of follow-list-->
             </div>
             <!--end of modal-body-->
+
         </div>
 
     </div>
@@ -780,9 +781,11 @@
             </div>
 
         </div>
-        <a class="previous" (click)="getprevpost(modalpost._id,current_id)"  *ngIf="prevbuttonDisabled && postcount > 1"><i class="fa fa-angle-left fa-4x"
-            aria-hidden="true"></i> </a>
-    <a class="next" (click)="getnextpost(modalpost._id,current_id)"  *ngIf ="nextbuttonDisabled && postcount > 1"><i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
-    </a>
+     <div class="buttonclass" >
+   <a class="previous" (click)="getprevpost(current_id,i)"  ><i class="fa fa-angle-left fa-4x"
+            aria-hidden="true"></i>index {{i}}</a>
+    <a class="next" (click)="getnextpost(current_id,i)"  ><i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+        index{{i}} </a>
+    </div>
     </div>
 </div>

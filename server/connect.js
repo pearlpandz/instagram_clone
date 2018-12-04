@@ -81,7 +81,6 @@ app.post('/getpost', routes_getposts.getpost);
 app.post('/singlepostafter', routes_getposts.singlepostafter);
 //get previous post
 app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
-app.post('/notes',routes_getposts.notes)
 //create user
 app.post('/adduser', create_user.adduser);
 app.post('/socialuser', create_user.socialuser);

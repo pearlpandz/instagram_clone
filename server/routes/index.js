@@ -2,7 +2,7 @@ const router = require('express').Router();
 // var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
-
+const users = require('../models/user');//create user schema
 exports.create = function(req,res){
 
     let post = new Posts ({
@@ -21,7 +21,7 @@ exports.create = function(req,res){
         }
         else {
             // res.json({id: result['_id'] });
-        Posts.findOneAndUpdate({userid: req.body.userid}, { $push: { postids: result } },function(err1,post1){
+        users.findOneAndUpdate({_id: req.body.userid}, { $push: { postids:  {_id: result['_id'] }}},function(err1,post1){
             if(err1){
                 res.send('err')
             }else{

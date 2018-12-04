@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, ToastrComponentlessModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -33,9 +33,11 @@ export class ProfileComponent implements OnInit {
     private homes: HomeService,
     private http: HttpClient,
   ) { }
-
+  //
+  ipostindex: number;
+  dpostindex: number;
   //cookie variables
-  profilepics:any;
+  profilepics: any;
   name: '';
   email: '';
   followercount: '';
@@ -79,7 +81,8 @@ export class ProfileComponent implements OnInit {
   lazyLoad: boolean = true;
   hideOnNoSlides: boolean = true;
   width: string = '100%';
-
+  postids = [];
+  j: any;
   // popup variables
   i: any;
   sampleFile = [];
@@ -100,6 +103,10 @@ export class ProfileComponent implements OnInit {
   uploadData = new FormData();
   nextbuttonDisabled: boolean;
   prevbuttonDisabled: boolean;
+
+  //counter values
+  counterValue = 0;
+  nextpost: any;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
         this.prevbuttonDisabled = true; */
@@ -161,8 +168,13 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  popup(data) {
+  popup(data, i) {
     console.log(data);
+
+    this.ipostindex = i;
+    this.dpostindex = i;
+    console.log("index", this.ipostindex);
+    // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
     this.username = data.username;
     this.likecount = data.likecount;
@@ -173,7 +185,9 @@ export class ProfileComponent implements OnInit {
     this.comments = data.comments;
     this.likeids = data.likeids;
     this.modalpost = data;
-    console.log('asdsddfs', this.slidepost);
+    //  this.modalpost = this.getbeforepostlist;
+    console.log('popup', this.modalpost);
+
   }
 
 
@@ -334,38 +348,62 @@ export class ProfileComponent implements OnInit {
       this.getProfile(this.names);
     });
   }
+  //get next post
+  getnextpost(current_userid, postindex) {
+  
+    this.likeinfo = [{
 
-  getnextpost(modelpost_id) {
-    console.log(modelpost_id);
-    this.profileservice.postafter(modelpost_id).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
-      this.getbeforepostlist = afterpostlist.data;
-      if (this.getbeforepostlist) {
-        this.modalpost = this.getbeforepostlist;
-        // this.prevbuttonDisabled = false;
-        this.prevbuttonDisabled = true;
-      } else if (this.getbeforepostlist == null) {
-        /* this.nextbuttonDisabled = true;
-        this.prevbuttonDisabled = false; */
-        this.nextbuttonDisabled = false;
-        this.prevbuttonDisabled = true;
-      }
+      id: current_userid,
+      indexid: this.ipostindex,
+    }];
+         
+    console.log(this.likeinfo);
+    this.profileservice.postafter(this.likeinfo[0]).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
+      this.getafterpostlist = afterpostlist;
+      // console.log("data", this.getafterpostlist);
+      this.modalpost = this.getafterpostlist;
+      console.log("buttoncall", this.likeinfo[0], this.modalpost)
+     
+
+
     });
+    this.increment(this.ipostindex);
   }
-  getprevpost(modelpost_id) {
-    this.profileservice.postbefore(modelpost_id).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
-      this.getafterpostlist = beforepostlist.data;
-      if (this.getafterpostlist) {
-        this.modalpost = this.getafterpostlist;
-        // this.nextbuttonDisabled = false;
-        this.nextbuttonDisabled = true;
-      } else if (this.getafterpostlist == null) {
-        /* this.prevbuttonDisabled = true;
-        this.nextbuttonDisabled = false; */
-        this.prevbuttonDisabled = false;
-        this.nextbuttonDisabled = true;
-      }
+
+  increment(postindex) {
+    this.ipostindex++;
+    console.log('igyu', this.ipostindex);
+  }
+
+  decrement(postindex) {
+    this.ipostindex--;
+    console.log('dgyu', this.ipostindex);
+  }
+  getprevpost(current_userid, postindex) {
+   
+    this.likeinfo = [{
+
+      id: current_userid,
+      indexid: this.ipostindex,
+    }];
+    
+    console.log("buttoncall", this.likeinfo);
+   
+    this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
+      this.getbeforepostlist = beforepostlist;
+      //  console.log("data", this.getbeforepostlist);
+      
+      this.modalpost =  this.getbeforepostlist
+      console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+
+     
+
     });
+    this.decrement(this.ipostindex);
   }
+
+  // getafterpostlist: any;
+  // getbeforepostlist: any;
   popup_close() {
     this.getProfile(this.names);
   }
