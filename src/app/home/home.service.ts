@@ -9,7 +9,7 @@ export class HomeService {
   constructor(
     private http: HttpClient,
   ) { }
-  
+
   createPost(postdata) {
     return this.http.post('http://localhost:3000/post', postdata);
   }
@@ -22,29 +22,29 @@ export class HomeService {
     return this.http.post('http://localhost:3000/uploadSingle', postdata);
   }
 
-  getPost() {
+  getPost(skip) {
     // console.log();
-    return this.http.post('http://localhost:3000/getpost', '');
+    return this.http.post('http://localhost:3000/getpost', skip);
   }
 
-  likePost(likeinfo){
+  likePost(likeinfo) {
     // console.log(likeinfo);
     return this.http.post('http://localhost:3000/likepost', likeinfo);
   }
 
-  commentpost(commentpost){
+  commentpost(commentpost) {
     return this.http.post('http://localhost:3000/commentpost', commentpost);
   }
 
-  deletecomment(deletecomment){
+  deletecomment(deletecomment) {
     return this.http.post('http://localhost:3000/deletecomment', deletecomment);
   }
 
-  getblockids(userinfo){
+  getblockids(userinfo) {
     return this.http.post('http://localhost:3000/getblockids', userinfo);
   }
 
-  blockuser(userinfo){
+  blockuser(userinfo) {
     return this.http.post('http://localhost:3000/blockuser', userinfo);
   }
 

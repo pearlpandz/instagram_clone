@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef ,Output, EventEmitter} from '@angular/core';
 // import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-declare var jquery: any;
-declare var $: any;
-import 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
-import {SlideshowModule} from 'ng-simple-slideshow';
+import { NgxSpinnerService } from 'ngx-spinner';
+import 'rxjs/Rx';
 // service calling
 import { HomeService } from './home.service';
-import { ThrowStmt } from '@angular/compiler';
-import { NgxSpinnerService } from 'ngx-spinner';
+declare var jquery: any;
+declare var $: any;
+
 
 @Component({
   selector: 'app-home',
@@ -20,9 +18,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
-  pageStart:number = 0;
-  pageEnd:number = 2;
+  pageStart: number = 0;
+  pageEnd: number = 2;
   current: number = 0;
+  i: number = 0;
   // variable declaration
   homeName = '';
   homePic = '';
@@ -32,26 +31,27 @@ export class HomeComponent implements OnInit {
   newPost: any = [];
   lat: number;
   lon: number;
-  datapost : any;
-  commentlist:number;
+  datapost: any;
+  commentlist: number;
   postdata: Array<any> = [];
+  postlist: Array<any> = [];
   selectedFile: Array<File> = [];
   fd = new FormData();
   urls = new Array<string>();
-  post_ids : any;
+  post_ids: any;
   post_create: any;
 
   username;
   userpic;
   userid;
   homeUserid;
-  showMore : boolean = true;
+  showMore: boolean = true;
   likeinfo = [];
-  limit : number;
+  limit: number;
   likecount;
   likestatus;
   blockids = [];
-
+  skip: number = 0;
   constructor(
     private http: HttpClient,
     private homeService: HomeService, //home service for {create post, get post}
@@ -63,8 +63,8 @@ export class HomeComponent implements OnInit {
   minHeight: string;
   arrowSize: string = '30px';
   showArrows: boolean = true;
-  disableSwiping: boolean =  true ;
-   autoPlay: boolean = false;
+  disableSwiping: boolean = true;
+  autoPlay: boolean = false;
   PlayInterval: number = 100;
   stopAutoPlayOnSlide: boolean = true;
   debug: boolean = false;
@@ -80,7 +80,8 @@ export class HomeComponent implements OnInit {
   lazyLoad: boolean = true;
   hideOnNoSlides: boolean = true;
   width: string = '100%';
-  count_like : number;
+  count_like: number;
+  skipdata: any;
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');
@@ -109,13 +110,14 @@ export class HomeComponent implements OnInit {
     this.userid = this.cookieService.get('id');
     // console.log(this.userid);
     this.getblockids(this.homeUserid);
-     this.getpost();
+    this.getpost();
 
   }
 
   onFileSelected(event: any) {
 
     this.selectedFile = <Array<File>>event.target.files;
+    console.log(this.selectedFile);
     // for (var i = 0; i < this.selectedFile.length; i++) {
     //   this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     // }
@@ -141,41 +143,54 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < this.selectedFile.length; i++) {
       array.push(this.selectedFile[i]);
     }
-    
+
     array.splice(index, 1);
     this.urls.splice(index, 1);
     this.selectedFile = array;
-    // console.log(this.selectedFile);
-    
+    console.log(this.selectedFile);
+
     for (let i = 0; i < this.selectedFile.length; i++) {
       this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     }
 
-    
-    
+
+
   }
 
   // post data submitted -> first save data, then image upload
   postSubmit(newPost: any) {
+    // console.log(newPost.value, 'before post form data');
     this.homeService.createPost(newPost.value).subscribe(data => {
       if (!data['id']) {
         console.log("something went wrong");
       }
       else {
-        
+
         for (var i = 0; i < this.selectedFile.length; i++) {
           this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
         }
-        console.log(this.selectedFile);
-
+        // console.log(this.selectedFile);
         this.fd.append('_id', data['id']);
+        // console.log(this.fd, 'fd before push data');
         this.homeService.uploadPostImg(this.fd).subscribe(data => {
-          this.getpost();
+          //  this.getpost();
+          // console.log('data', data);
+          // this.postdata.push(data);
+          this.postdata.splice(0, 0, data);
+          // console.log('push data', this.postdata);
 
           $("#write-post").hide();
           $("#write-post").modal('toggle');
-          this.formValues.resetForm();
-          this.urls = [''];
+
+          this.urls = [];
+          // console.log('url array', this.urls);
+
+          
+          // console.log('selectedFile', this.selectedFile);
+          $("#description").val('');
+          this.fd.delete('sampleFile');
+          this.fd.delete('_id');
+          // console.log('this.fd data', this.fd);
         });
       }
     });
@@ -183,13 +198,20 @@ export class HomeComponent implements OnInit {
 
 
   // get post
-  getpost():any {
-    this.homeService.getPost()
+  getpost(): any {
+    this.skipdata = {
+      skip: this.skip
+    }
+    this.homeService.getPost(this.skipdata)
       .map((data: any) => data)
       .subscribe(data => {
-        this.postdata = data;
-        //console.log(this.postdata);
-        this.post_create = data.createdat;
+        console.log('before push', data.data);
+        for (var i in data.data) {
+          this.postdata.push(data.data[i]);
+        }
+        console.log('afterpush', this.postdata)
+        this.post_create = data.data.createdat;
+        this.skip = data.skip;
       });
   }
 
@@ -198,37 +220,31 @@ export class HomeComponent implements OnInit {
       post_id: post_id.value,
       current_userid: current_userid.value
     }];
-    console.log( $('#'+post_id.value).find('#heart') );
-    console.log( $('#'+post_id.value).find('#heart').hasClass('like') );
+    console.log($('#' + post_id.value).find('#heart'));
+    console.log($('#' + post_id.value).find('#heart').hasClass('like'));
 
-    if( $('#'+post_id.value).find('#heart').hasClass('like') ){
-      alert("dislike");
+    if ($('#' + post_id.value).find('.heart').hasClass('like')) {
       this.homeService.likePost(this.likeinfo[0])
-      .map((data: any) => data)
-      .subscribe(data => {
-        this.count_like = data.data.likecount;
-        console.log(''+this.count_like);
-        $('#'+post_id.value).find("#heart").removeClass("like");
-        $('#'+post_id.value).find(".likecount").text(''+data.data.likecount);
-      });
-    } 
-    
+        .map((data: any) => data)
+        .subscribe(data => {
+          this.count_like = data.data.likecount;
+          $('#' + post_id.value).find(".heart").removeClass("like");
+          $('#' + post_id.value).find(".likecount").html(data.data.likecount);
+        });
+    }
     else {
-      alert("like");
       this.homeService.likePost(this.likeinfo[0])
-      .map((data: any) => data)
-      .subscribe(data => {
-        this.count_like = data.likecount;
-        console.log(''+this.count_like);
-        $('#'+post_id.value).find("#heart").addClass("like");
-        console.log($('#'+post_id.value).find(".likecount").text(''+data.likecount));
-        $('#'+post_id.value).find(".likecount").text(''+data.likecount);
-      });
+        .map((data: any) => data)
+        .subscribe(data => {
+          this.count_like = data.likecount;
+          $('#' + post_id.value).find(".heart").addClass("like");
+          $('#' + post_id.value).find(".likecount").text(data.likecount);
+        });
     }
   }
 
   checklikeid(array, target) {
-   // console.log("him working")
+    // console.log("him working")
     for (var i = 0; i < array.length; i++) {
       if (array[i] === target) {
         return true;
@@ -274,16 +290,16 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
 
         this.commentlist = data.data.comments.length;
-         for(var i in this.postdata){
-          if(this.postdata[i]._id == data.data._id){
+        for (var i in this.postdata) {
+          if (this.postdata[i]._id == data.data._id) {
             this.spinner.show();
             setTimeout(() => {
-                /** spinner ends after 5 seconds */
-                this.postdata[i] = data.data;
-                this.spinner.hide();
+              /** spinner ends after 5 seconds */
+              this.postdata[i] = data.data;
+              this.spinner.hide();
             }, 9000);
           }
-        } 
+        }
         /* if (data) {
           this.getpost();
         }
@@ -305,26 +321,26 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
-        for(var i in this.postdata){
-          if(this.postdata[i]._id == this.datapost._id){
+        for (var i in this.postdata) {
+          if (this.postdata[i]._id == this.datapost._id) {
             this.postdata[i] = this.datapost;
           }
         }
 
-       /*  this.datapost.forEach((key) => {
-         console.log(key);
-        }) */
+        /*  this.datapost.forEach((key) => {
+          console.log(key);
+         }) */
         // this.postdata = data.response;
-       /*  if (data) {
-          this.commentlist = data.length;
-          this.getpost();
-          // console.log(data);
-         
-        }
-        else {
-          console.log('error')
-          this.getpost();
-        } */
+        /*  if (data) {
+           this.commentlist = data.length;
+           this.getpost();
+           // console.log(data);
+          
+         }
+         else {
+           console.log('error')
+           this.getpost();
+         } */
       });
 
   }
@@ -368,8 +384,6 @@ export class HomeComponent implements OnInit {
         }
       });
   }
-
-
   modalclick(id) {
     // alert(id)
     $('#' + id).toggleClass('active');
@@ -378,13 +392,20 @@ export class HomeComponent implements OnInit {
   close() {
     $('.mymodal').removeClass('active');
   }
-  loadmore (commentpost_id) {
+  loadmore(commentpost_id) {
     //$(this).find('.commentmore').toggle();
     console.log(commentpost_id);
-    $('#'+ commentpost_id).find('.commentmore').toggle(500,function(){
+    $('#' + commentpost_id).find('.commentmore').toggle(500, function () {
       this.pageEnd = this.commentlist;
       this.showMore = false;
     });
+  }
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      // you're at the bottom of the page
+      this.getpost();
+    }
   }
 
 }
