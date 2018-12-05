@@ -108,8 +108,9 @@ export class ProfileComponent implements OnInit {
   //counter values
   counterValue;
   nextshow: boolean = true;
-  ivar:any;
   previousshow: boolean = true;
+  ivar: any;
+ 
   selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
@@ -176,7 +177,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
 
     this.ipostindex = i;
-    this.dpostindex = this.ipostindex;
+  
     console.log("index", this.ipostindex);
     // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
@@ -191,6 +192,20 @@ export class ProfileComponent implements OnInit {
     this.modalpost = data;
     //  this.modalpost = this.getbeforepostlist;
     console.log('popup', this.modalpost);
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+     
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
+ 
 
   }
 
@@ -368,9 +383,21 @@ export class ProfileComponent implements OnInit {
 
       this.modalpost = this.getafterpostlist;
       console.log("buttoncall", this.likeinfo[0], this.modalpost);
-    // console.log('else',afterpostlist.data);
-     
+      // console.log('else',afterpostlist.data);
+      
     });
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
   }
 
   getprevpost(current_userid, postindex) {
@@ -378,19 +405,32 @@ export class ProfileComponent implements OnInit {
       id: current_userid,
       indexid: this.ipostindex -= 1
     }];
-                 
+
     // console.log("buttoncall", this.likeinfo);
-
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
-      this.getbeforepostlist = beforepostlist;
+    this.getbeforepostlist = beforepostlist;
 
-      this.modalpost = this.getbeforepostlist
-      // console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+    this.modalpost = this.getbeforepostlist
+  
+     console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+     
+     
 
     });
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
   }
-  // getafterpostlist: any;
-  // getbeforepostlist: any;
+
   popup_close() {
     this.getProfile(this.names);
   }

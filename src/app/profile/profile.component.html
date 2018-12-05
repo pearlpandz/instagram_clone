@@ -730,7 +730,8 @@
 
                                     <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
-                                        <a  class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i class="fa fa-times"></i></a>
+                                        <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
+                                                class="fa fa-times"></i></a>
                                     </div>
 
 
@@ -777,14 +778,14 @@
                 <!-- </div> -->
                 <!--end of photo-popup-->
                 <!-- </owl-carousel> -->
-        
+
             </div>
 
         </div>
 
-   <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="previousshow"> <i class="fa fa-angle-left fa-4x"
-            aria-hidden="true"></i></a>
-    <a class="next" (click)="getnextpost(current_id,i)" *ngIf="nextshow" ><i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
-        index{{i}} </a>
+        <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x"
+                aria-hidden="true"></i></a>
+        <a class="next" (click)="getnextpost(current_id,i)" *ngIf="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x"
+                aria-hidden="true"></i> </a>
     </div>
 </div>
