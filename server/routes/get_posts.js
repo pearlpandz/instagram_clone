@@ -26,13 +26,15 @@ exports.singlepostafter = function (req, res) {
     if (err1) {
       res.send('err')
     } else {
-      console.log(arraylength.length);
-      var spot_id = parseInt(req.body.indexid)
-       arraylength = post1.postids;
-      var query = post1.postids[spot_id + 1];
      
-          increment(spot_id);
+      var spot_id = parseInt(req.body.indexid)
+       arraylength = post1.postids.length;
+       console.log(arraylength);
       
+      var query = post1.postids[spot_id ];
+     
+          // increment(spot_id);
+     if(req.body.indexid < arraylength){
       Posts.findOne(query, function(err2, post2){
 
         if(err2){
@@ -40,8 +42,13 @@ exports.singlepostafter = function (req, res) {
         }else{
           res.send(post2)
         }
-      })
-    
+      })}else{
+res.json({
+data:'false',
+success: false
+
+});
+      }
     }
 
   })
@@ -66,8 +73,8 @@ exports.singlepostsprevious =  function(req,res, next)
       // res.send(post1)
       var spot_id = parseInt(req.body.indexid)
     
-      var query = post1.postids[spot_id - 1];
-      decrement(spot_id);
+      var query = post1.postids[spot_id];
+      // decrement(spot_id);
       // res.send(query );
       Posts.findOne(query, function(err2, post2){
 

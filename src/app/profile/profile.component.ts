@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
   ) { }
   //
+
   ipostindex: number;
   dpostindex: number;
   //cookie variables
@@ -43,7 +44,7 @@ export class ProfileComponent implements OnInit {
   followercount: '';
   following: '';
   pic: '';
-  postcount: {};
+  postcount: any;
   followersc: {};
   followingc: {};
   names: number;
@@ -105,8 +106,11 @@ export class ProfileComponent implements OnInit {
   prevbuttonDisabled: boolean;
 
   //counter values
-  counterValue = 0;
-  nextpost: any;
+  counterValue;
+  nextshow: boolean = true;
+  ivar:any;
+  previousshow: boolean = true;
+  selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
         this.prevbuttonDisabled = true; */
@@ -172,7 +176,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
 
     this.ipostindex = i;
-    this.dpostindex = i;
+    this.dpostindex = this.ipostindex;
     console.log("index", this.ipostindex);
     // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
@@ -350,58 +354,41 @@ export class ProfileComponent implements OnInit {
   }
   //get next post
   getnextpost(current_userid, postindex) {
-  
-    this.likeinfo = [{
 
+
+    this.likeinfo = [{
       id: current_userid,
-      indexid: this.ipostindex,
+      indexid: this.ipostindex += 1,
     }];
-         
-    console.log(this.likeinfo);
+    // console.log("total ", this.likeinfo);
+    // console.log('index incre', this.ipostindex);
+
     this.profileservice.postafter(this.likeinfo[0]).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
       this.getafterpostlist = afterpostlist;
-      // console.log("data", this.getafterpostlist);
+
       this.modalpost = this.getafterpostlist;
-      console.log("buttoncall", this.likeinfo[0], this.modalpost)
+      console.log("buttoncall", this.likeinfo[0], this.modalpost);
+    // console.log('else',afterpostlist.data);
      
-
-
     });
-    this.increment(this.ipostindex);
   }
 
-  increment(postindex) {
-    this.ipostindex++;
-    console.log('igyu', this.ipostindex);
-  }
-
-  decrement(postindex) {
-    this.ipostindex--;
-    console.log('dgyu', this.ipostindex);
-  }
   getprevpost(current_userid, postindex) {
-   
     this.likeinfo = [{
-
       id: current_userid,
-      indexid: this.ipostindex,
+      indexid: this.ipostindex -= 1
     }];
-    
-    console.log("buttoncall", this.likeinfo);
-   
+                 
+    // console.log("buttoncall", this.likeinfo);
+
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
       this.getbeforepostlist = beforepostlist;
-      //  console.log("data", this.getbeforepostlist);
-      
-      this.modalpost =  this.getbeforepostlist
-      console.log("buttoncalld", this.likeinfo[0], this.modalpost)
 
-     
+      this.modalpost = this.getbeforepostlist
+      // console.log("buttoncalld", this.likeinfo[0], this.modalpost)
 
     });
-    this.decrement(this.ipostindex);
   }
-
   // getafterpostlist: any;
   // getbeforepostlist: any;
   popup_close() {
