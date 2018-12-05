@@ -95,7 +95,6 @@
 
                                                 <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
                                             </div>
-                                            <ngx-spinner bdColor="" size="small" color="#000" type="ball-square-spin"></ngx-spinner>
                                         </div>
 
                                     </div>
@@ -125,6 +124,7 @@
                         </ng-template>
 
                         <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
+                        <ngx-spinner bdColor="" size="default" color="#000" type="ball-beat"></ngx-spinner>
                         <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
                             <a (click)="modalclick(post._id)">
                                 <i class="ion-ios-more-outline"></i>
