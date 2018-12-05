@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
   comments = [];
   modelindex: any;
   //like variables
-
+  count_like : number;
   likeinfo = [];
   likestatus;
   current_id: any;
@@ -245,11 +245,9 @@ export class ProfileComponent implements OnInit {
       current_userid: this.current_id
 
     }];
-    // console.log("checkck", post_id, current_userid)
+   console.log("checkck", post_id, current_userid)
 
-    this.homes.likePost(this.likeinfo[0])
-      .map((data: any) => data)
-      .subscribe(data => {
+   
         /*         if ($("a").hasClass("like")) {
                   $("a").removeClass("like");
                   var count = $(".likecount").html();
@@ -263,31 +261,28 @@ export class ProfileComponent implements OnInit {
                   $( ".likecount" ).val( count );
                   $(".poplikecount").val(count);
                 } */
-        var count = parseInt($(".likecount").html());
-        console.log($('.heart').parent());
-        if ($("a.heart").hasClass("like") && (count > 0)) {
-          $("a").removeClass("like");
-          count = count - 1;
-          $(".likecount").html(count);
+        var count = parseInt($('#' + post_id).find(".likecount").html());
+        if ($('#' + post_id).find('.heart').hasClass('like')) {
+          this.homes.likePost(this.likeinfo[0])
+          .map((data: any) => data)
+          .subscribe(data => {
+            this.count_like = data.data.likecount;
+            $('#' + post_id).find(".heart").removeClass("like");
+            $('#' + post_id).find(".likecount").html(data.data.likecount);
+            
+          });
         }
         else {
-          $("a").addClass("like");
-          count = count + 1;
-          $(".likecount").html(count);
+          this.homes.likePost(this.likeinfo[0])
+          .map((data: any) => data)
+          .subscribe(data => {
+          this.count_like = data.likecount;
+          $('#' + post_id).find(".heart").addClass("like");
+          $('#' + post_id).find(".likecount").text(data.likecount);
+          });
         }
-        if (data['status']) {
-          this.likestatus = data['status'];
-          //console.log('this.userpost',this.userpost);
-          //console.log(data);
-          //this.popup(data);
-        }
-        else {
-          this.likestatus = data['status'];
-          console.log('else', data.data);
-          // this.popup(data.data);
-        }
-      });
-  }
+      }   
+  
 
   checklikeid(array, target) {
     // console.log("array", array)
