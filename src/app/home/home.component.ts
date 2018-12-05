@@ -297,7 +297,7 @@ export class HomeComponent implements OnInit {
               /** spinner ends after 5 seconds */
               this.postdata[i] = data.data;
               this.spinner.hide();
-            }, 9000);
+            }, 3000);
           }
         }
         /* if (data) {
@@ -321,12 +321,16 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
+        this.spinner.show();
+        setTimeout(() => {
         for (var i in this.postdata) {
           if (this.postdata[i]._id == this.datapost._id) {
+
             this.postdata[i] = this.datapost;
           }
         }
-
+        this.spinner.hide();
+      }, 1000);
         /*  this.datapost.forEach((key) => {
           console.log(key);
          }) */

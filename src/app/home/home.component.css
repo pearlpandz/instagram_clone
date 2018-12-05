@@ -147,3 +147,26 @@ textarea:focus {
 .loadmore {
     cursor: pointer;
 }
+.la-ball-8bits {
+    top: 200%;
+    left: 50%;
+    margin: 450px;
+    position: relative;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.la-ball-square-spin[_ngcontent-c4] {
+    display: block;
+    font-size: 0;
+    color: #fff;
+    width: 26px;
+    /* height: 26px; */
+}
+.black-overlay[_ngcontent-c4] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    z-index: 99999!important;
+}
