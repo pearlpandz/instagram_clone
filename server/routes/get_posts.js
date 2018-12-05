@@ -29,6 +29,7 @@ exports.getpost = function (req, res) {
   });
 };
 
+
 //api for call post and user
 exports.singlepostafter = function (req, res) {
   users.findOne({ _id: req.body.id }, function (err1, post1) {
@@ -60,42 +61,21 @@ success: false
       }
     }
 
-  if (err1) {
-  res.send('err')
-  } else {
-  var spot_id = parseInt(req.body.indexid)
-  arraylength = post1.postids.length;
-  console.log(arraylength);
-  var query = post1.postids[spot_id ];
-  // increment(spot_id);
-  if(req.body.indexid <= arraylength){
-  Posts.findOne(query, function(err2, post2){
-  
-  if(err2){
-  res.send(err2)
-  }else{
-  res.send(post2)
-  }
-  })}else{
-  res.send('not');
-  }
-  }
-  
   })
-  }
-  
-  function increment(index) {
-  
+}
+
+function increment(index) {
+
   index++;
-  }
-  
-  function decrement(index){
+}
+
+function decrement(index){
   index--;
-  }
-  
-  // api for call previous post
-  exports.singlepostsprevious = function(req,res, next)
-  {
+}
+
+// api for call previous post
+exports.singlepostsprevious =  function(req,res, next)
+{
   users.findOne({ _id: req.body.id }, function (err1, post1) {
     if (err1) {
       res.send('err')
@@ -117,4 +97,5 @@ success: false
     
     }
 
-  })}
+  })
+}
