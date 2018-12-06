@@ -47,7 +47,6 @@
                 <div class="row feed-image no-margin" lazy-load-images>
                     <!-- <img src="post.sampleFile" alt=""> -->
                     <span *ngIf="post.sampleFile?.length > 1; else elseblockimage">
-
                     <slideshow #slideshow [imageUrls]="post.sampleFile" [height]="height" [minHeight]="minHeight"
                         [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay"
                         [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug" [backgroundSize]="backgroundSize"
@@ -91,7 +90,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="container">
+                        <div>
                             <div id="accordion">
                                 <div class="card">
                                     <div class="card-header">
@@ -103,9 +102,9 @@
                                     <div id="collapseOne{{post._id}}" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <div *ngFor="let comment of post.comments | slice:pageEnd:commentlist; let i = index"><a
-                                                    href="view-profile.html" class="dark">{{comment.username}}</a>
+                                                    href="view-profile.html" class="dark">{{comment.username}}  </a>
 
-                                                <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
+                                                <span class="commentmore">  {{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
                                                     (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
                                             </div>
                                         </div>
