@@ -292,12 +292,12 @@ export class HomeComponent implements OnInit {
         this.commentlist = data.data.comments.length;
         for (var i in this.postdata) {
           if (this.postdata[i]._id == data.data._id) {
-            this.spinner.show();
-            setTimeout(() => {
+/*             this.spinner.show();
+            setTimeout(() => { */
               /** spinner ends after 5 seconds */
               this.postdata[i] = data.data;
-              this.spinner.hide();
-            }, 3000);
+/*               this.spinner.hide();
+            }, 3000); */
           }
         }
         /* if (data) {
@@ -321,16 +321,16 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
-        this.spinner.show();
-        setTimeout(() => {
+/*         this.spinner.show();
+        setTimeout(() => { */
         for (var i in this.postdata) {
           if (this.postdata[i]._id == this.datapost._id) {
 
             this.postdata[i] = this.datapost;
           }
         }
-        this.spinner.hide();
-      }, 1000);
+/*         this.spinner.hide();
+      }, 1000); */
         /*  this.datapost.forEach((key) => {
           console.log(key);
          }) */
