@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { httpFactory } from '@angular/http/src/http_module';
+import { HttpClient } from '@angular/common/http';
+import{ExploreService} from './explore.service'
 
 @Component({
   selector: 'app-explore',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExploreComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private https :HttpClient, private explore : ExploreService) {  }
   ngOnInit() {
+    this.explore.getexplore().map( request => request).subscribe( request => {
+      console.log('explore',request['data']);
+      })
   }
 
 }
