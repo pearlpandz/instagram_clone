@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
   comments = [];
   modelindex: any;
   //like variables
-  count_like : number;
+  count_like: number;
   likeinfo = [];
   likestatus;
   current_id: any;
@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
   nextshow: boolean = true;
   previousshow: boolean = true;
   ivar: any;
- 
+
   selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
@@ -177,7 +177,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
 
     this.ipostindex = i;
-  
+
     console.log("index", this.ipostindex);
     // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
@@ -192,20 +192,26 @@ export class ProfileComponent implements OnInit {
     this.modalpost = data;
     //  this.modalpost = this.getbeforepostlist;
     console.log('popup', this.modalpost);
-    if( this.ipostindex == 0){
-      console.log( '1st',this.ipostindex == 0)
+
+    if (this.ipostindex == 0 && this.postcount > 1) {
+
+      // console.log( '1st',this.ipostindex == 0)
       this.prevbuttonDisabled = false;
       this.nextbuttonDisabled = true;
-    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
-      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+    } else if (this.ipostindex > 0 && this.ipostindex < this.postcount - 1) {
+      // console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = true;
-    }else {
-     
+    }
+    else if (this.ipostindex == 0 && this.postcount <= 1) {
+      // console.log( '3rd',this.ipostindex == 0 && this.postcount <=1)
+      this.nextbuttonDisabled = false;
+    } else {
+
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = false;
     }
- 
+
 
   }
 
@@ -245,44 +251,44 @@ export class ProfileComponent implements OnInit {
       current_userid: this.current_id
 
     }];
-   console.log("checkck", post_id, current_userid)
+    console.log("checkck", post_id, current_userid)
 
-   
-        /*         if ($("a").hasClass("like")) {
-                  $("a").removeClass("like");
-                  var count = $(".likecount").html();
-                  count = parseInt(count)-1;
-                  $( ".likecount" ).val(count );
-                  $(".poplikecount").val(count);
-                } else {
-                  $("a").addClass("like");
-                  var count = $(".likecount").html();
-                  count = parseInt(count)+1;
-                  $( ".likecount" ).val( count );
-                  $(".poplikecount").val(count);
-                } */
-        var count = parseInt($('#' + post_id).find(".likecount").html());
-        if ($('#' + post_id).find('.heart').hasClass('like')) {
-          this.homes.likePost(this.likeinfo[0])
-          .map((data: any) => data)
-          .subscribe(data => {
-            this.count_like = data.data.likecount;
-            $('#' + post_id).find(".heart").removeClass("like");
-            $('#' + post_id).find(".likecount").html(data.data.likecount);
-            
-          });
-        }
-        else {
-          this.homes.likePost(this.likeinfo[0])
-          .map((data: any) => data)
-          .subscribe(data => {
+
+    /*         if ($("a").hasClass("like")) {
+              $("a").removeClass("like");
+              var count = $(".likecount").html();
+              count = parseInt(count)-1;
+              $( ".likecount" ).val(count );
+              $(".poplikecount").val(count);
+            } else {
+              $("a").addClass("like");
+              var count = $(".likecount").html();
+              count = parseInt(count)+1;
+              $( ".likecount" ).val( count );
+              $(".poplikecount").val(count);
+            } */
+    var count = parseInt($('#' + post_id).find(".likecount").html());
+    if ($('#' + post_id).find('.heart').hasClass('like')) {
+      this.homes.likePost(this.likeinfo[0])
+        .map((data: any) => data)
+        .subscribe(data => {
+          this.count_like = data.data.likecount;
+          $('#' + post_id).find(".heart").removeClass("like");
+          $('#' + post_id).find(".likecount").html(data.data.likecount);
+
+        });
+    }
+    else {
+      this.homes.likePost(this.likeinfo[0])
+        .map((data: any) => data)
+        .subscribe(data => {
           this.count_like = data.likecount;
           $('#' + post_id).find(".heart").addClass("like");
           $('#' + post_id).find(".likecount").text(data.likecount);
-          });
-        }
-      }   
-  
+        });
+    }
+  }
+
 
   checklikeid(array, target) {
     // console.log("array", array)
@@ -379,17 +385,22 @@ export class ProfileComponent implements OnInit {
       this.modalpost = this.getafterpostlist;
       console.log("buttoncall", this.likeinfo[0], this.modalpost);
       // console.log('else',afterpostlist.data);
-      
+
     });
-    if( this.ipostindex == 0){
-      console.log( '1st',this.ipostindex == 0)
+    if (this.ipostindex == 0) {
+      console.log('1st', this.ipostindex == 0)
       this.prevbuttonDisabled = false;
       this.nextbuttonDisabled = true;
-    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
-      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+    } else if (this.ipostindex > 0 && this.ipostindex < this.postcount - 1) {
+      console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = true;
-    }else {
+    } else if (this.ipostindex == 0 && this.postcount == 0) {
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = false;
+    }
+
+    else {
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = false;
     }
@@ -403,24 +414,28 @@ export class ProfileComponent implements OnInit {
 
     // console.log("buttoncall", this.likeinfo);
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
-    this.getbeforepostlist = beforepostlist;
+      this.getbeforepostlist = beforepostlist;
 
-    this.modalpost = this.getbeforepostlist
-  
-     console.log("buttoncalld", this.likeinfo[0], this.modalpost)
-     
-     
+      this.modalpost = this.getbeforepostlist
+
+      console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+
+
 
     });
-    if( this.ipostindex == 0){
-      console.log( '1st',this.ipostindex == 0)
+    if (this.ipostindex == 0) {
+      console.log('1st', this.ipostindex == 0)
       this.prevbuttonDisabled = false;
       this.nextbuttonDisabled = true;
-    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
-      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+    } else if (this.ipostindex > 0 && this.ipostindex < this.postcount - 1) {
+      console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = true;
-    }else {
+    }
+    else if (this.ipostindex == 0 && this.postcount == 0) {
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = false;
+    } else {
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = false;
     }
