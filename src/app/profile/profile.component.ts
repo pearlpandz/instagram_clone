@@ -97,7 +97,7 @@ export class ProfileComponent implements OnInit {
   comments = [];
   modelindex: any;
   //like variables
-
+  count_like : number;
   likeinfo = [];
   likestatus;
   current_id: any;
@@ -108,8 +108,9 @@ export class ProfileComponent implements OnInit {
   //counter values
   counterValue;
   nextshow: boolean = true;
-  ivar:any;
   previousshow: boolean = true;
+  ivar: any;
+ 
   selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
@@ -176,7 +177,7 @@ export class ProfileComponent implements OnInit {
     console.log(data);
 
     this.ipostindex = i;
-    this.dpostindex = this.ipostindex;
+  
     console.log("index", this.ipostindex);
     // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
@@ -191,6 +192,20 @@ export class ProfileComponent implements OnInit {
     this.modalpost = data;
     //  this.modalpost = this.getbeforepostlist;
     console.log('popup', this.modalpost);
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+     
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
+ 
 
   }
 
@@ -230,11 +245,9 @@ export class ProfileComponent implements OnInit {
       current_userid: this.current_id
 
     }];
-    // console.log("checkck", post_id, current_userid)
+   console.log("checkck", post_id, current_userid)
 
-    this.homes.likePost(this.likeinfo[0])
-      .map((data: any) => data)
-      .subscribe(data => {
+   
         /*         if ($("a").hasClass("like")) {
                   $("a").removeClass("like");
                   var count = $(".likecount").html();
@@ -248,31 +261,28 @@ export class ProfileComponent implements OnInit {
                   $( ".likecount" ).val( count );
                   $(".poplikecount").val(count);
                 } */
-        var count = parseInt($(".likecount").html());
-        console.log($('.heart').parent());
-        if ($("a.heart").hasClass("like") && (count > 0)) {
-          $("a").removeClass("like");
-          count = count - 1;
-          $(".likecount").html(count);
+        var count = parseInt($('#' + post_id).find(".likecount").html());
+        if ($('#' + post_id).find('.heart').hasClass('like')) {
+          this.homes.likePost(this.likeinfo[0])
+          .map((data: any) => data)
+          .subscribe(data => {
+            this.count_like = data.data.likecount;
+            $('#' + post_id).find(".heart").removeClass("like");
+            $('#' + post_id).find(".likecount").html(data.data.likecount);
+            
+          });
         }
         else {
-          $("a").addClass("like");
-          count = count + 1;
-          $(".likecount").html(count);
+          this.homes.likePost(this.likeinfo[0])
+          .map((data: any) => data)
+          .subscribe(data => {
+          this.count_like = data.likecount;
+          $('#' + post_id).find(".heart").addClass("like");
+          $('#' + post_id).find(".likecount").text(data.likecount);
+          });
         }
-        if (data['status']) {
-          this.likestatus = data['status'];
-          //console.log('this.userpost',this.userpost);
-          //console.log(data);
-          //this.popup(data);
-        }
-        else {
-          this.likestatus = data['status'];
-          console.log('else', data.data);
-          // this.popup(data.data);
-        }
-      });
-  }
+      }   
+  
 
   checklikeid(array, target) {
     // console.log("array", array)
@@ -368,9 +378,21 @@ export class ProfileComponent implements OnInit {
 
       this.modalpost = this.getafterpostlist;
       console.log("buttoncall", this.likeinfo[0], this.modalpost);
-    // console.log('else',afterpostlist.data);
-     
+      // console.log('else',afterpostlist.data);
+      
     });
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
   }
 
   getprevpost(current_userid, postindex) {
@@ -378,19 +400,32 @@ export class ProfileComponent implements OnInit {
       id: current_userid,
       indexid: this.ipostindex -= 1
     }];
-                 
+
     // console.log("buttoncall", this.likeinfo);
-
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
-      this.getbeforepostlist = beforepostlist;
+    this.getbeforepostlist = beforepostlist;
 
-      this.modalpost = this.getbeforepostlist
-      // console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+    this.modalpost = this.getbeforepostlist
+  
+     console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+     
+     
 
     });
+    if( this.ipostindex == 0){
+      console.log( '1st',this.ipostindex == 0)
+      this.prevbuttonDisabled = false;
+      this.nextbuttonDisabled = true;
+    }else if( this.ipostindex > 0 && this.ipostindex < this.postcount-1){
+      console.log( '2st',this.ipostindex > 0 && this.ipostindex < this.postcount-1)
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = true;
+    }else {
+      this.prevbuttonDisabled = true;
+      this.nextbuttonDisabled = false;
+    }
   }
-  // getafterpostlist: any;
-  // getbeforepostlist: any;
+
   popup_close() {
     this.getProfile(this.names);
   }
