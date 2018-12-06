@@ -123,11 +123,13 @@ app.post('/edituniquename',create_user.editUniqueName );
 //find all
 app.get('/findall',create_user.allfind);
 
+//explore 
+app.post('/explore', explore.exploreposts);
+
 //find particular user through URL
  app.post('/:name', findusers.finde);
 
-//explore 
-app.post('/getpost', explore.exploreposts);
+
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
