@@ -11,4 +11,10 @@ export class ExploreService {
   getexplore() {
     return this.http.post('http://localhost:3000/explore','');
   }
+  explorepostafter(id) {
+    return this.http.post(`http://localhost:3000/explorepostafter` ,id);
+  }
+  explorepostprevious(id) {
+    return this.http.post(`http://localhost:3000/explorepostprevious` ,id);
+  }
 }

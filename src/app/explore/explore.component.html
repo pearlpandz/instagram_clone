@@ -151,3 +151,152 @@
           </div><!--end of discover-people-block -->
       </div><!--end of discover-people -->
   </div>
+  <div class="discover-panel">
+        <div class="row discover-head no-margin">
+            <h4>Explore</h4>
+        </div>
+        <div id="photo-popup" class="modal fade" role="dialog" >
+                <button type="button" class="close popup-close" data-dismiss="modal" (click)="popup_close()"><i class="ion-close-round"></i></button>
+                <div class="modal-dialog">
+            
+            
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body" *ngIf="modalposts">
+            
+                            <!--     <owl-carousel
+                                [options]="{items: 1, dots: false, nav: true}"
+                                [items]="slidepost"
+                                [carouselClasses]="['owl-theme', 'row', 'sliding']" > -->
+            
+                            <!-- <div class=" item" *ngFor="let singlepost of slidepost;let i = index"> -->
+                            <div class="photo-popup" id={{modalposts._id}}>
+                                <div class="photo-popup-inner row no-margin">
+                                    <div class="col-sm-8 no-padding">
+                                        <div class="popup-image-outer">
+                                            <div class="popup-image">
+                                             <img src={{modalposts.sampleFile[0]}} class="pop-img">
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-sm-4 no-padding">
+                                        <div class="comment-like">
+                                            <div class="comment-profile">
+                                                <div class="user-img float-left">
+                                                    <a><img src="{{modalposts.profilepic}}"></a>
+                                                </div>
+            
+                                                <div class="user-name">
+                                                    <a href="view-profile.html">
+                                                        <h5>{{modalposts.username}}</h5>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!--end of coment-profile-->
+            
+            
+                                            <div class="comment-wrap"  >
+                                                <div class="like-count">
+                                                    <div class="float-left">
+                                                        <p class="no-margin"><b class="likecount">{{modalposts.likecount}}
+            
+                                                            </b></p>
+                                                    </div>
+            
+                                                    <div class="float-right">
+                                                        <a href="#" class="hours">
+                                                            {{modalposts.createdat | timeAgo }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                              
+            
+                                                <div class="replay-comment" *ngFor="let comment of modalposts.comments">
+                                                    <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
+                                                    <a class="float-right comment-delete" (click)="deletecomment(modalposts._id, comment._id)"><i
+                                                            class="fa fa-times"></i></a>
+                                                </div>
+            
+            
+                                            </div>
+                                            <!--end of comment-wrap-->
+            
+                                            <div class="row feed-footer profile-foot no-margin"   >
+            
+                                                <div class="input-group">
+            
+                                                    <span *ngIf="checklikeid(modalposts.likeids, current_id); else elseblock" class="input-group-addon like-btn">
+            
+                                                        <a class="heart like" (click)="like(post_id, current_id)" id="{{post_id}}">
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        </a>
+                                                    </span>
+            
+                                                    <ng-template #elseblock>
+                                                        <span class="input-group-addon like-btn">
+                                                            <a class="heart" (click)="like(modalposts._id, current_id)" id="{{post_id}}">
+                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                            </a>
+                                                        </span>
+                                                    </ng-template>
+            
+            
+            
+                                                    <input type="text" class="form-control comment" placeholder="Add a comment..."
+                                                        #comment_msg (keyup.enter)="commentpost1(modalposts._id, comment_msg.value, modalposts.username)">
+                                                    <span class="input-group-addon more"><a href="#" data-toggle="modal"
+                                                            data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
+                                                </div>
+            
+                                            </div>
+                                        </div>
+                                        <!--end of comment-like-->
+                                    </div>
+                                    <!--end of column-->
+            
+                                </div>
+                                <!--end of photo-popup-inner-->
+            
+                            </div>
+                            <!-- </div> -->
+                            <!--end of photo-popup-->
+                            <!-- </owl-carousel> -->
+            
+                        </div>
+            
+                    </div>
+            
+                    <a class="previous" (click)="getexploreprevpost(modalposts._id,i)" > <i class="fa fa-angle-left fa-4x"
+                            aria-hidden="true"></i></a>
+                    <a class="next" (click)="getexplorenextpost(modalposts._id,i)"><i class="fa fa-angle-right fa-4x"
+                            aria-hidden="true"></i> </a>
+                </div>
+            </div>
+        <div class="user-photos">
+                <div class="user-photos-inner row no-margin">
+                    <div class="col-xs-4" *ngFor="let explore of exploredata; let i=index;" (deferLoad)="explore.show = true">
+                        <div class="user-photos-column" (click)="popup(explore,i)">
+                            <div class="outer-box feed-images">
+                                <ng-container *ngIf="explore.show">
+                                    <img src="{{explore.sampleFile[0]}}" alt="" class="img-responsvie">
+                                </ng-container>
+                            </div>
+                            <div class="ratio-content">
+                                <a href="#" class="chat-like-block" data-toggle="modal" data-target="#photo-popup">
+                                    <div class="chat-like">
+                                        <span class="chat-icons"><i class="fa fa-heart"></i>{{explore.likecount}}</span>
+                                        <span class="chat-icons"><i class="fa fa-comment"></i>{{explore.comments.length}}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of column-->
+    
+    
+                </div>
+                <!--end of user-photos-inner-->
+            </div>
+        </div>
+</div>  
