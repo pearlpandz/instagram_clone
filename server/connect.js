@@ -105,7 +105,7 @@ app.post('/getblockids', create_user.getblockids);
 
 //follow users
 app.post('/follows', follows.follow);
-
+app.post('/followcheck', follows.followcheck);
 
 //nodemailer function
 app.post('/mail', nodemail.mail);

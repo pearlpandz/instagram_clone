@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
   follower_id: any;
   followbutton: boolean;
   iffollow:boolean;
+  iffollower:boolean;
   _id: any;
   // like: any;
   profile = {};
@@ -163,6 +164,7 @@ export class ProfileComponent implements OnInit {
         this.postcount = response[1].length;
         this.slidepost = response[1];
         this.owlpost = response[1];
+        
         console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           console.log('1st');
@@ -170,8 +172,9 @@ export class ProfileComponent implements OnInit {
         } else {
           console.log('else block')
           this.followbutton = true;
-        }
+        }this.followcheck(this.current_id,this.follower_id)
       }
+      
       )
   }
 
@@ -464,18 +467,41 @@ export class ProfileComponent implements OnInit {
 
    console.log(this.likeinfo);
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
- this.iffollow = response.sucess;
-      console.log(response);
-      console.log('follower', this.iffollow );
-      if(this.iffollow == true){
-        // console.log('change to followed')
-        this.valueOfButton = "following"
-      }else if(this.iffollow == false || this.iffollow == undefined || this.iffollow == empty){
+this.iffollower = response.sucess;
+     console.log('chkin old', this.iffollower);
+      if(this.iffollower == true){
+        this.valueOfButton = "followed"
+      }else if(this.iffollower == false){
+        
        this.valueOfButton = "follow"
       }else{
-       console.log('nothing happens');
+        this.valueOfButton = "follow1"
       }
+   
+    })
+  }
 
+  followcheck(current_userid, follower_id) {
+    //  alert('hi')
+
+    this.likeinfo = [{
+      user_id: this.current_id,
+      follower_id: this.follower_id
+    }];
+
+   console.log(this.likeinfo);
+    this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+     this.iffollow = response.sucess;
+       console.log('follow chk', this.iffollow);
+       if(this.iffollow == true){
+         console.log('folloed');
+         this.valueOfButton = "follow"
+       }else if(this.iffollow ==  false){
+         
+        this.valueOfButton = "followed"
+       }else{
+         this.valueOfButton = "follow1"
+       }
     })
   }
   popup_close() {

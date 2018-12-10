@@ -128,18 +128,134 @@ exports.follow = function (req, res) {
                         })
                     }
                     // console.log( checklikeid(resu, req.body.follower_id) );
-
-
-
                 }
-            })
+            })  }
+
+    else {
+        res.json({
 
 
+            msg: 'data not found'
 
+        })
     }
+};
 
 
 
+exports.followcheck = function (req, res) {
+    // console.log(req.body.user_id);
+    // console.log(req.body.follower_id);
+    if (req.body.user_id && req.body.follower_id) {
+
+
+
+        var query = { "_id": req.body.user_id };
+        var query1 = { "_id": req.body.follower_id };
+        var options = { new: true };
+        //ids = {type: String}
+
+        users
+            .distinct("_id")
+
+            .exec(function (err, resu) {
+                if (err) {
+                    res.json(err)
+                }
+                else {
+                    //   res.send(resu);
+                    if (checklikeid(resu, req.body.user_id) && checklikeid(resu, req.body.follower_id)) {
+
+
+                        users.find(query, function (err, post) {
+                            if (err) {
+                                res.json(err)
+                            } else {
+                                // res.send(post)
+                                // console.log(checklikeid(post[0]['followers'], req.body.follower_id));
+
+                                //   console.log(checklikeid(post[0]['following'], req.body.follower_id ));
+
+                                users.find(query1, function (err1, post1) {
+                                    if (err) {
+                                        res.json(err)
+                                    } else {
+                                        //    res.send(post1);
+
+                                        // console.log(checklikeid(post1[0]['following'], req.body.user_id));
+
+                                        if (checklikeid(post[0]['followers'], req.body.follower_id) && checklikeid(post1[0]['following'], req.body.user_id)) {
+                                            //res.send('pull')
+                                            users.findOne(query,  { followers: req.body.follower_id } , options, function (err, post) {
+
+                                                if (err) {
+                                                    res.json(err);
+                                                }
+                                                else {
+                                                    users.findOne(query1,  { following: req.body.user_id } , options, function (err2, post2) {
+
+                                                        if (err2) {
+                                                            res.json(err2);
+                                                        }
+                                                        else {
+                                                            res.json({
+                                                                sucess:false,
+                                                                userid: post,
+                                                                followerid: post2
+                                                            });
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+
+
+
+                                        else {
+                                            // res.send('push')
+                                            users.findOne(query,  { followers: req.body.follower_id } , options, function (err, post) {
+
+                                                if (err) {
+                                                    res.json(err);
+                                                }
+                                                else {
+                                                    users.findOne(query1, { following: req.body.user_id } , options, function (err2, post2) {
+
+                                                        if (err2) {
+                                                            res.json(err2);
+                                                        }
+                                                        else {
+                                                            res.json({
+                                                                sucess:true,
+                                                                userid: post,
+                                                                followerid: post2
+                                                            });
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+
+
+                                    }
+                                })
+
+
+                            }
+                        })
+
+
+                    } else {
+                        res.json({
+
+
+                            msg: 'data not found'
+
+                        })
+                    }
+                    // console.log( checklikeid(resu, req.body.follower_id) );
+                }
+            })  }
 
     else {
         res.json({

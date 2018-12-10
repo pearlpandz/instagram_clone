@@ -27,4 +27,7 @@ export class ProfileService {
   follows(ids){
     return this.http.post('http://localhost:3000/follows', ids);
   }
+  followercheck(ids){
+    return this.http.post('http://localhost:3000/followcheck', ids);
+  }
 }
