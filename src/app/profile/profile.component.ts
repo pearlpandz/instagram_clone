@@ -55,8 +55,8 @@ export class ProfileComponent implements OnInit {
   searchedprofile: any;
   follower_id: any;
   followbutton: boolean;
-  iffollow:boolean;
-  iffollower:boolean;
+  iffollow: boolean;
+  iffollower: boolean;
   _id: any;
   // like: any;
   profile = {};
@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
   nextshow: boolean = true;
   previousshow: boolean = true;
   ivar: any;
-  valueOfButton ;
+  valueOfButton;
   selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
     this.nextbuttonDisabled = true;
     this.prevbuttonDisabled = false;
     this.current_user = this.cookieService.get('name');
-    console.log('cuurentname',this.current_user);
+    console.log('cuurentname', this.current_user);
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
     // this.profileEmail = this.cookieService.get('email');
@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit {
       this.names = params['name'];
       //   console.log('checl', this.names);
     });
-  
+
     // console.log(this.names);
     this.getProfile(this.names);
 
@@ -164,7 +164,7 @@ export class ProfileComponent implements OnInit {
         this.postcount = response[1].length;
         this.slidepost = response[1];
         this.owlpost = response[1];
-        
+
         console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           console.log('1st');
@@ -172,9 +172,9 @@ export class ProfileComponent implements OnInit {
         } else {
           console.log('else block')
           this.followbutton = true;
-        }this.followcheck(this.current_id,this.follower_id)
+        } this.followcheck(this.current_id, this.follower_id)
       }
-      
+
       )
   }
 
@@ -465,19 +465,19 @@ export class ProfileComponent implements OnInit {
       follower_id: this.follower_id
     }];
 
-   console.log(this.likeinfo);
+    console.log(this.likeinfo);
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
-this.iffollower = response.sucess;
-     console.log('chkin old', this.iffollower);
-      if(this.iffollower == true){
+      this.iffollower = response.sucess;
+      console.log('chkin old', this.iffollower);
+      if (this.iffollower == true) {
         this.valueOfButton = "followed"
-      }else if(this.iffollower == false){
-        
-       this.valueOfButton = "follow"
-      }else{
+      } else if (this.iffollower == false) {
+
+        this.valueOfButton = "follow"
+      } else {
         this.valueOfButton = "follow1"
       }
-   
+
     })
   }
 
@@ -489,19 +489,19 @@ this.iffollower = response.sucess;
       follower_id: this.follower_id
     }];
 
-   console.log(this.likeinfo);
+    console.log(this.likeinfo);
     this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
-     this.iffollow = response.sucess;
-       console.log('follow chk', this.iffollow);
-       if(this.iffollow == true){
-         console.log('folloed');
-         this.valueOfButton = "follow"
-       }else if(this.iffollow ==  false){
-         
+      this.iffollow = response.sucess;
+      console.log('follow chk', this.iffollow);
+      if (this.iffollow == true) {
+        console.log('folloed');
+        this.valueOfButton = "follow"
+      } else if (this.iffollow == false) {
+
         this.valueOfButton = "followed"
-       }else{
-         this.valueOfButton = "follow1"
-       }
+      } else {
+        this.valueOfButton = "follow1"
+      }
     })
   }
   popup_close() {
