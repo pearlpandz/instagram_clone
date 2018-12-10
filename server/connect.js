@@ -81,6 +81,7 @@ app.post('/getpost', routes_getposts.getpost);
 app.post('/singlepostafter', routes_getposts.singlepostafter);
 //get previous post
 app.post('/singlepostsprevious',routes_getposts.singlepostsprevious);
+
 //create user
 app.post('/adduser', create_user.adduser);
 app.post('/socialuser', create_user.socialuser);
@@ -125,7 +126,9 @@ app.post('/edituniquename',create_user.editUniqueName );
 
 //find all
 app.get('/findall',create_user.allfind);
+app.post('/explorepostprevious',explore.explorepostprevious);
 
+app.post('/explorepostafter',explore.explorepostafter);
 //explore 
 app.post('/explore', explore.exploreposts);
 
