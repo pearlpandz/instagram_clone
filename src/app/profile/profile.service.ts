@@ -24,4 +24,7 @@ export class ProfileService {
   deletemodalcomment(deletecomment){
     return this.http.post('http://localhost:3000/deletecomment', deletecomment);
   }
+  follows(ids){
+    return this.http.post('http://localhost:3000/follows', ids);
+  }
 }

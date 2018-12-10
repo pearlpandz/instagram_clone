@@ -34,7 +34,7 @@ exports.follow = function (req, res) {
 
             .exec(function (err, resu) {
                 if (err) {
-                    res.send(err)
+                    res.json(err)
                 }
                 else {
                     //   res.send(resu);
@@ -43,7 +43,7 @@ exports.follow = function (req, res) {
 
                         users.find(query, function (err, post) {
                             if (err) {
-                                res.send(err)
+                                res.json(err)
                             } else {
                                 // res.send(post)
                                 // console.log(checklikeid(post[0]['followers'], req.body.follower_id));
@@ -52,7 +52,7 @@ exports.follow = function (req, res) {
 
                                 users.find(query1, function (err1, post1) {
                                     if (err) {
-                                        res.send(err)
+                                        res.json(err)
                                     } else {
                                         //    res.send(post1);
 
@@ -63,16 +63,17 @@ exports.follow = function (req, res) {
                                             users.findOneAndUpdate(query, { $pull: { followers: req.body.follower_id } }, options, function (err, post) {
 
                                                 if (err) {
-                                                    res.send(err);
+                                                    res.json(err);
                                                 }
                                                 else {
                                                     users.findOneAndUpdate(query1, { $pull: { following: req.body.user_id } }, options, function (err2, post2) {
 
                                                         if (err2) {
-                                                            res.send(err2);
+                                                            res.json(err2);
                                                         }
                                                         else {
-                                                            res.send({
+                                                            res.json({
+                                                                sucess:false,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -89,16 +90,17 @@ exports.follow = function (req, res) {
                                             users.findOneAndUpdate(query, { $push: { followers: req.body.follower_id } }, options, function (err, post) {
 
                                                 if (err) {
-                                                    res.send(err);
+                                                    res.json(err);
                                                 }
                                                 else {
                                                     users.findOneAndUpdate(query1, { $push: { following: req.body.user_id } }, options, function (err2, post2) {
 
                                                         if (err2) {
-                                                            res.send(err2);
+                                                            res.json(err2);
                                                         }
                                                         else {
-                                                            res.send({
+                                                            res.json({
+                                                                sucess:true,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -118,7 +120,7 @@ exports.follow = function (req, res) {
 
 
                     } else {
-                        res.send({
+                        res.json({
 
 
                             msg: 'data not found'
@@ -140,7 +142,7 @@ exports.follow = function (req, res) {
 
 
     else {
-        res.send({
+        res.json({
 
 
             msg: 'data not found'

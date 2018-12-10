@@ -13,7 +13,10 @@
 
                         <h1 class="profile-user-name">{{name}}</h1>
                         <a href="/edit-profile" class="user-profile-edit">Edit Profile</a>
+                       
+                      
                         <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
+    
                     </div>
 
                     <div class="follow-details row no-margin">
@@ -33,7 +36,9 @@
                     <div class="biography row no-margin">
                         <span>
                             <h2 class="bio-username no-margin float-left">{{name}}</h2>
-                            <a href="#" class="web-link">{{email}}</a>
+                            <a href="#" class="web-link">{{email}}</a> 
+                            <button  class="follow" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
+                            
                         </span>
                     </div>
                 </div>
@@ -787,5 +792,6 @@
                 aria-hidden="true"></i></a>
         <a class="next" (click)="getnextpost(current_id,i)" *ngIf="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x"
                 aria-hidden="true"></i> </a>
+              
     </div>
 </div>
