@@ -466,7 +466,7 @@ export class ProfileComponent implements OnInit {
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
  this.iffollow = response.sucess;
       console.log(response);
-      console.log('foloowe', this.iffollow );
+      console.log('follower', this.iffollow );
       if(this.iffollow == true){
         // console.log('change to followed')
         this.valueOfButton = "following"
