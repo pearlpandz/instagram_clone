@@ -129,6 +129,8 @@ app.post('/explorepostafter',explore.explorepostafter);
 //explore 
 app.post('/explore', explore.exploreposts);
 
+app.post('/getrecentusers',explore.getrecentusers);
+
 //find particular user through URL
  app.post('/:name', findusers.finde);
 
