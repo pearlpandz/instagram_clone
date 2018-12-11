@@ -3,52 +3,86 @@ const router = require('express').Router();
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 const users = require('../models/user'); //create new user schema
-
-exports.exploreposts = function(req , res){
-   // var mysort = { likecount: -1 };
-   // Posts.find({}).sort(mysort).exec(function (err, post) {
-      Posts.find({}).exec(function (err, post) {
-        if (err) {
-          res.json(err);
-        }
-        else {
-          res.json({
-            data: post
-          });
-        }
-      });
-    };
-    
-    
-    exports.explorepostprevious = function (req, res, next) {
-      try {
-        Posts.findOne({ _id: { $lt: (req.body.id) } }).limit(1).exec(function (err2, previouspost) {
-          if (err2) {
-            res.send(err2)
-          } else {
-            res.send(previouspost)
-          }
-        })
-      } catch (error) {
-    
-      }
-    
+/* function checkfollowers(post, followersid) {
+  var followers = followersid.followers;
+  for (var i = 0; i < post.length; i++) {
+    if (followers.includes(post[i]._id)) {
+      return false;
+    } else {
+      return true;
     }
-    exports.explorepostafter = function (req, res, next) {
-      console.log(req.body.id)
-      try {
-        Posts.findOne({ _id: { $gt: (req.body.id) } }).limit(1).exec(function (err2, afterpost) {
-          if (err2) {
-            res.send(err2)
-          } else {
-            res.send(afterpost)
-          }
-        })
-      } catch (error) {
-    
+  }
+} */
+var newarray = [];
+function checkfollowers(a, b) {
+  var missings = [];
+  var matches = false;
+  for (var i = 0; i < a.length; i++) {
+    matches = false;
+    for (var j = 0; j < b.length; j++) {
+      if (a[i] == b[j]) matches = true;
+    }
+    if (!matches) missings.push(a[i]);
+  }
+  return missings;
+}
+var list = [];
+/* function checkfollowers(array, target) {
+
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < target.length; j++) {
+      if (array[i] != target[j]) {
+        list.push(array[i]);
       }
-    
-    }    
+    }
+  }
+  return list;
+} */
+exports.exploreposts = function (req, res) {
+  // var mysort = { likecount: -1 };
+  // Posts.find({}).sort(mysort).exec(function (err, post) {
+  Posts.find({}).exec(function (err, post) {
+    if (err) {
+      res.json(err);
+    }
+    else {
+      res.json({
+        data: post
+      });
+    }
+  });
+};
+
+
+exports.explorepostprevious = function (req, res, next) {
+  try {
+    Posts.findOne({ _id: { $lt: (req.body.id) } }).limit(1).exec(function (err2, previouspost) {
+      if (err2) {
+        res.send(err2)
+      } else {
+        res.send(previouspost)
+      }
+    })
+  } catch (error) {
+
+  }
+
+}
+exports.explorepostafter = function (req, res, next) {
+  console.log(req.body.id)
+  try {
+    Posts.findOne({ _id: { $gt: (req.body.id) } }).limit(1).exec(function (err2, afterpost) {
+      if (err2) {
+        res.send(err2)
+      } else {
+        res.send(afterpost)
+      }
+    })
+  } catch (error) {
+
+  }
+
+}
 
 /*     exports.getrecentusers = function (req, res, next) {
       var mysortdate = { createdat: -1 };
@@ -64,20 +98,34 @@ exports.exploreposts = function(req , res){
     
       }
     
-    }  */ 
+    }  */
 
-    exports.getrecentusers = function(req , res){
-      var mysortdate = { createdat: -1 };
-      // Posts.find({}).sort(mysort).exec(function (err, post) {
-         users
-         .find({}).sort(mysortdate).exec(function (err, post) {
-           if (err) {
-             res.json(err);
-           }
-           else {
-             res.json({
-               data: post
-             });
-           }
-         });
-       };
+exports.getrecentusers = function (req, res) {
+
+  var mysortdate = { createdat: -1 };
+  // Posts.find({}).sort(mysort).exec(function (err, post) {
+  users
+    .distinct("_id").exec(function (err, post) {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        users.findOne({ _id: req.body.user_id }, function (err1, followersid) {
+          if (err1) {
+            res.json(err);
+          } else {
+            newarray = checkfollowers(post, followersid.followers);
+            users.find({ _id: newarray }, function (err2, post2) {
+              if (err2) {
+                res.send("err2")
+              } else {
+                res.send(post2)
+              }
+            })
+          }
+        });
+
+      }
+    });
+};
+find( { "date": { $gte: new Date((new Date().getTime() - (15 * 24 * 60 * 60 * 1000))) } } ).sort({ "date": -1 })
