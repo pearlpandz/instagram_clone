@@ -14,7 +14,7 @@ a.previous{
     cursor:pointer;
     
     }
-    a.next{    
+a.next {    
         width: 150px;
         height: 50px;
         float:right;

@@ -64,7 +64,6 @@ export class ExploreComponent implements OnInit {
     this.likeinfo = [{
       post_id: post_id,
       current_userid: this.current_id
-
     }];
     console.log("checkck", post_id, current_userid)
     var count = parseInt($('#' + post_id).find(".likecount").html());
@@ -79,7 +78,6 @@ export class ExploreComponent implements OnInit {
           this.count_like = data.data.likecount;
           $('#' + post_id).find(".heart").removeClass("like");
           $('#' + post_id).find(".likecount").html(data.data.likecount);
-
         });
     }
     else {
