@@ -17,7 +17,7 @@ export class ExploreService {
   explorepostprevious(id) {
     return this.http.post(`http://localhost:3000/explorepostprevious` ,id);
   }
-  getrecentusers() {
-    return this.http.post(`http://localhost:3000/getrecentusers` ,''); 
+  getrecentusers(user_id) {
+    return this.http.post(`http://localhost:3000/getrecentusers` ,user_id); 
   }
 }
