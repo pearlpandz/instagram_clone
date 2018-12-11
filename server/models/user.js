@@ -29,6 +29,7 @@ const newUserSchema = new mongoose.Schema({
     phonenumber: {type: String},
     gender: {type: String},
     postids: [],
+    Disableaccount: false,
     
     notification: [
         {   

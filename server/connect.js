@@ -105,7 +105,7 @@ app.post('/getblockids', create_user.getblockids);
 
 //follow users
 app.post('/follows', follows.follow);
-
+app.post('/followcheck', follows.followcheck);
 
 //nodemailer function
 app.post('/mail', nodemail.mail);
@@ -113,6 +113,7 @@ app.post('/mail', nodemail.mail);
 
 //nodemailer function
 app.post('/updateuser', editusers.create);
+app.post('/disable', editusers.disableaccount);
 
 //change password api
 app.post('/changepassword', changepass.changepwd );
@@ -121,6 +122,8 @@ app.post('/uniquename', create_user.Uniquename);
 
 //uniquename set for edit user
 app.post('/edituniquename',create_user.editUniqueName );
+//disable account
+
 //find all
 app.get('/findall',create_user.allfind);
 app.post('/explorepostprevious',explore.explorepostprevious);

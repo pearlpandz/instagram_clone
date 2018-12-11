@@ -10,6 +10,7 @@ import { HomeService } from '../home/home.service';
 import { CommentStmt } from '@angular/compiler';
 import { OwlModule } from 'ngx-owl-carousel';
 import 'hammerjs';
+import { empty } from 'rxjs';
 declare var jquery: any;
 declare var $: any;
 
@@ -51,6 +52,11 @@ export class ProfileComponent implements OnInit {
   private sub: any;
   getafterpostlist: any;
   getbeforepostlist: any;
+  searchedprofile: any;
+  follower_id: any;
+  followbutton: boolean;
+  iffollow: boolean;
+  iffollower: boolean;
   _id: any;
   // like: any;
   profile = {};
@@ -110,7 +116,7 @@ export class ProfileComponent implements OnInit {
   nextshow: boolean = true;
   previousshow: boolean = true;
   ivar: any;
-
+  valueOfButton;
   selectedIndex;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
@@ -118,6 +124,7 @@ export class ProfileComponent implements OnInit {
     this.nextbuttonDisabled = true;
     this.prevbuttonDisabled = false;
     this.current_user = this.cookieService.get('name');
+    console.log('cuurentname', this.current_user);
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
     // this.profileEmail = this.cookieService.get('email');
@@ -128,6 +135,7 @@ export class ProfileComponent implements OnInit {
       this.names = params['name'];
       //   console.log('checl', this.names);
     });
+
     // console.log(this.names);
     this.getProfile(this.names);
 
@@ -145,6 +153,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(response => {
         this.profile = response;
         // console.log(this.profile);
+        this.follower_id = response[0]['_id'];
         this.name = response[0]['name'];
         this.pic = response[0]['profilepic'];
         this.cookieService.set('profilepic', response[0]['profilepic']);
@@ -155,9 +164,17 @@ export class ProfileComponent implements OnInit {
         this.postcount = response[1].length;
         this.slidepost = response[1];
         this.owlpost = response[1];
-        //  console.log( this.slidepost );
-        //         console.log( this.slidepost );
+
+        console.log('searched profile', this.profile);
+        if (this.current_id == this.follower_id) {
+          console.log('1st');
+          this.followbutton = false;
+        } else {
+          console.log('else block')
+          this.followbutton = true;
+        } this.followcheck(this.current_id, this.follower_id)
       }
+
       )
   }
 
@@ -440,7 +457,53 @@ export class ProfileComponent implements OnInit {
       this.nextbuttonDisabled = false;
     }
   }
+  followers(current_userid, follower_id) {
+    //  alert('hi')
 
+    this.likeinfo = [{
+      user_id: this.current_id,
+      follower_id: this.follower_id
+    }];
+
+    console.log(this.likeinfo);
+    this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+      this.iffollower = response.sucess;
+      console.log('chkin old', this.iffollower);
+      if (this.iffollower == true) {
+        this.valueOfButton = "followed"
+      } else if (this.iffollower == false) {
+
+        this.valueOfButton = "follow"
+      } else {
+        this.valueOfButton = "follow1"
+      }
+
+    })
+  }
+
+  followcheck(current_userid, follower_id) {
+    //  alert('hi')
+
+    this.likeinfo = [{
+      user_id: this.current_id,
+      follower_id: this.follower_id
+    }];
+
+    console.log(this.likeinfo);
+    this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+      this.iffollow = response.sucess;
+      console.log('follow chk', this.iffollow);
+      if (this.iffollow == true) {
+        console.log('folloed');
+        this.valueOfButton = "follow"
+      } else if (this.iffollow == false) {
+
+        this.valueOfButton = "followed"
+      } else {
+        this.valueOfButton = "follow1"
+      }
+    })
+  }
   popup_close() {
     this.getProfile(this.names);
   }

@@ -68,3 +68,10 @@ a.next{
     width: 100px;
     height: 100px;
 }
+.followclick{
+    color: #f5f5f5;
+    text-align: center;
+    background: #2ab39000;
+    border: 2px solid #0099CC;
+    background-color: #365fbf;
+}
