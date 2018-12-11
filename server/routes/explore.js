@@ -128,4 +128,4 @@ exports.getrecentusers = function (req, res) {
       }
     });
 };
-find( { "date": { $gte: new Date((new Date().getTime() - (15 * 24 * 60 * 60 * 1000))) } } ).sort({ "date": -1 })
+// find( { "date": { $gte: new Date((new Date().getTime() - (15 * 24 * 60 * 60 * 1000))) } } ).sort({ "date": -1 })
