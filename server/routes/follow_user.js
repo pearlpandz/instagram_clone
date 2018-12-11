@@ -73,7 +73,7 @@ exports.follow = function (req, res) {
                                                         }
                                                         else {
                                                             res.json({
-                                                                sucess:false,
+                                                                sucess: false,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -100,7 +100,7 @@ exports.follow = function (req, res) {
                                                         }
                                                         else {
                                                             res.json({
-                                                                sucess:true,
+                                                                sucess: true,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -129,7 +129,8 @@ exports.follow = function (req, res) {
                     }
                     // console.log( checklikeid(resu, req.body.follower_id) );
                 }
-            })  }
+            })
+    }
 
     else {
         res.json({
@@ -186,20 +187,20 @@ exports.followcheck = function (req, res) {
 
                                         if (checklikeid(post[0]['followers'], req.body.follower_id) && checklikeid(post1[0]['following'], req.body.user_id)) {
                                             //res.send('pull')
-                                            users.findOne(query,  { followers: req.body.follower_id } , options, function (err, post) {
+                                            users.findOne(query, { followers: req.body.follower_id }, options, function (err, post) {
 
                                                 if (err) {
                                                     res.json(err);
                                                 }
                                                 else {
-                                                    users.findOne(query1,  { following: req.body.user_id } , options, function (err2, post2) {
+                                                    users.findOne(query1, { following: req.body.user_id }, options, function (err2, post2) {
 
                                                         if (err2) {
                                                             res.json(err2);
                                                         }
                                                         else {
                                                             res.json({
-                                                                sucess:false,
+                                                                sucess: false,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -213,20 +214,20 @@ exports.followcheck = function (req, res) {
 
                                         else {
                                             // res.send('push')
-                                            users.findOne(query,  { followers: req.body.follower_id } , options, function (err, post) {
+                                            users.findOne(query, { followers: req.body.follower_id }, options, function (err, post) {
 
                                                 if (err) {
                                                     res.json(err);
                                                 }
                                                 else {
-                                                    users.findOne(query1, { following: req.body.user_id } , options, function (err2, post2) {
+                                                    users.findOne(query1, { following: req.body.user_id }, options, function (err2, post2) {
 
                                                         if (err2) {
                                                             res.json(err2);
                                                         }
                                                         else {
                                                             res.json({
-                                                                sucess:true,
+                                                                sucess: true,
                                                                 userid: post,
                                                                 followerid: post2
                                                             });
@@ -255,7 +256,8 @@ exports.followcheck = function (req, res) {
                     }
                     // console.log( checklikeid(resu, req.body.follower_id) );
                 }
-            })  }
+            })
+    }
 
     else {
         res.json({
@@ -266,3 +268,44 @@ exports.followcheck = function (req, res) {
         })
     }
 };
+exports.followlist = function (req, res) {
+
+    users.find({ _id: req.body.id }, function (err, data) {
+        if (err) {
+            res.send(err);
+        } else {
+            // res.send(data[0].following);
+            users.find({ _id: data[0].following }, function (err2, data2) {
+                if (err2) {
+                    res.send('err2')
+                } else {
+                    res.send(data2);
+                }
+            })
+        }
+
+
+    })
+
+}
+
+exports.followerlist = function (req, res) {
+
+    users.find({ _id: req.body.id }, function (err, data) {
+        if (err) {
+            res.send(err);
+        } else {
+            //  res.send(data[0].followers);
+            users.find({ _id: data[0].followers }, function (err2, data2) {
+                if (err2) {
+                    res.send('err2')
+                } else {
+                    res.send(data2);
+                }
+            })
+        }
+
+
+    })
+
+}

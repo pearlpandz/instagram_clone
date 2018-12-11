@@ -404,11 +404,11 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title change-title">Followers</h4>
+                <h4 class="modal-title change-title">Following</h4>
             </div>
-            <div class="modal-body">
-                <div class="follower-list">
-                    <div class="follower-list-box row no-margin">
+            <div class="modal-body" >
+                <div class="follower-list" >
+                    <div class="follower-list-box row no-margin" *ngFor="let followinglist of followinglists;let i = index">
                         <div class="left">
                             <div class="follow-image">
                                 <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
@@ -416,9 +416,9 @@
 
                             <div class="user-name">
                                 <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
+                                    <h5>{{followinglist}}</h5>
                                 </a>
-                                <p class="follow-name">aliana caewewhuhwuqsandra</p>
+                                <p class="follow-name">{{followinglist.name}}</p>
                             </div>
                             <!--end of user-name-->
                         </div>

@@ -53,11 +53,14 @@ export class ProfileComponent implements OnInit {
   getafterpostlist: any;
   getbeforepostlist: any;
   searchedprofile: any;
+  _id: any;
+  // follow 
   follower_id: any;
   followbutton: boolean;
   iffollow: boolean;
   iffollower: boolean;
-  _id: any;
+ followinglists ;
+
   // like: any;
   profile = {};
   userpost = [];
@@ -134,6 +137,7 @@ export class ProfileComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
       //   console.log('checl', this.names);
+     this.followinglist(this.current_id);
     });
 
     // console.log(this.names);
@@ -504,6 +508,18 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+followinglist(currentuserid){
+// console.log('hi', currentuserid);
+this.profileservice.followinglist(currentuserid).map(response => response.json()).subscribe(response => {
+
+this.followinglists = response;
+console.log('folow', this.followinglists);
+
+})
+}
+
+
+
   popup_close() {
     this.getProfile(this.names);
   }

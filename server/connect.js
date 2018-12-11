@@ -106,7 +106,8 @@ app.post('/getblockids', create_user.getblockids);
 //follow users
 app.post('/follows', follows.follow);
 app.post('/followcheck', follows.followcheck);
-
+app.post('/followinglist', follows.followlist);
+app.post('/followerlist', follows.followerlist);
 //nodemailer function
 app.post('/mail', nodemail.mail);
 //edit user
