@@ -461,8 +461,8 @@ export class ProfileComponent implements OnInit {
     //  alert('hi')
 
     this.likeinfo = [{
-      user_id: this.current_id,
-      follower_id: this.follower_id
+      user_id: this.follower_id,
+      follower_id: this.current_id
     }];
 
     console.log(this.likeinfo);
@@ -485,8 +485,8 @@ export class ProfileComponent implements OnInit {
     //  alert('hi')
 
     this.likeinfo = [{
-      user_id: this.current_id,
-      follower_id: this.follower_id
+      user_id: this.follower_id,
+      follower_id: this.current_id
     }];
 
     console.log(this.likeinfo);
