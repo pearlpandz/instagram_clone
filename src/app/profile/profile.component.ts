@@ -482,7 +482,8 @@ export class ProfileComponent implements OnInit {
       console.log('chkin old', this.iffollower);
       if (this.iffollower == true) {
         this.valueOfButton = "followed"
-      } else if (this.iffollower == false) {
+      } 
+      else if (this.iffollower == false) {
 
         this.valueOfButton = "follow"
       } else {
@@ -504,9 +505,9 @@ export class ProfileComponent implements OnInit {
     this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
       this.iffollow = response.sucess;
       console.log('follow chk', this.iffollow);
-      if (this.iffollow == true) {
+      if (this.iffollow == true ) {
         console.log('folloed');
-        this.valueOfButton = "follow"
+        this.valueOfButton = "follows"
       } else if (this.iffollow == false) {
 
         this.valueOfButton = "followed"
@@ -550,7 +551,7 @@ console.log(this.likeinfo);
 this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
   this.iffollowingbutton = response.sucess;
   console.log('chkin old', this.iffollowingbutton);
- 
+
 })
  }
  
