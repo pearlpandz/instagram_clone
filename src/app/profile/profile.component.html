@@ -37,8 +37,8 @@
                         <span>
                             <h2 class="bio-username no-margin float-left">{{name}}</h2>
                             <!-- <a href="#" class="web-link">{{email}}</a>  -->
-                            <button  class="followclick" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
-                            
+                            <button class="followclick" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
+
                         </span>
                     </div>
                 </div>
@@ -97,7 +97,8 @@
                 <!---- <input type="file" class="input" id="myfile" file-model="myFile">!-->
                 <!----     <a  href = "#" class="full" data-dismiss="modal" (click)="test()">Upload Picture</a>!-->
 
-                <label for="files"></label><input style="display: none" type="file" name="myFile" [(ngModel)]="myFile" (change)="onFileChanged($event);" #fileInput>
+                <label for="files"></label><input style="display: none" type="file" name="myFile" [(ngModel)]="myFile"
+                    (change)="onFileChanged($event);" #fileInput>
                 <button (click)="fileInput.click()">Upload Picture</button>
 
                 <a class="full" data-dismiss="modal">Cancel</a>
@@ -171,7 +172,7 @@
 
                             <div class="user-name">
                                 <!-- <a href="view-profile.html" class="follow-user-name"> -->
-                                    <!-- <h5>alianacasandra@12</h5> -->
+                                <!-- <h5>alianacasandra@12</h5> -->
                                 <!-- </a> -->
                                 <!-- <p class="follow-name">aliana casandra</p> -->
                             </div>
@@ -408,8 +409,8 @@
                 <h4 class="modal-title change-title">Followingg</h4>
             </div>
             <div class="modal-body">
-                <div class="follower-list" >
-                    <div class="follower-list-box row no-margin" *ngFor="let followinglist of followinglists;let i = index"  >
+                <div class="follower-list">
+                    <div class="follower-list-box row no-margin" *ngFor="let followinglist of followinglists;let i = index">
                         <div class="left">
                             <div class="follow-image">
                                 <a href="{{followinglist.name}}"><img src="{{followinglist.profilepic}}"></a>
@@ -431,7 +432,7 @@
 
                         <div class="right">
                             <div class="following-button">
-                                <a (click)="followingbutton(followinglist._id, current_id )">{{followname }}</a>
+                                <a (click)="followingbutton(followinglist._id, current_id )">{{followname}}</a>
                             </div>
                         </div>
                         <!--end of right-->
@@ -468,9 +469,13 @@
                                 <div class="popup-image">
                                     <!-- <img src={{sampleFile}} class="pop-img">!-->
 
-                                    <slideshow #slideshow [imageUrls]="modalpost.sampleFile" [height]="height" [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug"
-                                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor"
-                                        [captionBackground]="captionBackground" [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
+                                    <slideshow #slideshow [imageUrls]="modalpost.sampleFile" [height]="height"
+                                        [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
+                                        [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
+                                        [debug]="debug" [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition"
+                                        [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor"
+                                        [showCaptions]="showCaptions" [captionColor]="captionColor" [captionBackground]="captionBackground"
+                                        [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
                                     </slideshow>
                                 </div>
                             </div>
@@ -539,7 +544,8 @@
 
 
 
-                                        <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
+                                        <input type="text" class="form-control comment" placeholder="Add a comment..."
+                                            #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
                                         <span class="input-group-addon more"><a href="#" data-toggle="modal"
                                                 data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
                                     </div>
@@ -562,7 +568,8 @@
 
         </div>
 
-        <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x" aria-hidden="true"></i></a>
+        <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x"
+                aria-hidden="true"></i></a>
         <a class="next" (click)="getnextpost(current_id,i)" *ngIf="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x"
                 aria-hidden="true"></i> </a>
 

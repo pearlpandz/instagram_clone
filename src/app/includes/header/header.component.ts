@@ -50,8 +50,10 @@ export class HeaderComponent implements OnInit {
   valueChanged(name: any){
 
     if(name.value){
+
     // console.log('input value', name.value);
     this.http.post('http://localhost:3000/search/' + name.value, '')
+    
     .map(res => res.json())
     .subscribe( response => {
     $('.filter-select').addClass('show');
