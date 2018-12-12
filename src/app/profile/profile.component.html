@@ -1,8 +1,8 @@
-<div class="container-fluid page-start" >
+<div class="container-fluid page-start">
     <div class="user-profile-panel">
 
 
-        <div class="user-profile-details" >
+        <div class="user-profile-details">
             <div class="user-profile-inner row no-margin">
                 <div class="user-img">
                     <a href="#" data-toggle="modal" data-target="#change-photo"><img src="{{pic}}"></a>
@@ -13,10 +13,10 @@
 
                         <h1 class="profile-user-name">{{name}}</h1>
                         <a href="/edit-profile" class="user-profile-edit">Edit Profile</a>
-                       
-                      
+
+
                         <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
-    
+
                     </div>
 
                     <div class="follow-details row no-margin">
@@ -49,7 +49,7 @@
         <!--end of user-profile-details-->
 
         <div class="user-photos">
-            <div class="user-photos-inner row no-margin" >
+            <div class="user-photos-inner row no-margin">
 
                 <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true">
                     <div class="user-photos-column" (click)="popup(qualifica,i)">
@@ -83,12 +83,12 @@
 <!--end of page-start-->
 
 <!-- change-photo Modal -->
-<div id="change-photo" class="modal fade" role="dialog"> 
+<div id="change-photo" class="modal fade" role="dialog">
     <button type="button" class="close popup-close" data-dismiss="modal" (onclick)="popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content" >
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title change-title">Change Profile Picture</h4>
             </div>
@@ -97,8 +97,7 @@
                 <!---- <input type="file" class="input" id="myfile" file-model="myFile">!-->
                 <!----     <a  href = "#" class="full" data-dismiss="modal" (click)="test()">Upload Picture</a>!-->
 
-                <label for="files"></label><input style="display: none" type="file" name="myFile" [(ngModel)]="myFile"
-                    (change)="onFileChanged($event);" #fileInput>
+                <label for="files"></label><input style="display: none" type="file" name="myFile" [(ngModel)]="myFile" (change)="onFileChanged($event);" #fileInput>
                 <button (click)="fileInput.click()">Upload Picture</button>
 
                 <a class="full" data-dismiss="modal">Cancel</a>
@@ -137,7 +136,7 @@
             </div>
             <div class="modal-body">
                 <div class="follower-list">
-                    <div class="follower-list-box row no-margin" *ngFor = "let followerlist of followerlists">
+                    <div class="follower-list-box row no-margin" *ngFor="let followerlist of followerlists">
                         <div class="left">
                             <div class="follow-image">
                                 <a href="{{followerlist.name}}"><img src="{{followerlist.profilepic}}"></a>
@@ -406,8 +405,8 @@
             <div class="modal-header">
                 <h4 class="modal-title change-title">Followingg</h4>
             </div>
-            <div class="modal-body" >
-                <div class="follower-list" >
+            <div class="modal-body">
+                <div class="follower-list">
                     <div class="follower-list-box row no-margin" *ngFor="let followinglist of followinglists;let i = index">
                         <div class="left">
                             <div class="follow-image">
@@ -415,253 +414,26 @@
                             </div>
 
                             <div class="user-name">
-                                <a href="{{followinglist.name}}"  class="follow-user-name">
-                                    <h5>{{followinglist.name}}</h5> </a>
-                               
+                                <a href="{{followinglist.name}}" class="follow-user-name">
+                                    <h5>{{followinglist.name}}</h5>
+                                </a>
+
                                 <p class="follow-name">{{followinglist.name}}</p>
-                                 
+
                             </div>
                             <!--end of user-name-->
                         </div>
 
-                        
+
                         <!--end of left-->
 
                         <div class="right">
                             <div class="following-button">
-                                <a (click)="followingbutton(followinglist._id, current_id )" >{{valueOfButton}}</a>
+                                <a (click)="followingbutton(followinglist._id, current_id )">{{valueOfButton}}</a>
                             </div>
                         </div>
                         <!--end of right-->
                     </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                            <h5><b>Suggestions For You</b></h5><br>
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                             
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpgz"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
-
-                    <div class="follower-list-box row no-margin">
-                        <div class="left">
-                            <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
-                            </div>
-
-                            <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
-                                </a>
-                                <p class="follow-name">aliana casandra</p>
-                            </div>
-                            <!--end of user-name-->
-                        </div>
-                        <!--end of left-->
-
-                        <div class="right">
-                            <div class="follow-button">
-                                <a href="#">Follow</a>
-                            </div>
-                        </div>
-                        <!--end of right-->
-                    </div>
-                    <!--end of follow-list-box-->
                 </div>
                 <!--end of follow-list-->
             </div>
@@ -672,7 +444,7 @@
 </div>
 
 <!--photo-popup-->
-<div id="photo-popup" class="modal fade" role="dialog"  >
+<div id="photo-popup" class="modal fade" role="dialog">
     <button type="button" class="close popup-close" data-dismiss="modal" (click)="popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
 
@@ -694,13 +466,9 @@
                                 <div class="popup-image">
                                     <!-- <img src={{sampleFile}} class="pop-img">!-->
 
-                                    <slideshow #slideshow [imageUrls]="modalpost.sampleFile" [height]="height"
-                                        [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
-                                        [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
-                                        [debug]="debug" [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition"
-                                        [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor"
-                                        [showCaptions]="showCaptions" [captionColor]="captionColor" [captionBackground]="captionBackground"
-                                        [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
+                                    <slideshow #slideshow [imageUrls]="modalpost.sampleFile" [height]="height" [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug"
+                                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor"
+                                        [captionBackground]="captionBackground" [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
                                     </slideshow>
                                 </div>
                             </div>
@@ -722,7 +490,7 @@
                                 <!--end of coment-profile-->
 
 
-                                <div class="comment-wrap"  >
+                                <div class="comment-wrap">
                                     <div class="like-count">
                                         <div class="float-left">
                                             <p class="no-margin"><b class="likecount">{{modalpost.likecount}}
@@ -736,7 +504,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                  
+
 
                                     <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
@@ -748,7 +516,7 @@
                                 </div>
                                 <!--end of comment-wrap-->
 
-                                <div class="row feed-footer profile-foot no-margin"   >
+                                <div class="row feed-footer profile-foot no-margin">
 
                                     <div class="input-group" id="{{post_id}}">
 
@@ -769,8 +537,7 @@
 
 
 
-                                        <input type="text" class="form-control comment" placeholder="Add a comment..."
-                                            #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
+                                        <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
                                         <span class="input-group-addon more"><a href="#" data-toggle="modal"
                                                 data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
                                     </div>
@@ -793,10 +560,9 @@
 
         </div>
 
-        <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x"
-                aria-hidden="true"></i></a>
+        <a class="previous" (click)="getprevpost(current_id,i)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x" aria-hidden="true"></i></a>
         <a class="next" (click)="getnextpost(current_id,i)" *ngIf="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x"
                 aria-hidden="true"></i> </a>
-              
+
     </div>
 </div>
