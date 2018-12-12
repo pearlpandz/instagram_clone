@@ -174,14 +174,13 @@ export class ExploreComponent implements OnInit {
     this.profileservice.follows(this.info[0]).map(response => response.json()).subscribe(response => {
       this.following = response.sucess;
       this.partiindex = i;
-      if(this.following == true){
-        this.buttonfollowing = true;
-        this.buttonfollow = false;
-      } else {
+      if(this.following){
+        this.buttonfollowing = false;
         this.buttonfollow = true;
-       // this.buttonfollowing = false;
+      } else {
+        this.buttonfollow = false;
+        this.buttonfollowing = true;
       }
-      console.log(this.following);
     })
   }
   popup_close() {
