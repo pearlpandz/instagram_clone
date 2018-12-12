@@ -59,7 +59,10 @@ export class ProfileComponent implements OnInit {
   followbutton: boolean;
   iffollow: boolean;
   iffollower: boolean;
+  iffollowingbutton: boolean;
  followinglists ;
+ followerlists ;
+ followname;
 
   // like: any;
   profile = {};
@@ -138,6 +141,8 @@ export class ProfileComponent implements OnInit {
       this.names = params['name'];
       //   console.log('checl', this.names);
      this.followinglist(this.current_id);
+     this.followerlistings(this.current_id);
+   
     });
 
     // console.log(this.names);
@@ -176,7 +181,9 @@ export class ProfileComponent implements OnInit {
         } else {
           console.log('else block')
           this.followbutton = true;
+
         } this.followcheck(this.current_id, this.follower_id)
+       
       }
 
       )
@@ -513,13 +520,42 @@ followinglist(currentuserid){
 this.profileservice.followinglist(currentuserid).map(response => response.json()).subscribe(response => {
 
 this.followinglists = response;
+this.followname = response[0]._id;
 console.log('folow', this.followinglists);
+
+console.log('ids of list' , this.followname );
+
+
 
 })
 }
 
+followerlistings(currentuserid){
+  this.profileservice.followerlist(currentuserid).map(response => response.json()).subscribe(response => {
 
+    this.followerlists = response;
+ 
+    console.log('folower',  this.followerlists);
+    // console.log('test follwing', this.followname);
+    
+    })
+}
 
+followingbutton(userid, following_id){
+  this.likeinfo = [{
+    user_id: userid,
+    follower_id: following_id
+  }];
+console.log(this.likeinfo);
+this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+  this.iffollowingbutton = response.sucess;
+  console.log('chkin old', this.iffollowingbutton);
+
+  this.valueOfButton = 'followed';
+ 
+})
+ }
+ 
   popup_close() {
     this.getProfile(this.names);
   }
