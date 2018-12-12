@@ -550,6 +550,8 @@ console.log(this.likeinfo);
 this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
   this.iffollowingbutton = response.sucess;
   console.log('chkin old', this.iffollowingbutton);
+
+  this.valueOfButton = 'followed';
  
 })
  }
