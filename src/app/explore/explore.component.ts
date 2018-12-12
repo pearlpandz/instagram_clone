@@ -174,7 +174,7 @@ export class ExploreComponent implements OnInit {
     this.profileservice.follows(this.info[0]).map(response => response.json()).subscribe(response => {
       this.following = response.sucess;
       this.partiindex = i;
-      if(this.following == true){
+      if(this.following){
         this.buttonfollowing = false;
         this.buttonfollow = true;
       } else {
