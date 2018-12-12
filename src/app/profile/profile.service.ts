@@ -31,7 +31,7 @@ export class ProfileService {
     return this.http.post('http://localhost:3000/followcheck', ids);
   }
   followerlist(userid){
-    return this.http.post('http://localhost:3000/followerlist', userid);
+    return this.http.post('http://localhost:3000/followerlist', {"id":userid});
   }
 
   followinglist(userid){

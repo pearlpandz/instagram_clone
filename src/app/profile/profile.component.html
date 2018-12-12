@@ -36,7 +36,7 @@
                     <div class="biography row no-margin">
                         <span>
                             <h2 class="bio-username no-margin float-left">{{name}}</h2>
-                            <a href="#" class="web-link">{{email}}</a> 
+                            <!-- <a href="#" class="web-link">{{email}}</a>  -->
                             <button  class="followclick" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
                             
                         </span>
@@ -133,19 +133,19 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title change-title">Followers</h4>
+                <h4 class="modal-title change-title">Followerss</h4>
             </div>
             <div class="modal-body">
                 <div class="follower-list">
-                    <div class="follower-list-box row no-margin">
+                    <div class="follower-list-box row no-margin" *ngFor = "let followerlist of followerlists">
                         <div class="left">
                             <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
+                                <a href="{{followerlist.name}}"><img src="{{followerlist.profilepic}}"></a>
                             </div>
 
                             <div class="user-name">
                                 <a href="view-profile.html" class="follow-user-name">
-                                    <h5>alianacasandra@12</h5>
+                                    <h5>{{followerlist.name}}</h5>
                                 </a>
                                 <p class="follow-name">aliana casandra</p>
                             </div>
@@ -404,29 +404,32 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title change-title">Following</h4>
+                <h4 class="modal-title change-title">Followingg</h4>
             </div>
             <div class="modal-body" >
                 <div class="follower-list" >
                     <div class="follower-list-box row no-margin" *ngFor="let followinglist of followinglists;let i = index">
                         <div class="left">
                             <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
+                                <a href="{{followinglist.name}}"><img src="{{followinglist.profilepic}}"></a>
                             </div>
 
                             <div class="user-name">
-                                <a href="view-profile.html" class="follow-user-name">
-                                    <h5>{{followinglist}}</h5>
-                                </a>
+                                <a href="{{followinglist.name}}"  class="follow-user-name">
+                                    <h5>{{followinglist.name}}</h5> </a>
+                               
                                 <p class="follow-name">{{followinglist.name}}</p>
+                                 
                             </div>
                             <!--end of user-name-->
                         </div>
+
+                        
                         <!--end of left-->
 
                         <div class="right">
                             <div class="following-button">
-                                <a href="#">Following</a>
+                                <a (click)="followingbutton(followinglist._id, current_id )" >{{valueOfButton}}</a>
                             </div>
                         </div>
                         <!--end of right-->
@@ -434,12 +437,14 @@
                     <!--end of follow-list-box-->
 
                     <div class="follower-list-box row no-margin">
+                            <h5><b>Suggestions For You</b></h5><br>
                         <div class="left">
                             <div class="follow-image">
                                 <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
                             </div>
 
                             <div class="user-name">
+                             
                                 <a href="view-profile.html" class="follow-user-name">
                                     <h5>alianacasandra@12</h5>
                                 </a>
@@ -461,7 +466,7 @@
                     <div class="follower-list-box row no-margin">
                         <div class="left">
                             <div class="follow-image">
-                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpg"></a>
+                                <a href="view-profile.html"><img src="../../assets/img/model-user.jpgz"></a>
                             </div>
 
                             <div class="user-name">
