@@ -24,3 +24,41 @@ a.next {
         cursor:pointer;
     
     }
+    .suggests {
+    width: 159px;
+    height: 160px;
+    border: 1px solid #efefef;
+    color: #000;
+    padding: 5px 26px;
+    border-radius: 3px;
+    margin-right: 40px;
+    margin-left: 10px;
+    }
+   .suggests img {
+        border-radius: 50%;
+        height: 74px;
+
+      }
+      .L3NKy1{
+        background-color: #3897f0;
+        border: 1px solid #3897f0;
+        border-radius: 4px;
+        color: #000;
+        position: relative;
+        margin-left: 16px;
+        margin-top: 20px; 
+      }
+
+      .L3NKy{    
+        background-color: #3897f0;
+        border: 1px solid #3897f0;
+        border-radius: 4px;
+        color: #fff;
+        position: relative;
+        margin-left: 16px;
+        margin-top: 20px;
+    }
+    p b {
+        margin-left: 16px;
+        margin-top: 20px;
+    }

@@ -14,6 +14,7 @@ declare var $: any;
   styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
+  request : any;
   exploredata: any;
   modalposts: any;
   comments = [];
@@ -26,6 +27,12 @@ export class ExploreComponent implements OnInit {
   count_like: number;
   next_id : any;
   prev_id : any;
+  usersexplore : any;
+  following : any;
+   info : any;
+   buttonfollowing : boolean= true;
+   buttonfollow: boolean =  false;
+   partiindex: any;
   @ViewChild('comment_msg') el: ElementRef
   constructor(private profileservice: ProfileService,
     private https: HttpClient, private explore: ExploreService, private cookieService: CookieService,
@@ -34,6 +41,7 @@ export class ExploreComponent implements OnInit {
     this.getexplore();
     this.current_user = this.cookieService.get('name');
     this.current_id = this.cookieService.get('id');
+    this.getexploreuser();
   }
   getexplore() {
     this.explore.getexplore().map(request => request).subscribe(request => {
@@ -135,7 +143,7 @@ export class ExploreComponent implements OnInit {
     this.prev_id = {
       "id" : prevId
     }
-    this.explore.explorepostprevious(this.next_id).map(response => response).subscribe(result =>{
+    this.explore.explorepostprevious(this.prev_id).map(response => response).subscribe(result =>{
       console.log('prev',result);
       this.modalposts = result;
     }) 
@@ -147,6 +155,33 @@ export class ExploreComponent implements OnInit {
     this.explore.explorepostafter(this.next_id).map(response => response).subscribe(result =>{
       console.log('next',result);
       this.modalposts = result;
+    })
+  }
+  getexploreuser () { 
+    this.request = {
+      user_id : this.current_id
+    }
+    console.log(this.current_id);
+    this.explore.getrecentusers(this.request).map( result => result ).subscribe( result => {
+      this.usersexplore = result;
+          });
+  }
+  followers(current_userid, follower_id,i) {
+    this.info = [{
+      user_id: follower_id,
+      follower_id: current_userid
+    }];
+    this.profileservice.follows(this.info[0]).map(response => response.json()).subscribe(response => {
+      this.following = response.sucess;
+      this.partiindex = i;
+      if(this.following == true){
+        this.buttonfollowing = true;
+        this.buttonfollow = false;
+      } else {
+        this.buttonfollow = true;
+       // this.buttonfollowing = false;
+      }
+      console.log(this.following);
     })
   }
   popup_close() {
