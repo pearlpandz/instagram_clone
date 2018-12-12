@@ -11,7 +11,7 @@
                         <!-- <p>Suggested for you</p> -->
                         <button class="_0mzm- sqdOP  L3NKy" type="button"  *ngIf = "buttonfollowing;else followelse" (click)="followers( current_id, res._id,i)">Follow</button>
                         <ng-template #followelse>
-                        <button class="_0mzm- sqdOP  L3NKy1" type="button"  *ngIf = "buttonfollow  && i == partiindex" (click)="followers( current_id, res._id,i)">following</button>
+                        <button class="_0mzm- sqdOP  L3NKy1" type="button"   (click)="followers( current_id, res._id,i)">following</button>
                    </ng-template>
                     </div>
             </div>
