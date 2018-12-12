@@ -277,9 +277,10 @@ exports.followlist = function (req, res) {
             // res.send(data[0].following);
             users.find({ _id: data[0].following }, function (err2, data2) {
                 if (err2) {
-                    res.send('err2')
+                    res.json('err2')
                 } else {
-                    res.send(data2);
+                    res.json( { data: data2,
+                      msg: "Following" });
                 }
             })
         }
@@ -300,7 +301,9 @@ exports.followerlist = function (req, res) {
                 if (err2) {
                     res.send('err2')
                 } else {
-                    res.send(data2);
+                    res.json({data:data2,
+                            msg:"follow"
+                                });
                 }
             })
         }

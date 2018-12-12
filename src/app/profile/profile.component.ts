@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
  followinglists ;
  followerlists ;
  followname;
-
+ followername;
   // like: any;
   profile = {};
   userpost = [];
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit {
       this.names = params['name'];
       //   console.log('checl', this.names);
      this.followinglist(this.current_id);
-     this.followerlistings(this.current_id);
+     this.followerlisted(this.current_id);
    
     });
 
@@ -483,7 +483,7 @@ export class ProfileComponent implements OnInit {
       if (this.iffollower == true) {
         this.valueOfButton = "followed"
       } 
-      else if (this.iffollower == false) {
+      else if (this.iffollower == false || this.followname == "Following") {
 
         this.valueOfButton = "follow"
       } else {
@@ -507,7 +507,7 @@ export class ProfileComponent implements OnInit {
       console.log('follow chk', this.iffollow);
       if (this.iffollow == true ) {
         console.log('folloed');
-        this.valueOfButton = "follows"
+        this.valueOfButton = "follow"
       } else if (this.iffollow == false) {
 
         this.valueOfButton = "followed"
@@ -520,24 +520,26 @@ followinglist(currentuserid){
 // console.log('hi', currentuserid);
 this.profileservice.followinglist(currentuserid).map(response => response.json()).subscribe(response => {
 
-this.followinglists = response;
-this.followname = response[0]._id;
-console.log('folow', this.followinglists);
+this.followinglists = response.data;
+this.followname  =  response.msg;
 
-console.log('ids of list' , this.followname );
+console.log('following', this.followinglists);
+console.log('followingmsg', this.followname);
+console.log('ids of list' , response );
 
 
 
 })
 }
 
-followerlistings(currentuserid){
+followerlisted(currentuserid){
+  
   this.profileservice.followerlist(currentuserid).map(response => response.json()).subscribe(response => {
 
-    this.followerlists = response;
- 
-    console.log('folower',  this.followerlists);
-    // console.log('test follwing', this.followname);
+     this.followerlists = response.data;
+     this.followername = response.msg;
+     console.log('follower', this.followerlists);
+    // console.log('test follwing', this.followerlists);
     
     })
 }
@@ -550,7 +552,20 @@ followingbutton(userid, following_id){
 console.log(this.likeinfo);
 this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
   this.iffollowingbutton = response.sucess;
-  console.log('chkin old', this.iffollowingbutton);
+  console.log( 'buttons',this.iffollowingbutton)
+
+})
+ }
+
+ followerbutton(userid, following_id){
+  this.likeinfo = [{
+    user_id: userid,
+    follower_id: following_id
+  }];
+console.log(this.likeinfo);
+this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+  this.iffollowingbutton = response.sucess;
+  console.log( 'buttons',this.iffollowingbutton)
 
 })
  }
