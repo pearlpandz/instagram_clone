@@ -62,7 +62,8 @@ export class ProfileComponent implements OnInit {
   iffollowingbutton: boolean;
  followinglists ;
  followerlists ;
- followname;
+ followname = "following";
+ 
  followername;
   // like: any;
   profile = {};
@@ -522,7 +523,7 @@ this.profileservice.followinglist(currentuserid).map(response => response.json()
 
 this.followinglists = response.data;
 this.followname  =  response.msg;
-
+       console.log(this.followername) 
 console.log('following', this.followinglists);
 console.log('followingmsg', this.followname);
 console.log('ids of list' , response );
@@ -545,6 +546,7 @@ followerlisted(currentuserid){
 }
 
 followingbutton(userid, following_id){
+  this.followname= "follow"
   this.likeinfo = [{
     user_id: userid,
     follower_id: following_id
@@ -552,6 +554,8 @@ followingbutton(userid, following_id){
 console.log(this.likeinfo);
 this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
   this.iffollowingbutton = response.sucess;
+  
+  console.log('butnname',this.followername) 
   console.log( 'buttons',this.iffollowingbutton)
 
 })
