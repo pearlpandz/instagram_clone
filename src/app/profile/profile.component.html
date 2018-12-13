@@ -12,7 +12,8 @@
                     <div class="user-name row no-margin">
 
                         <h1 class="profile-user-name">{{name}}</h1>
-                        <a href="/edit-profile" class="user-profile-edit">Edit Profile</a>
+                    
+                        <a href="/edit-profile" class="user-profile-edit" *ngIf="name==current_user">Edit Profile</a>
 
 
                         <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
@@ -83,13 +84,13 @@
 <!--end of page-start-->
 
 <!-- change-photo Modal -->
-<div id="change-photo" class="modal fade" role="dialog">
+<div id="change-photo" class="modal fade" role="dialog" *ngIf="name == current_user" >
     <button type="button" class="close popup-close" data-dismiss="modal" (onclick)="popup_close()"><i class="ion-close-round"></i></button>
-    <div class="modal-dialog">
+    <div class="modal-dialog" >
 
         <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" >
+            <div class="modal-header" >
                 <h4 class="modal-title change-title">Change Profile Picture</h4>
             </div>
             <div class="modal-body">
