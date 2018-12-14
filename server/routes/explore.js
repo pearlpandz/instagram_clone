@@ -56,11 +56,15 @@ exports.exploreposts = function (req, res) {
 
 exports.explorepostprevious = function (req, res, next) {
   try {
-    Posts.findOne({ _id: { $lt: (req.body.id) } }).limit(1).exec(function (err2, previouspost) {
+    Posts.findOne({ _id: { $lt: (req.body.id) } }).sort({_id: -1 }).limit(1).exec(function (err2, previouspost) {
       if (err2) {
         res.send(err2)
       } else {
-        res.send(previouspost)
+        if(previouspost){
+          res.send(previouspost);
+        }else{
+          res.send("Invalid");
+        }
       }
     })
   } catch (error) {
@@ -71,11 +75,15 @@ exports.explorepostprevious = function (req, res, next) {
 exports.explorepostafter = function (req, res, next) {
   console.log(req.body.id)
   try {
-    Posts.findOne({ _id: { $gt: (req.body.id) } }).limit(1).exec(function (err2, afterpost) {
+    Posts.findOne({ _id: { $gt: (req.body.id) } }).sort({_id: 1 }).limit(1).exec(function (err2, afterpost) {
       if (err2) {
         res.send(err2)
       } else {
-        res.send(afterpost)
+        if(afterpost){
+          res.send(afterpost)
+        } else{
+          res.send("Invalid");
+        }
       }
     })
   } catch (error) {
