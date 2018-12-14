@@ -159,7 +159,7 @@
                                                 
                                             <label for="password" class="col-sm-3 col-form-label">Old Password</label>
                                             <div class="col-sm-9">
-                                                <input  class="form-control" type="password" placeholder="" id="password" name="oldpass"  [(ngModel)]="password">
+                                                <input  class="form-control" type="password" placeholder="" id="password" name="oldpass" [(ngModel)]="password">
                                                 
                                             </div>
                                         </div>
@@ -184,9 +184,8 @@
                                             </div>
 
                                             <div class="col-sm-9 no-padding" >
-                                               
-                                                
-                                                <button type="submit" [disabled]="changed_password!=retype_password " class="btn btn-primary float-left submit">Change Password</button>
+                                
+                                                <button type="submit" [disabled]="(changed_password!=retype_password) || (!password || !changed_password ||!retype_password)"  class="btn btn-primary float-left submit">Change Password</button>
                                             </div>
                                         </div>
                                         <!--end of submit-button-->

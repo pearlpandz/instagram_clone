@@ -15,7 +15,7 @@ let salt= bcrypt.genSaltSync(8);
     
     bcrypt.compare(req.body.oldpass, user.password, function(err, pass) {
     if (err) {
-    res.send(err);
+    res.json({msg:'notmatch ur old pasword'});
     } else {
     console.log(pass);
     if (pass == true) {
@@ -26,19 +26,19 @@ let salt= bcrypt.genSaltSync(8);
     }, { new: true }, function(err1, user1) {
     
     if (err1) {
-    res.send({
+    res.json({
     status: false,
     data: err1
     });
     }
     if (user1) {
-    res.send({
+    res.json({
     status: true,
     msg: 'New password updated',
     data: user1
     });
     } else {
-    res.send({
+    res.json({
     status: true,
     msg: 'data not return',
     data: user1

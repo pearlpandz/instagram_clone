@@ -60,11 +60,11 @@ export class ProfileComponent implements OnInit {
   iffollow: boolean;
   iffollower: boolean;
   iffollowingbutton: boolean;
- followinglists ;
- followerlists ;
- followname = "following";
- 
- followername;
+  followinglists;
+  followerlists;
+  //  followname = "following";
+
+  followername;
   // like: any;
   profile = {};
   userpost = [];
@@ -117,8 +117,10 @@ export class ProfileComponent implements OnInit {
   uploadData = new FormData();
   nextbuttonDisabled: boolean;
   prevbuttonDisabled: boolean;
+  followchangebutton = {};
+  followerchangebutton = {};
 
-  //counter values
+  //counter values;
   counterValue;
   nextshow: boolean = true;
   previousshow: boolean = true;
@@ -141,9 +143,9 @@ export class ProfileComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
       //   console.log('checl', this.names);
-     this.followinglist(this.current_id);
-     this.followerlisted(this.current_id);
-   
+      this.followinglist(this.current_id);
+      this.followerlisted(this.current_id);
+
     });
 
     // console.log(this.names);
@@ -157,7 +159,7 @@ export class ProfileComponent implements OnInit {
     //  alert();
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
-    // console.log('name', name);
+     console.log('name', name);
     this.profileservice.getProfile(names)
       .map(response => response.json())
       .subscribe(response => {
@@ -177,14 +179,14 @@ export class ProfileComponent implements OnInit {
 
         console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
-          console.log('1st');
+          // console.log('1st');
           this.followbutton = false;
         } else {
           console.log('else block')
           this.followbutton = true;
 
         } this.followcheck(this.current_id, this.follower_id)
-       
+
       }
 
       )
@@ -447,7 +449,7 @@ export class ProfileComponent implements OnInit {
 
       this.modalpost = this.getbeforepostlist
 
-      console.log("buttoncalld", this.likeinfo[0], this.modalpost)
+      // console.log("buttoncalld", this.likeinfo[0], this.modalpost)
 
 
 
@@ -477,14 +479,14 @@ export class ProfileComponent implements OnInit {
       follower_id: this.current_id
     }];
 
-    console.log(this.likeinfo);
+    // console.log(this.likeinfo);
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
       this.iffollower = response.sucess;
-      console.log('chkin old', this.iffollower);
+      // console.log('chkin old', this.iffollower);
       if (this.iffollower == true) {
         this.valueOfButton = "followed"
-      } 
-      else if (this.iffollower == false || this.followname == "Following") {
+      }
+      else if (this.iffollower == false) {
 
         this.valueOfButton = "follow"
       } else {
@@ -502,12 +504,12 @@ export class ProfileComponent implements OnInit {
       follower_id: this.current_id
     }];
 
-    console.log(this.likeinfo);
+    // console.log(this.likeinfo);
     this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
       this.iffollow = response.sucess;
-      console.log('follow chk', this.iffollow);
-      if (this.iffollow == true ) {
-        console.log('folloed');
+      // console.log('follow chk', this.iffollow);
+      if (this.iffollow == true) {
+        // console.log('folloed');
         this.valueOfButton = "follow"
       } else if (this.iffollow == false) {
 
@@ -517,66 +519,76 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-followinglist(currentuserid){
-// console.log('hi', currentuserid);
-this.profileservice.followinglist(currentuserid).map(response => response.json()).subscribe(response => {
+  followinglist(currentuserid) {
+    // console.log('hi', currentuserid);
+    this.profileservice.followinglist(currentuserid).map(response => response.json()).subscribe(response => {
 
-this.followinglists = response.data;
-this.followname  =  response.msg;
-       console.log(this.followername) 
-console.log('following', this.followinglists);
-console.log('followingmsg', this.followname);
-console.log('ids of list' , response );
+      this.followinglists = response.data;
 
 
+      // console.log('following', this.followinglists);
 
-})
-}
+      // console.log('ids of list', response);
 
-followerlisted(currentuserid){
-  
-  this.profileservice.followerlist(currentuserid).map(response => response.json()).subscribe(response => {
 
-     this.followerlists = response.data;
-     this.followername = response.msg;
-     console.log('follower', this.followerlists);
-    // console.log('test follwing', this.followerlists);
-    
+
     })
-}
-
-followingbutton(userid, following_id){
-  this.followname= "follow"
-  this.likeinfo = [{
-    user_id: userid,
-    follower_id: following_id
-  }];
-console.log(this.likeinfo);
-this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
-  this.iffollowingbutton = response.sucess;
-  
-  console.log('butnname',this.followername) 
-  console.log( 'buttons',this.iffollowingbutton)
-
-})
- }
-
- followerbutton(userid, following_id){
-  this.likeinfo = [{
-    user_id: userid,
-    follower_id: following_id
-  }];
-console.log(this.likeinfo);
-this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
-  this.iffollowingbutton = response.sucess;
-  console.log( 'buttons',this.iffollowingbutton)
-
-})
- }
- 
-  popup_close() {
-    this.getProfile(this.names);
   }
+
+  followerlisted(currentuserid) {
+
+    this.profileservice.followerlist(currentuserid).map(response => response.json()).subscribe(response => {
+
+      this.followerlists = response.data;
+      this.followername = response.msg;
+      // console.log('follower', this.followerlists);
+      // console.log('test follwing', this.followerlists);
+
+    })
+  }
+
+  followingbutton(userid, following_id) {
+    // this.followname= "follow"
+
+    this.likeinfo = [{
+      user_id: userid,
+      follower_id: following_id
+    }];
+    // console.log(this.likeinfo);
+    this.followchangebutton[userid] = !this.followchangebutton[userid];
+    // console.log('chikng button', this.selectedButton[ following_id]= !this.selectedButton[following_id]);
+    this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+      this.iffollowingbutton = response.sucess;
+    
+      // console.log('following response', response);
+      // console.log('buttons', this.iffollowingbutton);
+
+    })
+  }
+
+  followerbutton(userid, following_id) {
+    this.likeinfo = [{
+      user_id: userid,
+      follower_id: following_id
+    }];
+   
+    this.followchangebutton[userid] = !this.followchangebutton[userid];
+    console.log(this.likeinfo);
+    this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+      this.iffollowingbutton = response.sucess;
+      
+     
+      console.log('buttons', this.iffollowingbutton)
+
+    })
+  }
+
+  popup_close() {
+   
+    this.getProfile(this.names);
+
+  }
+ 
   // get posts by  after id
 
 };

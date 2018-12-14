@@ -117,13 +117,17 @@ uniquenames(name: any){
   
   pass_change : {}
   submits(changepwd:any ){
-   console.log('fdz',changepwd.value);
-    this.profileservices.passwordchange(changepwd.value ).subscribe(response => {
-      this.pass_change = response;
+  //  console.log('fdz',changepwd.value);
+    this.profileservices.passwordchange(changepwd.value ).map(response => response.json()).subscribe(response => {
+      this.pass_change = response.status;
    
-        //  console.log('changes' ,this.pass_change); 
+          // console.log('changes' ,this.pass_change); 
+if(this.pass_change == true){
         this.forms.resetForm();
-        this.toastrService.success('password changed success');
+        this.toastrService.success('password changed success');}
+        else{
+          this.toastrService.error('oldpassword incorrect');
+        }
 })
  }
 
