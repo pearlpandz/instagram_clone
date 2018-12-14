@@ -68,22 +68,17 @@
                                                     <p class="no-margin" *ngIf="modalposts.likecount > 0"><b class="likecount">{{modalposts.likecount}}
                                                         </b> likes</p>
                                                 </div>
-
                                                 <div class="float-right">
                                                     <a href="#" class="hours">
                                                         {{modalposts.createdat | timeAgo }}
                                                     </a>
                                                 </div>
                                             </div>
-
-
                                             <div class="replay-comment" *ngFor="let comment of modalposts.comments">
                                                 <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
                                                 <a class="float-right comment-delete" (click)="deletecomment(modalposts._id, comment._id)"><i
                                                         class="fa fa-times"></i></a>
                                             </div>
-
-
                                         </div>
                                         <!--end of comment-wrap-->
 
