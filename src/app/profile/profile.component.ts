@@ -139,7 +139,12 @@ export class ProfileComponent implements OnInit {
     // this.profileEmail = this.cookieService.get('email');
     this.profilepics = this.cookieService.get('profilepic');
     console.log(this.profilepics);
-
+    this.route.params.subscribe(
+      params => {
+          const id = +params['name'];
+          this.getProfile(this.current_user);
+      }
+  );
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
       //   console.log('checl', this.names);
