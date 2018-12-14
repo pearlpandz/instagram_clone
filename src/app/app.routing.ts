@@ -56,6 +56,8 @@ const routes: Routes = [
     component: ProfileComponent,
     //canActivate: [AuthGuard]
   },
+ 
+
   {
     path: 'about',
     component: AboutComponent

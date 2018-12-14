@@ -85,7 +85,9 @@
 
 <!-- change-photo Modal -->
 <div id="change-photo" class="modal fade" role="dialog" *ngIf="name == current_user" >
-    <button type="button" class="close popup-close" data-dismiss="modal" (onclick)="popup_close()"><i class="ion-close-round"></i></button>
+    <button type="button" class="close popup-close" data-dismiss="modal" 
+    
+    ><i class="ion-close-round"></i></button>
     <div class="modal-dialog" >
 
         <!-- Modal content-->
@@ -128,7 +130,7 @@
 
 <!--followers Modal -->
 <div id="followers" class="modal fade" role="dialog">
-    <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+    <button type="button" class="close popup-close" data-dismiss="modal" (click)="popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -157,8 +159,8 @@
                         <div class="right">
                             <div class="following-button">
                                 <!-- <a href="#">Following</a> -->
-                                <a (click)="followerbutton(followerlist._id, current_id )">{{followername}}</a>
-
+                                <a (click)="followerbutton(followerlist._id, current_id )" >{{followerchangebutton[followerlist._id] ? 'following' : 'follow'}}</a>
+   
                             </div>
                         </div>
                         <!--end of right-->
@@ -401,7 +403,7 @@
 
 <!-- following modal -->
 <div id="following" class="modal fade" role="dialog">
-    <button type="button" class="close popup-close" data-dismiss="modal"><i class="ion-close-round"></i></button>
+    <button type="button" class="close popup-close" data-dismiss="modal" (click)="popup_close()"><i class="ion-close-round"></i></button>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -433,7 +435,8 @@
 
                         <div class="right">
                             <div class="following-button">
-                                <a (click)="followingbutton(followinglist._id, current_id )">{{followname}}</a>
+                               
+                                <a  (click)="followingbutton(followinglist._id, current_id )">{{followchangebutton[followinglist._id] ? 'follow' : 'following'}}</a>
                             </div>
                         </div>
                         <!--end of right-->

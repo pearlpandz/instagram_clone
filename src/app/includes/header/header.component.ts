@@ -34,12 +34,21 @@ export class HeaderComponent implements OnInit {
     private http: Http,
     private router: Router
   ) { }
-
+names;
   ngOnInit() {
 
     this.name = this.cookieService.get('name');
+
+   
+    // this.sub = this.route.params.subscribe(params => {
+    //   this.name = params['name'];
+    //     console.log('checl', this.names);
+  
+
+    // });
     this.getall();
   }
+  
   getall() {
     this.http.get('http://localhost:3000/findall').map(res => res.json()).subscribe(responses => {
     
@@ -47,6 +56,7 @@ export class HeaderComponent implements OnInit {
   }
   lists = [];
   liststatus:boolean;
+
   valueChanged(name: any){
 
     if(name.value){
