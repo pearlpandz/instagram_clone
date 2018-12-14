@@ -9,10 +9,9 @@
                         <img src="{{res.profilepic}}">
                         <p><b>{{res.name}}</b></p>
                         <!-- <p>Suggested for you</p> -->
-                        <button class="_0mzm- sqdOP  L3NKy" type="button"  *ngIf = "buttonfollowing;else followelse" (click)="followers( current_id, res._id,i)">Follow</button>
-                        <ng-template #followelse>
-                        <button class="_0mzm- sqdOP  L3NKy1" type="button" (click)="followers( current_id, res._id,i)">following</button>
-                   </ng-template>
+                        <button class="_0mzm- sqdOP  L3NKy" (click)="followers( current_id, res._id,i)">
+                            {{selectedButton[res._id] ? 'following' : 'follow'}}
+                          </button>
                     </div>
             </div>
         </div>
@@ -68,7 +67,7 @@
                                                 <div class="float-left">
                                                     <p class="no-margin"><b class="likecount">{{modalposts.likecount}}
 
-                                                        </b></p>
+                                                        </b> likes</p>
                                                 </div>
 
                                                 <div class="float-right">
@@ -125,19 +124,15 @@
 
                             </div>
                             <!--end of photo-popup-inner-->
-
                         </div>
                         <!-- </div> -->
                         <!--end of photo-popup-->
                         <!-- </owl-carousel> -->
-
                     </div>
-
                 </div>
-
-                <a class="previous" (click)="getexploreprevpost(modalposts._id,i)"> <i class="fa fa-angle-left fa-4x"
+                <a class="previous" (click)="getexploreprevpost(modalposts._id,ipostindex)" *ngIf="prevbuttonDisabled"> <i class="fa fa-angle-left fa-4x"
                         aria-hidden="true"></i></a>
-                <a class="next" (click)="getexplorenextpost(modalposts._id,i)"><i class="fa fa-angle-right fa-4x"
+                <a class="next" (click)="getexplorenextpost(modalposts._id,ipostindex)"  *ngIf="nextbuttonDisabled"><i class="fa fa-angle-right fa-4x"
                         aria-hidden="true"></i> </a>
             </div>
         </div>
