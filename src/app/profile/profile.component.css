@@ -41,7 +41,7 @@ pointer-events: auto;
 position: absolute;
 /* text-indent: -9999em; */
 top: 50%;
-padding-left: 100px;
+padding-left: 26px;
 cursor:pointer;
 
 }
@@ -52,6 +52,7 @@ a.next{
     color:#ffffff;
     margin-top: 282px;
     padding-left: 50px;
+    
     cursor:pointer;
 
 }
