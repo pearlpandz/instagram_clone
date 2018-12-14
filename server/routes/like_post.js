@@ -76,6 +76,7 @@ exports.likepost = function(req, res) {
                                 console.log('after notif', data_notifi);
                                 res.json({
                                     data: data_notifi,
+                                    post:post1,
                                     likecount: post1.likecount
                                 });
                             }

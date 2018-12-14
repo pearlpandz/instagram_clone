@@ -93,10 +93,21 @@ export class ExploreComponent implements OnInit {
       post_id: post_id,
       current_userid: this.current_id
     }];
-    console.log("checkck", post_id, current_userid)
+    this.homes.likePost(this.likeinfo[0])
+        .map((data: any) => data)
+        .subscribe(data => {
+          if ($('#' + post_id).find('.heart').hasClass('like')) {
+            this.modalposts = data.data;
+            console.log("status1", data);
+          } else {
+            this.modalposts = data.post;
+            console.log("status2", data);
+          }
+
+        });
+/*     console.log("checkck", post_id, current_userid)
+    console.log($('#' + post_id));
     var count = parseInt($('#' + post_id).find(".likecount").html());
-    console.log("fgsfagsfagfs", post_id)
-    console.log("id", $('#' + post_id));
     if ($('#' + post_id).find('.heart').hasClass('like')) {
       this.homes.likePost(this.likeinfo[0])
         .map((data: any) => data)
@@ -118,7 +129,7 @@ export class ExploreComponent implements OnInit {
           $('#' + post_id).find(".heart").addClass("like");
           $('#' + post_id).find(".likecount").text(data.likecount);
         });
-    }
+    } */
   }
   commentpost1(postid, comment, commented_name) {
     let commentpost = {
@@ -191,6 +202,7 @@ export class ExploreComponent implements OnInit {
     }
     this.explore.explorepostafter(this.next_id).map(response => response).subscribe(result => {
       this.modalposts = result;
+      console.log("nextpost",this.modalposts)
     })
     if (this.ipostindex == 0) {
       this.prevbuttonDisabled = false;
