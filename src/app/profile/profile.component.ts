@@ -142,6 +142,13 @@ export class ProfileComponent implements OnInit {
     this.followinglist(this.current_id);
     this.followerlisted(this.current_id);
     console.log(this.profilepics);
+    console.log(this.profilepics);
+    this.route.params.subscribe(
+      params => {
+          const id = +params['name'];
+          this.getProfile(this.current_user);
+      }
+  );
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
    
