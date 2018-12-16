@@ -5,11 +5,8 @@ const users = require('../models/user'); //create new post schema
 
 //checking...
 function checklikeid(array, target) {
-    // console.log(array, target);
-    // console.log(target);
     for (var i = 0; i < array.length; i++) {
         if (array[i] == target) {
-            // console.log(i, array[i], target);
             return true;
         }
     }
@@ -18,17 +15,10 @@ function checklikeid(array, target) {
 
 
 exports.follow = function (req, res) {
-    // console.log(req.body.user_id);
-    // console.log(req.body.follower_id);
     if (req.body.user_id && req.body.follower_id) {
-
-
-
         var query = { "_id": req.body.user_id };
         var query1 = { "_id": req.body.follower_id };
         var options = { new: true };
-        //ids = {type: String}
-
         users
             .distinct("_id")
 
@@ -37,10 +27,7 @@ exports.follow = function (req, res) {
                     res.json(err)
                 }
                 else {
-                    //   res.send(resu);
                     if (checklikeid(resu, req.body.user_id) && checklikeid(resu, req.body.follower_id)) {
-
-
                         users.find(query, function (err, post) {
                             if (err) {
                                 res.json(err)
@@ -121,21 +108,14 @@ exports.follow = function (req, res) {
 
                     } else {
                         res.json({
-
-
                             msg: 'data not found'
-
                         })
                     }
-                    // console.log( checklikeid(resu, req.body.follower_id) );
                 }
             })
     }
-
     else {
         res.json({
-
-
             msg: 'data not found'
 
         })
@@ -279,13 +259,13 @@ exports.followlist = function (req, res) {
                 if (err2) {
                     res.json('err2')
                 } else {
-                    res.json( { data: data2,
-                      msg: "Following" });
+                    res.json({
+                        data: data2,
+                        msg: "Following"
+                    });
                 }
             })
         }
-
-
     })
 
 }
@@ -301,9 +281,10 @@ exports.followerlist = function (req, res) {
                 if (err2) {
                     res.send('err2')
                 } else {
-                    res.json({data:data2,
-                            msg:"follow"
-                                });
+                    res.json({
+                        data: data2,
+                        msg: "follow"
+                    });
                 }
             })
         }

@@ -74,18 +74,13 @@ export class ExploreComponent implements OnInit {
     }
   }
   checklikeid(array, target) {
-    // console.log("array", array)
-    // console.log('target', target);
     if (array !== '' && array !== undefined) {
       for (var i = 0; i < array.length; i++) {
-        if (array[i] == target) {
-          //  console.log(array, target);
-          // console.log('true'); 
+        if (array[i] == target) { 
           return true;
         }
       }
     }
-    //  console.log('false');
     return false;
   }
   like(post_id, current_userid) {
@@ -98,38 +93,11 @@ export class ExploreComponent implements OnInit {
         .subscribe(data => {
           if ($('#' + post_id).find('.heart').hasClass('like')) {
             this.modalposts = data.data;
-            console.log("status1", data);
           } else {
             this.modalposts = data.post;
-            console.log("status2", data);
           }
 
         });
-/*     console.log("checkck", post_id, current_userid)
-    console.log($('#' + post_id));
-    var count = parseInt($('#' + post_id).find(".likecount").html());
-    if ($('#' + post_id).find('.heart').hasClass('like')) {
-      this.homes.likePost(this.likeinfo[0])
-        .map((data: any) => data)
-        .subscribe(data => {
-          console.log("dislike", data);
-          console.log("count", data.data.likecount);
-          this.count_like = data.data.likecount;
-          $('#' + post_id).find(".heart").removeClass("like");
-          $('#' + post_id).find(".likecount").html(data.data.likecount);
-        });
-    }
-    else {
-      this.homes.likePost(this.likeinfo[0])
-        .map((data: any) => data)
-        .subscribe(data => {
-          console.log("like", data);
-          console.log("count", data.likecount);
-          this.count_like = data.likecount;
-          $('#' + post_id).find(".heart").addClass("like");
-          $('#' + post_id).find(".likecount").text(data.likecount);
-        });
-    } */
   }
   commentpost1(postid, comment, commented_name) {
     let commentpost = {
@@ -137,14 +105,10 @@ export class ExploreComponent implements OnInit {
       comment: comment,
       commented_id: this.current_user,
     };
-
-    // console.log(commentpost);
-
     this.homes.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
         if (data) {          
-          // console.log('-------------', data.data.comments);
           this.comments = data.data.comments;
           this.el.nativeElement.value = "";
           this.modalposts = data.data;
@@ -202,7 +166,6 @@ export class ExploreComponent implements OnInit {
     }
     this.explore.explorepostafter(this.next_id).map(response => response).subscribe(result => {
       this.modalposts = result;
-      console.log("nextpost",this.modalposts)
     })
     if (this.ipostindex == 0) {
       this.prevbuttonDisabled = false;
@@ -225,6 +188,7 @@ export class ExploreComponent implements OnInit {
     }
     this.explore.getrecentusers(this.request).map(result => result).subscribe(result => {
       this.usersexplore = result;
+      console.log(result);
     });
   }
   followers(current_userid, follower_id, i) {
@@ -234,7 +198,9 @@ export class ExploreComponent implements OnInit {
     }];
     this.profileservice.follows(this.info[0]).map(response => response.json()).subscribe(response => {
       this.following = response;
+      console.log(this.following);
       this.selectedButton[follower_id] = !this.selectedButton[follower_id];
+      // this.getexploreuser();
     })
 
   }

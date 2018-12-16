@@ -35,13 +35,9 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="right">
-                        <a href="#">
                             {{post.createdat | timeAgo }}
-                        </a>
                     </div>
-
                 </div>
 
                 <div class="row feed-image no-margin" lazy-load-images>
@@ -61,7 +57,7 @@
                 </div>
 
                 <div class="row feed-content no-margin">
-                    <h5 ><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
+                    <h5><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
                     <p><a href="#" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
                     <!-- <p class="view-comments">View all comments</p> -->
                     <!--                 <div class="feed-comments">

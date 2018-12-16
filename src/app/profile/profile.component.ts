@@ -133,33 +133,35 @@ export class ProfileComponent implements OnInit {
     this.nextbuttonDisabled = true;
     this.prevbuttonDisabled = false;
     this.current_user = this.cookieService.get('name');
-    console.log('cuurentname', this.current_user);
+    // console.log('cuurentname', this.current_user);
     this.current_id = this.cookieService.get('id');
     //console.log('current_id', this.current_id);
     // this.profileEmail = this.cookieService.get('email');
     this.profilepics = this.cookieService.get('profilepic');
-    console.log(this.profilepics);
-
+    this.followinglist(this.current_id);
+    this.followerlisted(this.current_id);
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
-      //   console.log('checl', this.names);
-      this.followinglist(this.current_id);
-      this.followerlisted(this.current_id);
-
+   
     });
+      this.route.params.subscribe(
+      params => {
+          const id = +params['name'];
+          this.getProfile(this.current_user);
+      }
+  );
 
     // console.log(this.names);
     this.getProfile(this.names);
 
   }
 
-
   getProfile(names) {
 
     //  alert();
     // tslint:disable-next-line:prefer-const
     let name = { username: names };
-     console.log('name', name);
+    // console.log('name', name);
     this.profileservice.getProfile(names)
       .map(response => response.json())
       .subscribe(response => {
@@ -182,7 +184,7 @@ export class ProfileComponent implements OnInit {
           // console.log('1st');
           this.followbutton = false;
         } else {
-          console.log('else block')
+          // console.log('else block')
           this.followbutton = true;
 
         } this.followcheck(this.current_id, this.follower_id)
@@ -205,11 +207,11 @@ export class ProfileComponent implements OnInit {
   }
 
   popup(data, i) {
-    console.log(data);
+    // console.log(data);
 
     this.ipostindex = i;
 
-    console.log("index", this.ipostindex);
+    // console.log("index", this.ipostindex);
     // this. getnextpost(  this.current_id ,i)
     this.post_id = data._id;
     this.username = data.username;
@@ -222,7 +224,7 @@ export class ProfileComponent implements OnInit {
     this.likeids = data.likeids;
     this.modalpost = data;
     //  this.modalpost = this.getbeforepostlist;
-    console.log('popup', this.modalpost);
+    // console.log('popup', this.modalpost);
 
     if (this.ipostindex == 0 && this.postcount > 1) {
 
@@ -282,43 +284,23 @@ export class ProfileComponent implements OnInit {
       current_userid: this.current_id
 
     }];
-    console.log("checkck", post_id, current_userid)
+    // console.log("checkck", post_id, current_userid)
 
 
-    /*         if ($("a").hasClass("like")) {
-              $("a").removeClass("like");
-              var count = $(".likecount").html();
-              count = parseInt(count)-1;
-              $( ".likecount" ).val(count );
-              $(".poplikecount").val(count);
-            } else {
-              $("a").addClass("like");
-              var count = $(".likecount").html();
-              count = parseInt(count)+1;
-              $( ".likecount" ).val( count );
-              $(".poplikecount").val(count);
-            } */
-    var count = parseInt($('#' + post_id).find(".likecount").html());
-    if ($('#' + post_id).find('.heart').hasClass('like')) {
-      this.homes.likePost(this.likeinfo[0])
-        .map((data: any) => data)
-        .subscribe(data => {
-          this.count_like = data.data.likecount;
-          $('#' + post_id).find(".heart").removeClass("like");
-          $('#' + post_id).find(".likecount").html(data.data.likecount);
-
-        });
-    }
-    else {
-      this.homes.likePost(this.likeinfo[0])
-        .map((data: any) => data)
-        .subscribe(data => {
-          this.count_like = data.likecount;
-          $('#' + post_id).find(".heart").addClass("like");
-          $('#' + post_id).find(".likecount").text(data.likecount);
-        });
-    }
+    this.homes.likePost(this.likeinfo[0])
+      .map((data: any) => data)
+      .subscribe(data => {
+        // this.count_like = data.data.likecount;
+        if ($('#' + post_id).find('.heart').hasClass('like')) {
+          this.modalpost = data.data;
+          // console.log("status1", data);
+        } else {
+          this.modalpost = data.post;
+          // console.log("status2", data);
+        }
+      })
   }
+
 
 
   checklikeid(array, target) {
@@ -559,7 +541,7 @@ export class ProfileComponent implements OnInit {
     // console.log('chikng button', this.selectedButton[ following_id]= !this.selectedButton[following_id]);
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
       this.iffollowingbutton = response.sucess;
-    
+
       // console.log('following response', response);
       // console.log('buttons', this.iffollowingbutton);
 
@@ -571,24 +553,24 @@ export class ProfileComponent implements OnInit {
       user_id: userid,
       follower_id: following_id
     }];
-   
+
     this.followchangebutton[userid] = !this.followchangebutton[userid];
     console.log(this.likeinfo);
     this.profileservice.follows(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
       this.iffollowingbutton = response.sucess;
-      
-     
+
+
       console.log('buttons', this.iffollowingbutton)
 
     })
   }
 
   popup_close() {
-   
+
     this.getProfile(this.names);
 
   }
- 
+
   // get posts by  after id
 
 };

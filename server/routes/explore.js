@@ -122,7 +122,7 @@ exports.getrecentusers = function (req, res) {
           if (err1) {
             res.json(err);
           } else {
-            newarray = checkfollowers(post, followersid.followers);
+            newarray = checkfollowers(post, followersid.following);
             users.find({ _id: newarray }, function (err2, post2) {
               if (err2) {
                 res.send("err2")
