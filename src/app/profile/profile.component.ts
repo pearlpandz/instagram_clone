@@ -138,19 +138,22 @@ export class ProfileComponent implements OnInit {
     //console.log('current_id', this.current_id);
     // this.profileEmail = this.cookieService.get('email');
     this.profilepics = this.cookieService.get('profilepic');
+
     this.followinglist(this.current_id);
     this.followerlisted(this.current_id);
+    console.log(this.profilepics);
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
    
     });
-      this.route.params.subscribe(
+    this.route.params.subscribe(
       params => {
           const id = +params['name'];
           this.getProfile(this.current_user);
       }
   );
 
+  
     // console.log(this.names);
     this.getProfile(this.names);
 
