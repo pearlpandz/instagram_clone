@@ -1,6 +1,6 @@
 // import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import 'rxjs/Rx';
@@ -18,6 +18,7 @@ declare var $: any;
 
 export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
+  @ViewChild('comment_msg') el: ElementRef
   pageStart: number = 0;
   pageEnd: number = 2;
   current: number = 0;
@@ -205,11 +206,9 @@ export class HomeComponent implements OnInit {
     this.homeService.getPost(this.skipdata)
       .map((data: any) => data)
       .subscribe(data => {
-        console.log('before push', data.data);
         for (var i in data.data) {
           this.postdata.push(data.data[i]);
         }
-        console.log('afterpush', this.postdata)
         this.post_create = data.data.createdat;
         this.skip = data.skip;
       });
@@ -220,16 +219,30 @@ export class HomeComponent implements OnInit {
       post_id: post_id.value,
       current_userid: current_userid.value
     }];
-    console.log($('#' + post_id.value).find('#heart'));
-    console.log($('#' + post_id.value).find('#heart').hasClass('like'));
-
-    if ($('#' + post_id.value).find('.heart').hasClass('like')) {
+    this.homeService.likePost(this.likeinfo[0])
+        .map((data: any) => data)
+        .subscribe(data => {
+          if ($('#' + post_id.value).find('.heart').hasClass('like')) {
+            for (var i in this.postdata) {
+              if (this.postdata[i]._id == data.data._id) {
+                this.postdata[i].likecount = data.data.likecount;
+              }
+            }
+          }else{
+            for (var i in this.postdata) {
+              if (this.postdata[i]._id == data.post._id) {
+                this.postdata[i].likecount = data.post.likecount;
+              }
+            }
+          }
+        });
+/*     if ($('#' + post_id.value).find('.heart').hasClass('like')) {
       this.homeService.likePost(this.likeinfo[0])
         .map((data: any) => data)
         .subscribe(data => {
           this.count_like = data.data.likecount;
-            $('#' + post_id.value).find(".heart").removeClass("like");
-            $('#' + post_id.value).find(".likecount").html(data.data.likecount);
+          $('#' + post_id.value).find(".heart").removeClass("like");
+          $('#' + post_id.value).find(".likecount").html(data.data.likecount);
         });
     }
     else {
@@ -237,12 +250,19 @@ export class HomeComponent implements OnInit {
         .map((data: any) => data)
         .subscribe(data => {
           this.count_like = data.likecount;
-            $('#' + post_id.value).find(".heart").addClass("like");
-            $('#' + post_id.value).find(".likecount").text(data.likecount);
+          $('#' + post_id.value).find(".heart").addClass("like");
+          $('#' + post_id.value).find(".likecount").text(data.likecount);
         });
-    }
+    } */
   }
-
+  checklikecount(checklikecount) {
+    console.log(checklikecount);
+    console.log(this.count_like);
+    if ((checklikecount > 0) || (this.count_like > 0)) {
+      return true
+    } else { 
+      return false }
+  }
   checklikeid(array, target) {
     // console.log("him working")
     for (var i = 0; i < array.length; i++) {
@@ -292,7 +312,7 @@ export class HomeComponent implements OnInit {
         this.commentlist = data.data.comments.length;
         for (var i in this.postdata) {
           if (this.postdata[i]._id == data.data._id) {
-            this.postdata[i] = data.data;
+            this.postdata[i].comments = data.data.comments;
           }
         }
       });
@@ -304,18 +324,17 @@ export class HomeComponent implements OnInit {
       comment: comment,
       commented_id: commented_name
     };
-
     this.homeService.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
+        this.el.nativeElement.value = "";
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
         /*         this.spinner.show();
                 setTimeout(() => { */
         for (var i in this.postdata) {
           if (this.postdata[i]._id == this.datapost._id) {
-
-            this.postdata[i] = this.datapost;
+            this.postdata[i].comments = this.datapost.comments;
           }
         }
       });

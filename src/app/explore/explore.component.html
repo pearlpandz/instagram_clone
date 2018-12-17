@@ -41,7 +41,18 @@
                                 <div class="col-sm-8 no-padding">
                                     <div class="popup-image-outer">
                                         <div class="popup-image">
-                                            <img src={{modalposts.sampleFile[0]}} class="pop-img">
+                                            <span *ngIf="modalposts.sampleFile?.length > 1; else elseblockimage">
+                                                <slideshow #slideshow [imageUrls]="modalposts.sampleFile" [height]="height" [minHeight]="minHeight"
+                                                    [arrowSize]="arrowSize" [showArrows]="showArrows" [disableSwiping]="disableSwiping" [autoPlay]="autoPlay"
+                                                    [stopAutoPlayOnSlide]="stopAutoPlayOnSlide" [debug]="debug" [backgroundSize]="backgroundSize"
+                                                    [backgroundPosition]="backgroundPosition" [backgroundRepeat]="backgroundRepeat" [showDots]="showDots"
+                                                    [dotColor]="dotColor" [showCaptions]="showCaptions" [captionColor]="captionColor"
+                                                    [captionBackground]="captionBackground" [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
+                                                </slideshow>
+                                                </span>
+                                                <ng-template #elseblockimage>
+                                                        <img src="{{modalposts.sampleFile[0]}}" alt="">
+                                                </ng-template>
                                         </div>
                                     </div>
                                 </div>
