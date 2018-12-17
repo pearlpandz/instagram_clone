@@ -57,17 +57,8 @@
                 </div>
 
                 <div class="row feed-content no-margin">
-                    <h5><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
+                    <h5 *ngIf="checklikecount(post.likecount)"><span class="count dark likecount">{{post.likecount}}</span> likes</h5>
                     <p><a href="#" class="dark user-name">{{post.username}}</a> {{post.description}}</p>
-                    <!-- <p class="view-comments">View all comments</p> -->
-                    <!--                 <div class="feed-comments">
-                    <p *ngFor="let comment of post.comments ; let i = index;">
-                        <a  href="view-profile.html" class="dark">{{comment.username}}</a>
-
-                        <span  class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)" (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
-                    </p>
-                    <a class="loadmore" (click)="loadmore(post._id)" *ngIf="showMore">Load More</a>
-                </div> -->
                     <div>
                         <div *ngFor="let comment of post.comments | slice:pageStart:pageEnd">
                             <a href="view-profile.html" class="dark">{{comment.username}}</a>
@@ -132,7 +123,7 @@
                         </ng-template>
 
                         <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg
-                            (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
+                            (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)" [(ngModel)] = "msg">
                         <!-- <ngx-spinner bdColor="" size="default" color="#000" type="ball-beat"></ngx-spinner> -->
                         <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
                             <a (click)="modalclick(post._id)" data-toggle="modal" data-target="#{{post._id}}">

@@ -43,27 +43,21 @@ names;
     // this.sub = this.route.params.subscribe(params => {
     //   this.name = params['name'];
     //     console.log('checl', this.names);
-  
-
     // });
     this.getall();
   }
   
   getall() {
-    this.http.get('http://localhost:3000/findall').map(res => res.json()).subscribe(responses => {
-    
+    this.http.get('http://localhost:3000/findall').map(res => res.json()).subscribe(responses => {    
     })
   }
   lists = [];
   liststatus:boolean;
 
   valueChanged(name: any){
-
     if(name.value){
-
     // console.log('input value', name.value);
-    this.http.post('http://localhost:3000/search/' + name.value, '')
-    
+    this.http.post('http://localhost:3000/search/' + name.value, '')    
     .map(res => res.json())
     .subscribe( response => {
     $('.filter-select').addClass('show');

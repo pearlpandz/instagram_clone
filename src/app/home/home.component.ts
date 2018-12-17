@@ -1,6 +1,6 @@
 // import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import 'rxjs/Rx';
@@ -18,6 +18,7 @@ declare var $: any;
 
 export class HomeComponent implements OnInit {
   @ViewChild('newPost') formValues;
+  @ViewChild('comment_msg') el: ElementRef
   pageStart: number = 0;
   pageEnd: number = 2;
   current: number = 0;
@@ -82,6 +83,7 @@ export class HomeComponent implements OnInit {
   width: string = '100%';
   count_like: number;
   skipdata: any;
+  msg;
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');
@@ -185,7 +187,7 @@ export class HomeComponent implements OnInit {
           this.urls = [];
           // console.log('url array', this.urls);
 
-          
+
           // console.log('selectedFile', this.selectedFile);
           $("#description").val('');
           this.fd.delete('sampleFile');
@@ -205,25 +207,42 @@ export class HomeComponent implements OnInit {
     this.homeService.getPost(this.skipdata)
       .map((data: any) => data)
       .subscribe(data => {
-        console.log('before push', data.data);
         for (var i in data.data) {
           this.postdata.push(data.data[i]);
         }
-        console.log('afterpush', this.postdata)
         this.post_create = data.data.createdat;
         this.skip = data.skip;
       });
   }
 
-  like(post_id, current_userid) {
+  like(post_id, current_userid,$event) {
     this.likeinfo = [{
       post_id: post_id.value,
       current_userid: current_userid.value
     }];
-    console.log($('#' + post_id.value).find('#heart'));
-    console.log($('#' + post_id.value).find('#heart').hasClass('like'));
+    this.homeService.likePost(this.likeinfo[0])
+        .map((data: any) => data)
+        .subscribe(data => {
 
-    if ($('#' + post_id.value).find('.heart').hasClass('like')) {
+          if ($('#' + post_id.value).find('.heart').hasClass('like')) {
+            for (var i in this.postdata) {
+              if (this.postdata[i]._id == data.data._id) {
+                this.postdata[i].likecount = data.data.likecount;
+                this.postdata[i]._id = data.data._id;
+                this.postdata[i].likeids = data.data.likeids;
+              }
+            }
+          }else{
+            for (var i in this.postdata) {
+              if (this.postdata[i]._id == data.post._id) {
+                this.postdata[i].likecount = data.post.likecount;
+                this.postdata[i]._id = data.post._id;
+                this.postdata[i].likeids = data.post.likeids;
+              }
+            }
+          }
+        });
+/*     if ($('#' + post_id.value).find('.heart').hasClass('like')) {
       this.homeService.likePost(this.likeinfo[0])
         .map((data: any) => data)
         .subscribe(data => {
@@ -240,9 +259,14 @@ export class HomeComponent implements OnInit {
           $('#' + post_id.value).find(".heart").addClass("like");
           $('#' + post_id.value).find(".likecount").text(data.likecount);
         });
-    }
+    } */
   }
-
+  checklikecount(checklikecount) {
+    if ((checklikecount > 0) || (this.count_like > 0)) {
+      return true
+    } else { 
+      return false }
+  }
   checklikeid(array, target) {
     // console.log("him working")
     for (var i = 0; i < array.length; i++) {
@@ -292,20 +316,9 @@ export class HomeComponent implements OnInit {
         this.commentlist = data.data.comments.length;
         for (var i in this.postdata) {
           if (this.postdata[i]._id == data.data._id) {
-/*             this.spinner.show();
-            setTimeout(() => { */
-              /** spinner ends after 5 seconds */
-              this.postdata[i] = data.data;
-/*               this.spinner.hide();
-            }, 3000); */
+            this.postdata[i].comments = data.data.comments;
           }
         }
-        /* if (data) {
-          this.getpost();
-        }
-        else {
-          this.getpost();
-        } */
       });
   }
 
@@ -315,36 +328,23 @@ export class HomeComponent implements OnInit {
       comment: comment,
       commented_id: commented_name
     };
-
     this.homeService.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
+      /*   console.log("hghghghghg",this.el.nativeElement.value);
+        this.el.nativeElement.value = "";
+        console.log("hghghghghg",this.el.nativeElement.value);
+        comment.value = ''; */
+        this.msg = "";
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
-/*         this.spinner.show();
-        setTimeout(() => { */
+        /*         this.spinner.show();
+                setTimeout(() => { */
         for (var i in this.postdata) {
           if (this.postdata[i]._id == this.datapost._id) {
-
-            this.postdata[i] = this.datapost;
+            this.postdata[i].comments = this.datapost.comments;
           }
         }
-/*         this.spinner.hide();
-      }, 1000); */
-        /*  this.datapost.forEach((key) => {
-          console.log(key);
-         }) */
-        // this.postdata = data.response;
-        /*  if (data) {
-           this.commentlist = data.length;
-           this.getpost();
-           // console.log(data);
-          
-         }
-         else {
-           console.log('error')
-           this.getpost();
-         } */
       });
 
   }
@@ -354,14 +354,10 @@ export class HomeComponent implements OnInit {
       userid: userid,
       blockid: blockid
     };
-
-    //console.log(userinfo);
-
     this.homeService.blockuser(userinfo)
       .map((data: any) => data)
       .subscribe(data => {
         if (data) {
-          // console.log(data); 
           $('#' + data).toggleClass('active');
           this.getblockids(this.homeUserid);
           this.getpost();
@@ -381,7 +377,6 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         if (data) {
           this.blockids = data;
-          // console.log(this.blockids);        
         }
         else {
           console.log('data is empty');

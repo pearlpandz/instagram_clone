@@ -38,6 +38,27 @@ export class ExploreComponent implements OnInit {
   nextbuttonDisabled: boolean;
   prevbuttonDisabled: boolean;
   ipostindex: number;
+  height: string = '400px';
+  minHeight: string;
+  arrowSize: string = '30px';
+  showArrows: boolean = true;
+  disableSwiping: boolean = true;
+  autoPlay: boolean = false;
+  PlayInterval: number = 100;
+  stopAutoPlayOnSlide: boolean = true;
+  debug: boolean = false;
+  backgroundSize: string = 'cover';
+  backgroundPosition: string = 'center center';
+  backgroundRepeat: string = 'no-repeat';
+  // showDots: boolean = true;
+  dotsPosition: string = 'center';
+  dotColor: string = '#FFF';
+  showCaptions: boolean = true;
+  captionColor: string = '#FFF';
+  captionBackground: string = 'rgba(0, 0, 0, .35)';
+  lazyLoad: boolean = true;
+  hideOnNoSlides: boolean = true;
+  width: string = '100%';
   @ViewChild('comment_msg') el: ElementRef
   constructor(private profileservice: ProfileService,
     private https: HttpClient, private explore: ExploreService, private cookieService: CookieService,
@@ -57,6 +78,7 @@ export class ExploreComponent implements OnInit {
   popup(data, i) {
     this.post_id = data._id;
     this.modalposts = data;
+    console.log("post",this.modalposts)
     this.ipostindex = i;
     if (this.ipostindex == 0 && this.postcount > 1) {
       this.prevbuttonDisabled = false;
