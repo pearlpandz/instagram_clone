@@ -185,7 +185,7 @@ export class HomeComponent implements OnInit {
           this.urls = [];
           // console.log('url array', this.urls);
 
-          
+
           // console.log('selectedFile', this.selectedFile);
           $("#description").val('');
           this.fd.delete('sampleFile');
@@ -228,8 +228,8 @@ export class HomeComponent implements OnInit {
         .map((data: any) => data)
         .subscribe(data => {
           this.count_like = data.data.likecount;
-          $('#' + post_id.value).find(".heart").removeClass("like");
-          $('#' + post_id.value).find(".likecount").html(data.data.likecount);
+            $('#' + post_id.value).find(".heart").removeClass("like");
+            $('#' + post_id.value).find(".likecount").html(data.data.likecount);
         });
     }
     else {
@@ -237,8 +237,8 @@ export class HomeComponent implements OnInit {
         .map((data: any) => data)
         .subscribe(data => {
           this.count_like = data.likecount;
-          $('#' + post_id.value).find(".heart").addClass("like");
-          $('#' + post_id.value).find(".likecount").text(data.likecount);
+            $('#' + post_id.value).find(".heart").addClass("like");
+            $('#' + post_id.value).find(".likecount").text(data.likecount);
         });
     }
   }
@@ -292,20 +292,9 @@ export class HomeComponent implements OnInit {
         this.commentlist = data.data.comments.length;
         for (var i in this.postdata) {
           if (this.postdata[i]._id == data.data._id) {
-/*             this.spinner.show();
-            setTimeout(() => { */
-              /** spinner ends after 5 seconds */
-              this.postdata[i] = data.data;
-/*               this.spinner.hide();
-            }, 3000); */
+            this.postdata[i] = data.data;
           }
         }
-        /* if (data) {
-          this.getpost();
-        }
-        else {
-          this.getpost();
-        } */
       });
   }
 
@@ -321,30 +310,14 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
-/*         this.spinner.show();
-        setTimeout(() => { */
+        /*         this.spinner.show();
+                setTimeout(() => { */
         for (var i in this.postdata) {
           if (this.postdata[i]._id == this.datapost._id) {
 
             this.postdata[i] = this.datapost;
           }
         }
-/*         this.spinner.hide();
-      }, 1000); */
-        /*  this.datapost.forEach((key) => {
-          console.log(key);
-         }) */
-        // this.postdata = data.response;
-        /*  if (data) {
-           this.commentlist = data.length;
-           this.getpost();
-           // console.log(data);
-          
-         }
-         else {
-           console.log('error')
-           this.getpost();
-         } */
       });
 
   }
@@ -354,14 +327,10 @@ export class HomeComponent implements OnInit {
       userid: userid,
       blockid: blockid
     };
-
-    //console.log(userinfo);
-
     this.homeService.blockuser(userinfo)
       .map((data: any) => data)
       .subscribe(data => {
         if (data) {
-          // console.log(data); 
           $('#' + data).toggleClass('active');
           this.getblockids(this.homeUserid);
           this.getpost();
@@ -381,7 +350,6 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         if (data) {
           this.blockids = data;
-          // console.log(this.blockids);        
         }
         else {
           console.log('data is empty');
