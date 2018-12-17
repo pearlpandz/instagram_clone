@@ -45,9 +45,10 @@ export class LoginComponent implements OnInit {
   }
 
   Submit(userdata: any) {
-    // console.log('hihihihi', userdata.value);
+    
+     console.log('hihihihi', userdata.value);
 
-    this.http.post('http://localhost:3000/userlogin', userdata.value).subscribe(data => {
+    this.http.post('http://localhost:3000/userlogin', userdata.value).map(data => data).subscribe(data => {
 
       // console.log(data);
       this.cookieService.set('email', data['email']);
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
       this.cookieProfilepic = this.cookieService.get('profilepic');
       // console.log(data);
 
-      // console.log('status chkjkkkk', data['success']);
+       console.log('status chkjkkkk', data);
 
       if (data['success']) {
         this.router.navigate(['/home']);

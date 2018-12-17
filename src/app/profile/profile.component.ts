@@ -145,22 +145,22 @@ export class ProfileComponent implements OnInit {
     console.log(this.profilepics);
     this.route.params.subscribe(
       params => {
-          const id = +params['name'];
-          this.getProfile(this.current_user);
+        const id = +params['name'];
+        this.getProfile(this.current_user);
       }
-  );
+    );
     this.sub = this.route.params.subscribe(params => {
       this.names = params['name'];
-   
+
     });
     this.route.params.subscribe(
       params => {
-          const id = +params['name'];
-          this.getProfile(this.current_user);
+        const id = +params['name'];
+        this.getProfile(this.current_user);
       }
-  );
+    );
 
-  
+
     // console.log(this.names);
     this.getProfile(this.names);
 
@@ -189,7 +189,7 @@ export class ProfileComponent implements OnInit {
         this.slidepost = response[1];
         this.owlpost = response[1];
 
-        console.log('searched profile', this.profile);
+        // console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           // console.log('1st');
           this.followbutton = false;
@@ -571,10 +571,34 @@ export class ProfileComponent implements OnInit {
 
 
       console.log('buttons', this.iffollowingbutton)
+   
 
     })
   }
+  
+  followercheck(userid, following_id) {
+    //  alert('hi')
 
+    this.likeinfo = [{
+      user_id: userid,
+      follower_id: following_id
+    }];
+    // console.log(this.likeinfo);
+    this.profileservice.followercheck(this.likeinfo[0]).map(response => response.json()).subscribe(response => {
+      this.iffollow = response.sucess;
+      // console.log('follow chk', this.iffollow);
+      if (this.iffollow == true) {
+        // console.log('folloed');
+        this.valueOfButton = "follow"
+      } else if (this.iffollow == false) {
+
+        this.valueOfButton = "followed"
+      } else {
+        this.valueOfButton = "follow1"
+      }
+    })
+  }
+ 
   popup_close() {
 
     this.getProfile(this.names);

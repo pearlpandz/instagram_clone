@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Enter Password" required [(ngModel)]="password" name="password">
                     </div>
-                    <button class="sub-btn" [disabled]="!newUser.form.valid">Signup</button>
+                    <button class="sub-btn" [disabled]="!newUser.form.valid || errorUsername || errorUseremail">Signup</button>
                 </form>
                 <p class="log-sub-txt">Already have an account? <a routerLink="/login" class="blue-color">Login</a></p>
             </div>

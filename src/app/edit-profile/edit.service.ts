@@ -16,8 +16,8 @@ export class ProfileService {
     return this.http.post(`http://localhost:3000/` + name, '');
   }
 
-  editusers(name) {
-    return this.http.post('http://localhost:3000/updateuser' ,name, '');
+  editusers(id) {
+    return this.http.post('http://localhost:3000/updateuser' ,id, '');
   }
 //   uniquenames(name: any){
 //     // console.log('success', name.value) ;

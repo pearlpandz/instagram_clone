@@ -38,10 +38,11 @@ export class EditProfileComponent implements OnInit {
 errorname;
 errormail;
   ngOnInit() {
-    
+    // this.cookieservice.set( 'name', 'nandhini2' );
     this.current_user = this.cookieservice.get('name');
     this.current_id = this.cookieservice.get('id');
     this.current_mail = this.cookieservice.get('email');
+    console.log("hi", this.current_user );
   //  this.Submit( this.current_user);
     this. getdetail(this.current_user);
     
@@ -58,12 +59,14 @@ errormail;
         this.userdetails = Response[0];
         this.bio = Response[0].bio;
         this.name = Response[0].name;
-        this.username = Response[0].name;
+        this.username = Response[0].username;
         this.email = Response[0].email;
         this.phonenum = Response [0].phonenumber;
-        this.profilepic = Response[0].profilepic
+        this.profilepic = Response[0].profilepic;
+        this.website = Response[0].website;
+        this.gender = Response[0].gender;
         // console.log( 'hi this is my user details',this.userdetails);
-        // console.log('sdsfnamessss',  this.name );
+         console.log('sdsfnamessss',  Response );
 
       })
 
@@ -76,14 +79,16 @@ errormail;
   
     // console.log('currentusername', updateUser.value);
     
-    let names = { name : updateUser };
-    this.profileservices.editusers(updateUser.value ).subscribe(response => {
-          this.edit = response;
-       
-              //  console.log('eprofiless1' ,this.edit); 
+     let names = { "id": this.current_id};
+    // console.log("hiam", names);
+    this.profileservices.editusers(updateUser.value).map(response => response.json()).subscribe(response => {
+          this.edit = response.name;
+          this.cookieservice.set( 'name', response.name );
+
+                console.log('eprofiless1' ,this.edit,); 
               this.toastrService.success( 'profile saved success');
             
-    })
+    });
   
 }
   

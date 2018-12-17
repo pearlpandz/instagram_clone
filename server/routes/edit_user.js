@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 let salt = bcrypt.genSaltSync(8);
 exports.create = function (req, res) {
 
-    let query = { 'name': req.body.name };
+    let query = { '_id': req.body.id };
 
     users.findOneAndUpdate(query,
         {

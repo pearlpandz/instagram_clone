@@ -6,28 +6,31 @@ const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
 var bcrypt = require('bcrypt');
 let salt= bcrypt.genSaltSync(8);
+
 exports.login = function(req,res){
+     let name = req.body.name,
+      email  = req.body.email;
+     
+    //   let dats ={ 
+    //       "name":req.body.name,
+    //       "email":req.body.email
+    //   }
+
+    let conditions = !!name ? {name: name} : {email: email};
 
     if(!req.body){
-        res.send(
+        res.json(
             {
                 success: false,
                 message: 'User data empty'
             }
         )
     }
-    else if(!req.body.email){
-        res.send(
-            {
-                success: false,
-                message: 'User Email is empty'
-            }
-        )
-    }
+   
     else {
-        users.findOne({email: req.body.email}, function(err, data){
+        users.findOne(conditions , function(err, data){
             if (err) { 
-                res.send(
+                res.json(
                     {
                         success: false,
                         message: err
@@ -35,7 +38,7 @@ exports.login = function(req,res){
                 )
             }
             else if(!data){
-                res.send(
+                res.json(
                     {
                         success: false,
                         message: 'user not found!'
@@ -50,7 +53,7 @@ exports.login = function(req,res){
                         expiresIn: 60*60*24 // expires in 24 hours
                     });
                     
-                    res.send(
+                    res.json(
                         {
                             success: true,
                             token: token,
@@ -64,7 +67,7 @@ exports.login = function(req,res){
                         })
                     }else{
                        
-                        res.send(
+                        res.json(
                             {
                                 success: false,
                                 message: 'user password wrong'
