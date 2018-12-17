@@ -123,7 +123,7 @@
                         </ng-template>
 
                         <input type="text" class="form-control comment" placeholder="Add a comment..." #comment_msg
-                            (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)">
+                            (keyup.enter)="commentpost(post._id, comment_msg.value, homeName)" [(ngModel)] = "msg">
                         <!-- <ngx-spinner bdColor="" size="default" color="#000" type="ball-beat"></ngx-spinner> -->
                         <span *ngIf="isNotEqual(post.userid, homeUserid)" class="input-group-addon more">
                             <a (click)="modalclick(post._id)" data-toggle="modal" data-target="#{{post._id}}">

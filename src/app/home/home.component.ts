@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit {
   width: string = '100%';
   count_like: number;
   skipdata: any;
+  msg;
   ngOnInit() {
     this.homeName = this.cookieService.get('name');
     this.homeEmail = this.cookieService.get('email');
@@ -214,7 +215,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  like(post_id, current_userid) {
+  like(post_id, current_userid,$event) {
     this.likeinfo = [{
       post_id: post_id.value,
       current_userid: current_userid.value
@@ -222,16 +223,21 @@ export class HomeComponent implements OnInit {
     this.homeService.likePost(this.likeinfo[0])
         .map((data: any) => data)
         .subscribe(data => {
+
           if ($('#' + post_id.value).find('.heart').hasClass('like')) {
             for (var i in this.postdata) {
               if (this.postdata[i]._id == data.data._id) {
                 this.postdata[i].likecount = data.data.likecount;
+                this.postdata[i]._id = data.data._id;
+                this.postdata[i].likeids = data.data.likeids;
               }
             }
           }else{
             for (var i in this.postdata) {
               if (this.postdata[i]._id == data.post._id) {
                 this.postdata[i].likecount = data.post.likecount;
+                this.postdata[i]._id = data.post._id;
+                this.postdata[i].likeids = data.post.likeids;
               }
             }
           }
@@ -256,8 +262,6 @@ export class HomeComponent implements OnInit {
     } */
   }
   checklikecount(checklikecount) {
-    console.log(checklikecount);
-    console.log(this.count_like);
     if ((checklikecount > 0) || (this.count_like > 0)) {
       return true
     } else { 
@@ -327,7 +331,11 @@ export class HomeComponent implements OnInit {
     this.homeService.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
+      /*   console.log("hghghghghg",this.el.nativeElement.value);
         this.el.nativeElement.value = "";
+        console.log("hghghghghg",this.el.nativeElement.value);
+        comment.value = ''; */
+        this.msg = "";
         this.commentlist = data.data.comments.length;
         this.datapost = data.data;
         /*         this.spinner.show();
