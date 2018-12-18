@@ -9,8 +9,10 @@ let salt= bcrypt.genSaltSync(8);
 
 exports.login = function(req,res){
      let name = req.body.name,
-      email  = req.body.email;
-     
+         email  = req.body.email;
+    //  let names=Object.keys(req.body);
+    //  let field = names[0]+"";
+    //  console.log('chkinhg',field);
     //   let dats ={ 
     //       "name":req.body.name,
     //       "email":req.body.email
@@ -28,7 +30,10 @@ exports.login = function(req,res){
     }
    
     else {
-        users.findOne(conditions , function(err, data){
+        
+        users.findOne(conditions, function(err, data){
+              console.log("hi",conditions);
+             
             if (err) { 
                 res.json(
                     {

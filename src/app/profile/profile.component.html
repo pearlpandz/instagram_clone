@@ -16,12 +16,13 @@
                         <a  routerLink ="/edit-profile" class="user-profile-edit" *ngIf="name==current_user">Edit Profile</a>
 
 
-                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
+                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"*ngIf="name==current_user"><i class="ion-ios-more-outline"></i></a>
 
                     </div>
 
-                    <div class="follow-details row no-margin">
-                        <div class="post">
+                    <div class="follow-details row no-margin" >
+                        <div class="post" >
+                           
                             <p><b>{{postcount}}</b>Posts</p>
                         </div>
 
@@ -36,7 +37,8 @@
 
                     <div class="biography row no-margin">
                         <span>
-                            <h2 class="bio-username no-margin float-left">{{name}}</h2>
+                            <h2 class="bio-username no-margin float-left">{{usernames}}</h2><br>
+                            <h3 class="bio-username no-margin float-left">{{bio}}</h3>
                             <!-- <a href="#" class="web-link">{{email}}</a>  -->
                             <button class="followclick" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
 
@@ -49,13 +51,18 @@
         </div>
         <!--end of user-profile-details-->
 
-        <div class="user-photos">
-            <div class="user-photos-inner row no-margin">
-
-                <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true">
-                    <div class="user-photos-column" (click)="popup(qualifica,i)">
-                        <div class="outer-box feed-images">
-                            <ng-container *ngIf="qualifica.show">
+        <div class="user-photos" >
+               
+            <div class="user-photos-inner row no-margin" >
+                    <p class="nopost" *ngIf="postcount==0">No Posts Yet</p>
+                <div class="col-xs-4"  *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true" >
+                       
+                    <div class="user-photos-column" (click)="popup(qualifica,i)"  >
+                        <div class="outer-box feed-images" >
+                               
+                            <ng-container *ngIf="qualifica.show ">
+                              
+                              
                                 <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
                             </ng-container>
                         </div>
@@ -510,17 +517,25 @@
                                         </div>
 
                                         <div class="float-right">
-                                            <a href="#" class="hours">
+                                            <p class="hours">
                                                 {{modalpost.createdat | timeAgo }}
-                                            </a>
+                                            </p>
                                         </div>
                                     </div>
 
 
                                     <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
-                                        <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
-                                                class="fa fa-times"></i></a>
+                                        <div *ngIf="current_user != name; else otheruser"  >
+                                            <span *ngIf="isYourComment(comment.username, current_user) ">
+                                                <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
+                                                        class="fa fa-times"></i></a></span>
+                                        </div >
+                                    <ng-template #otheruser>
+                                    <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)">
+                                        <i class="fa fa-times"></i></a>
+             
+                                    </ng-template>
                                     </div>
 
 

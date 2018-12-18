@@ -41,6 +41,8 @@ export class ProfileComponent implements OnInit {
   //cookie variables
   profilepics: any;
   name: '';
+  usernames: '';
+  bio: '';
   email: '';
   followercount: '';
   following: '';
@@ -139,8 +141,7 @@ export class ProfileComponent implements OnInit {
     // this.profileEmail = this.cookieService.get('email');
     this.profilepics = this.cookieService.get('profilepic');
 
-    this.followinglist(this.current_id);
-    this.followerlisted(this.current_id);
+   
     console.log(this.profilepics);
     console.log(this.profilepics);
     this.route.params.subscribe(
@@ -180,6 +181,8 @@ export class ProfileComponent implements OnInit {
         this.follower_id = response[0]['_id'];
         this.name = response[0]['name'];
         this.pic = response[0]['profilepic'];
+        this.usernames = response[0]['username'];
+        this.bio = response[0]['bio'];
         this.cookieService.set('profilepic', response[0]['profilepic']);
         this.email = response[0]['email'];
         this.followersc = response[0]['followers'].length;
@@ -189,7 +192,7 @@ export class ProfileComponent implements OnInit {
         this.slidepost = response[1];
         this.owlpost = response[1];
 
-        // console.log('searched profile', this.profile);
+        console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           // console.log('1st');
           this.followbutton = false;
@@ -197,8 +200,12 @@ export class ProfileComponent implements OnInit {
           // console.log('else block')
           this.followbutton = true;
 
-        } this.followcheck(this.current_id, this.follower_id)
-
+        } 
+        // this.followcheck(this.current_id, this.follower_id)
+          
+ this. followcheck(this.follower_id, this.current_id)
+ this.followinglist(this.follower_id);
+ this.followerlisted(this.follower_id);
       }
 
       )
@@ -518,7 +525,7 @@ export class ProfileComponent implements OnInit {
       this.followinglists = response.data;
 
 
-      // console.log('following', this.followinglists);
+       console.log('following', this.followinglists);
 
       // console.log('ids of list', response);
 
@@ -533,7 +540,7 @@ export class ProfileComponent implements OnInit {
 
       this.followerlists = response.data;
       this.followername = response.msg;
-      // console.log('follower', this.followerlists);
+      console.log('follower', this.followerlists);
       // console.log('test follwing', this.followerlists);
 
     })
