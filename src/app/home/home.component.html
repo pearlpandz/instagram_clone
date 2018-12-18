@@ -91,7 +91,7 @@
                                             <div *ngFor="let comment of post.comments | slice:pageEnd:commentlist; let i = index"><a
                                                     href="view-profile.html" class="dark">{{comment.username}}  </a>
 
-                                                <span class="commentmore">  {{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
+                                                <span class="commentmore">  {{comment.msg}}</span><span *ngIf="isYourComment(comment.username, homeName)"
                                                     (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
                                             </div>
                                         </div>

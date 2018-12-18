@@ -54,7 +54,7 @@
         <div class="user-photos" >
                
             <div class="user-photos-inner row no-margin" >
-                    <p *ngIf="postcount==0">NO POSTS Yet</p>
+                    <p class="nopost" *ngIf="postcount==0">No Posts Yet</p>
                 <div class="col-xs-4"  *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true" >
                        
                     <div class="user-photos-column" (click)="popup(qualifica,i)"  >
@@ -517,17 +517,25 @@
                                         </div>
 
                                         <div class="float-right">
-                                            <a href="#" class="hours">
+                                            <p class="hours">
                                                 {{modalpost.createdat | timeAgo }}
-                                            </a>
+                                            </p>
                                         </div>
                                     </div>
 
 
                                     <div class="replay-comment" *ngFor="let comment of modalpost.comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
-                                        <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
-                                                class="fa fa-times"></i></a>
+                                        <div *ngIf="current_user != name; else otheruser"  >
+                                            <span *ngIf="isYourComment(comment.username, current_user) ">
+                                                <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
+                                                        class="fa fa-times"></i></a></span>
+                                        </div >
+                                    <ng-template #otheruser>
+                                    <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)">
+                                        <i class="fa fa-times"></i></a>
+             
+                                    </ng-template>
                                     </div>
 
 

@@ -76,3 +76,7 @@ a.next{
     border: 2px solid #0099CC;
     background-color: #365fbf;
 }
+.nopost{
+    font-size: 46px;
+    text-align: center;
+}

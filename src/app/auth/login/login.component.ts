@@ -3,6 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+declare var jquery:any;
+declare var $;
 
 import { 
   AuthService, 
@@ -45,10 +47,33 @@ export class LoginComponent implements OnInit {
   }
 
   Submit(userdata: any) {
-    
-     console.log('hihihihi', userdata.value);
+    let datas;
+    let email_regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+   
+   
+    let  input = $("#name-or-email").val();
+    if(email_regex.test(input)){
+        // console.log("thisis email" ,input)
+        // input.("name", "email");
+      // $('#name-or-email').attr( 'name','email')
+      datas=[{
+        email:input,
+        password: userdata.value.password
+      }]
+      console.log('chkingemail', datas)
 
-    this.http.post('http://localhost:3000/userlogin', userdata.value).map(data => data).subscribe(data => {
+    } else{
+      // console.log("name",input);
+       // input.("name", "email");
+      //  $('#name-or-email').attr( 'name','name')
+       datas=[{
+        name:input,
+        password: userdata.value.password
+      }]
+      console.log('chkingname', datas)
+    }
+    console.log('hihihihi', userdata.value.password);
+    this.http.post('http://localhost:3000/userlogin', datas[0]).map(data => data).subscribe(data => {
 
       // console.log(data);
       this.cookieService.set('email', data['email']);
