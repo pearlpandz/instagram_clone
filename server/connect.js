@@ -53,6 +53,7 @@ const editusers = require('./routes/edit_user');
 const nodemail = require('./routes/nodemail');
 const changepass = require('./routes/pwd_change');
 const explore = require('./routes/explore');
+const getcurrentuserpost = require('./routes/explore');
 
 // file upload multer function
 var upload = multer({
@@ -134,6 +135,8 @@ app.post('/explorepostafter',explore.explorepostafter);
 app.post('/explore', explore.exploreposts);
 
 app.post('/getrecentusers',explore.getrecentusers);
+
+app.post('/getcurrentuserpost',explore.getcurrentuserpost);
 
 //find particular user through URL
  app.post('/:name', findusers.finde);

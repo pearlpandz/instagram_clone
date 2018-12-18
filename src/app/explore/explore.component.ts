@@ -59,6 +59,9 @@ export class ExploreComponent implements OnInit {
   lazyLoad: boolean = true;
   hideOnNoSlides: boolean = true;
   width: string = '100%';
+  userspost;
+  usersexplorepost;
+  usersposts;
   @ViewChild('comment_msg') el: ElementRef
   constructor(private profileservice: ProfileService,
     private https: HttpClient, private explore: ExploreService, private cookieService: CookieService,
@@ -68,17 +71,30 @@ export class ExploreComponent implements OnInit {
     this.current_user = this.cookieService.get('name');
     this.current_id = this.cookieService.get('id');
     this.getexploreuser();
+    this.getuserpost();
   }
   getexplore() {
     this.explore.getexplore().map(request => request).subscribe(request => {
       this.exploredata = request['data'];
       this.postcount = this.exploredata.length;
     });
+
+  }
+  getuserpost() {
+    this.userspost = {
+      "user_id": this.current_id
+    }
+    console.log(this.userspost);
+    this.explore.getcurrentuserpost(this.userspost).map(result => result).subscribe(result => {
+      if (result) {
+        this.usersexplorepost = result;
+        this.usersposts = this.usersexplorepost.postids;
+      }
+    });
   }
   popup(data, i) {
     this.post_id = data._id;
     this.modalposts = data;
-    console.log("post",this.modalposts)
     this.ipostindex = i;
     if (this.ipostindex == 0 && this.postcount > 1) {
       this.prevbuttonDisabled = false;
@@ -98,7 +114,7 @@ export class ExploreComponent implements OnInit {
   checklikeid(array, target) {
     if (array !== '' && array !== undefined) {
       for (var i = 0; i < array.length; i++) {
-        if (array[i] == target) { 
+        if (array[i] == target) {
           return true;
         }
       }
@@ -111,15 +127,15 @@ export class ExploreComponent implements OnInit {
       current_userid: this.current_id
     }];
     this.homes.likePost(this.likeinfo[0])
-        .map((data: any) => data)
-        .subscribe(data => {
-          if ($('#' + post_id).find('.heart').hasClass('like')) {
-            this.modalposts = data.data;
-          } else {
-            this.modalposts = data.post;
-          }
+      .map((data: any) => data)
+      .subscribe(data => {
+        if ($('#' + post_id).find('.heart').hasClass('like')) {
+          this.modalposts = data.data;
+        } else {
+          this.modalposts = data.post;
+        }
 
-        });
+      });
   }
   commentpost1(postid, comment, commented_name) {
     let commentpost = {
@@ -130,7 +146,7 @@ export class ExploreComponent implements OnInit {
     this.homes.commentpost(commentpost)
       .map((data: any) => data)
       .subscribe(data => {
-        if (data) {          
+        if (data) {
           this.comments = data.data.comments;
           this.el.nativeElement.value = "";
           this.modalposts = data.data;
@@ -157,7 +173,7 @@ export class ExploreComponent implements OnInit {
       });
   }
   getexploreprevpost(prevId, i) {
-    this.ipostindex = i-1;
+    this.ipostindex = i - 1;
     this.prev_id = {
       "id": prevId
     }
@@ -182,7 +198,7 @@ export class ExploreComponent implements OnInit {
     }
   }
   getexplorenextpost(nextId, i) {
-    this.ipostindex = i+1;
+    this.ipostindex = i + 1;
     this.next_id = {
       "id": nextId
     }
@@ -225,6 +241,18 @@ export class ExploreComponent implements OnInit {
       // this.getexploreuser();
     })
 
+  }
+  isYourComment(commentuser, currentuser, userpost_id) {
+
+    for (var i in this.usersposts) {
+      if (this.usersposts[i]._id == userpost_id) {
+        return true;
+      }
+    }
+    if (commentuser == currentuser) {
+      return true;
+    }
+    return false;
   }
   popup_close() {
     this.getexplore();

@@ -13,6 +13,7 @@
                             {{selectedButton[res._id] ? 'following' : 'follow'}}
                           </button>
                     </div>
+                    <div *ngIf="!usersexplore[1]" style="text-align: center"> No Recent Users</div>
             </div>
         </div>
           <!--end of discover-people -->
@@ -86,8 +87,8 @@
                                                 </div>
                                             </div>
                                             <div class="replay-comment" *ngFor="let comment of modalposts.comments">
-                                                <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
-                                                <a class="float-right comment-delete" (click)="deletecomment(modalposts._id, comment._id)"><i
+                                                <p class="float-left" style="width: 90%;"><a href="{{comment.username}}">{{comment.username}}</a>{{comment.msg}}</p>
+                                                <a class="float-right comment-delete" *ngIf="isYourComment(comment.username, current_user,modalposts._id)" (click)="deletecomment(modalposts._id, comment._id)"><i
                                                         class="fa fa-times"></i></a>
                                             </div>
                                         </div>

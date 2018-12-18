@@ -170,3 +170,9 @@ textarea:focus {
     height: 50%;
     z-index: 99999!important;
 }
+.commentmore {
+    padding-left: 5px;
+}
+.deletecommt {
+  cursor: pointer;  
+}

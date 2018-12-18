@@ -13,7 +13,6 @@
         <ng-container *ngIf="post.show">
             <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)" id="{{post._id}}">
                 <div class="row feed-head no-margin">
-
                     <input class="form-control" type="hidden" id="post_id" name="post_id" value="{{post._id}}" #post_id />
 
                     <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
@@ -63,7 +62,7 @@
                         <div *ngFor="let comment of post.comments | slice:pageStart:pageEnd">
                             <a href="view-profile.html" class="dark">{{comment.username}}</a>
                             <span class="commentmore">{{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
-                                (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span> </div>
+                                (click)="deletecomment(post._id, comment._id)"><span class="deletecommt" title="Remove your comments"><i class="fa fa-times"></i></span></span> </div>
                         <!--                         <div class="panel-heading" (click)="current = i" *ngIf="commentlist > 3">
                             <a *ngIf="current != i">View More Comments</a>
                             <div id="collapse1" class="panel-collapse" [class.collapse]='current != i'>
@@ -92,7 +91,7 @@
                                                     href="view-profile.html" class="dark">{{comment.username}}  </a>
 
                                                 <span class="commentmore">  {{comment.msg}} </span><span *ngIf="isYourComment(comment.username, homeName)"
-                                                    (click)="deletecomment(post._id, comment._id)"><i class="fa fa-times"></i></span>
+                                                    (click)="deletecomment(post._id, comment._id)"><span class="deletecommt" title="Remove your comment"><i class="fa fa-times"></i></span></span>
                                             </div>
                                         </div>
 

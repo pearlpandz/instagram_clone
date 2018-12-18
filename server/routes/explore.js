@@ -120,10 +120,10 @@ exports.getrecentusers = function (req, res) {
       else {
         users.findOne({ _id: req.body.user_id }, function (err1, followersid) {
           if (err1) {
-            res.json(err);
+            res.json(err1);
           } else {
             newarray = checkfollowers(post, followersid.following);
-            users.find({ _id: newarray }, function (err2, post2) {
+            users.find({ _id: newarray }).limit(4).exec(function (err2, post2) {
               if (err2) {
                 res.send("err2")
               } else {
@@ -137,3 +137,13 @@ exports.getrecentusers = function (req, res) {
     });
 };
 // find( { "date": { $gte: new Date((new Date().getTime() - (15 * 24 * 60 * 60 * 1000))) } } ).sort({ "date": -1 })
+
+exports.getcurrentuserpost = function(req,res){
+  users.findOne({ _id: req.body.user_id }, function (err1, userspost) {
+    if (err1) {
+      res.json(err1);
+    } else {
+      res.send(userspost);
+    }
+    });
+}

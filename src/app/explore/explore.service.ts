@@ -20,4 +20,7 @@ export class ExploreService {
   getrecentusers(user_id) {
     return this.http.post(`http://localhost:3000/getrecentusers` ,user_id); 
   }
+  getcurrentuserpost(user_id){
+    return this.http.post(`http://localhost:3000/getcurrentuserpost` ,user_id); 
+  }
 }
