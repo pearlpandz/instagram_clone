@@ -51,12 +51,25 @@ import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { NgxSpinnerModule } from 'ngx-spinner';
-const config = new AuthServiceConfig([
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("Google-OAuth-Client-Id") //for google auth
+  },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('106481729892658')
+    provider: new FacebookLoginProvider('106481729892658') // for facebook auth
   }
 ]);
+
+export function jwtTokenGetter() {
+  return '';
+}
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -100,12 +113,10 @@ const config = new AuthServiceConfig([
     NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return '';
-        }
+        tokenGetter: jwtTokenGetter
       }
     }),
-    SocialLoginModule.initialize(config)
+    SocialLoginModule
   ],
   providers: [
     HomeService,
@@ -113,7 +124,11 @@ const config = new AuthServiceConfig([
     JwtHelperService,
     AuthGuard,
     RoleGuard,
-    ToastmsgsService
+    ToastmsgsService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
