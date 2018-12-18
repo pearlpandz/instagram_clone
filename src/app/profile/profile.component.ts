@@ -41,6 +41,8 @@ export class ProfileComponent implements OnInit {
   //cookie variables
   profilepics: any;
   name: '';
+  usernames: '';
+  bio: '';
   email: '';
   followercount: '';
   following: '';
@@ -180,6 +182,8 @@ export class ProfileComponent implements OnInit {
         this.follower_id = response[0]['_id'];
         this.name = response[0]['name'];
         this.pic = response[0]['profilepic'];
+        this.usernames = response[0]['username'];
+        this.bio = response[0]['bio'];
         this.cookieService.set('profilepic', response[0]['profilepic']);
         this.email = response[0]['email'];
         this.followersc = response[0]['followers'].length;
@@ -189,7 +193,7 @@ export class ProfileComponent implements OnInit {
         this.slidepost = response[1];
         this.owlpost = response[1];
 
-        // console.log('searched profile', this.profile);
+        console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           // console.log('1st');
           this.followbutton = false;

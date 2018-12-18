@@ -16,7 +16,7 @@
                         <a  routerLink ="/edit-profile" class="user-profile-edit" *ngIf="name==current_user">Edit Profile</a>
 
 
-                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
+                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"*ngIf="name==current_user"><i class="ion-ios-more-outline"></i></a>
 
                     </div>
 
@@ -36,7 +36,8 @@
 
                     <div class="biography row no-margin">
                         <span>
-                            <h2 class="bio-username no-margin float-left">{{name}}</h2>
+                            <h2 class="bio-username no-margin float-left">{{usernames}}</h2><br>
+                            <h3 class="bio-username no-margin float-left">{{bio}}</h3>
                             <!-- <a href="#" class="web-link">{{email}}</a>  -->
                             <button class="followclick" (click)="followers( current_userid, followerid)" *ngIf="followbutton">{{valueOfButton}}</button>
 
