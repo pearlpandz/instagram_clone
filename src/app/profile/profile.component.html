@@ -20,8 +20,9 @@
 
                     </div>
 
-                    <div class="follow-details row no-margin">
-                        <div class="post">
+                    <div class="follow-details row no-margin" >
+                        <div class="post" >
+                           
                             <p><b>{{postcount}}</b>Posts</p>
                         </div>
 
@@ -50,13 +51,18 @@
         </div>
         <!--end of user-profile-details-->
 
-        <div class="user-photos">
-            <div class="user-photos-inner row no-margin">
-
-                <div class="col-xs-4" *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true">
-                    <div class="user-photos-column" (click)="popup(qualifica,i)">
-                        <div class="outer-box feed-images">
-                            <ng-container *ngIf="qualifica.show">
+        <div class="user-photos" >
+               
+            <div class="user-photos-inner row no-margin" >
+                    <p *ngIf="postcount==0">NO POSTS Yet</p>
+                <div class="col-xs-4"  *ngFor="let qualifica of userpost; let i=index;" (deferLoad)="qualifica.show = true" >
+                       
+                    <div class="user-photos-column" (click)="popup(qualifica,i)"  >
+                        <div class="outer-box feed-images" >
+                               
+                            <ng-container *ngIf="qualifica.show ">
+                              
+                              
                                 <img src="{{qualifica.sampleFile[0]}}" alt="" class="img-responsvie">
                             </ng-container>
                         </div>
