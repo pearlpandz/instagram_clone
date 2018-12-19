@@ -82,13 +82,13 @@ export class ProfileComponent implements OnInit {
   showArrows: boolean = true;
   disableSwiping: boolean = true;
   autoPlay: boolean = false;
+  showDots;
   PlayInterval: number = 100;
   stopAutoPlayOnSlide: boolean = true;
   debug: boolean = false;
   backgroundSize: string = 'cover';
   backgroundPosition: string = 'center center';
   backgroundRepeat: string = 'no-repeat';
-  // showDots: boolean = true;
   dotsPosition: string = 'center';
   dotColor: string = '#FFF';
   showCaptions: boolean = true;
@@ -129,6 +129,7 @@ export class ProfileComponent implements OnInit {
   ivar: any;
   valueOfButton;
   selectedIndex;
+  createdat;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
         this.prevbuttonDisabled = true; */

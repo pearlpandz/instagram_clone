@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   current: number = 0;
   i: number = 0;
   // variable declaration
+  description;
+  sampleFile;
   homeName = '';
   homePic = '';
   homeEmail = '';
