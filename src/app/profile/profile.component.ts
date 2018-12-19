@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
   getafterpostlist: any;
   getbeforepostlist: any;
   searchedprofile: any;
-  _id: any;
+  public _id: any;
   // follow 
   follower_id: any;
   followbutton: boolean;
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
   userpost = [];
   slidepost = [];
   owlpost = [];
-  modalpost = {};
+  modalpost :any;
   popcomment = {};
   selectedFile: File;
   //postts variable
@@ -129,7 +129,7 @@ export class ProfileComponent implements OnInit {
   ivar: any;
   valueOfButton;
   selectedIndex;
-  createdat;
+ public createdat:any;
   ngOnInit() {
     /*     this.nextbuttonDisabled = false;
         this.prevbuttonDisabled = true; */
@@ -241,8 +241,6 @@ export class ProfileComponent implements OnInit {
     this.comments = data.comments;
     this.likeids = data.likeids;
     this.modalpost = data;
-    //  this.modalpost = this.getbeforepostlist;
-    // console.log('popup', this.modalpost);
 
     if (this.ipostindex == 0 && this.postcount > 1) {
 
@@ -285,7 +283,6 @@ export class ProfileComponent implements OnInit {
           this.el.nativeElement.value = "";
           this.getProfile(this.names);
           this.modalpost = data.data;
-          console.log(this.modalpost);
         }
         else {
 
@@ -414,8 +411,6 @@ export class ProfileComponent implements OnInit {
       this.getafterpostlist = afterpostlist;
 
       this.modalpost = this.getafterpostlist;
-      console.log("buttoncall", this.likeinfo[0], this.modalpost);
-      // console.log('else',afterpostlist.data);
 
     });
     if (this.ipostindex == 0) {
@@ -448,11 +443,6 @@ export class ProfileComponent implements OnInit {
       this.getbeforepostlist = beforepostlist;
 
       this.modalpost = this.getbeforepostlist
-
-      // console.log("buttoncalld", this.likeinfo[0], this.modalpost)
-
-
-
     });
     if (this.ipostindex == 0) {
       console.log('1st', this.ipostindex == 0)
