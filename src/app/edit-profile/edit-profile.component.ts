@@ -38,6 +38,9 @@ export class EditProfileComponent implements OnInit {
   gender;
   username;
   profilepic;
+  retype_password;
+  changed_password;
+  password;
 //unique user &email
 errorname;
 errormail;

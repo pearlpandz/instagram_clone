@@ -25,6 +25,9 @@ export class SignupComponent implements OnInit {
   toastrService: any;
   errorUsername : any;
   errorUseremail : any;
+  name;
+  email;
+  password;
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,

@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
   //
 
   private sub: any;
+  searchs;
   constructor(
     private cookieService: CookieService,
     private route: ActivatedRoute,

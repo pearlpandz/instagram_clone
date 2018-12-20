@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   cookieToken = '';
   cookieName = '';
   cookieProfilepic= '';
-
+  password;
   user: SocialUser;
 
 
