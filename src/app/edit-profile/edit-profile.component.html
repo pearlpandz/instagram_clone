@@ -22,7 +22,7 @@
                                 <div class="profile-user row no-margin">
                                     <div class="col-sm-3">
                                         <div class="profile-img float-left">
-                                            <a href="#"><img src="{{profilepic}}"></a>
+                                            <a ><img src="{{profilepic}}"></a>
                                         
                                         </div>
                                     </div>
@@ -30,7 +30,7 @@
 
                                     <div class="col-sm-9">
                                         <div class="profile-name">
-                                            <a href="#">
+                                            <a >
                                                 <h5 class="no-margin" style="font-weight: 400;">{{name}}</h5>
                                             </a>
                                         </div>
@@ -117,7 +117,7 @@
 
                                             <div class="col-sm-9 no-padding">
                                                 <button type="submit" class="btn btn-primary float-left submit" [disabled]="errormail || errorname">Submit</button>
-                                                <!-- <a href="#" class="float-right">Temporarily disable my account</a> -->
+                                                <a class="float-right"(click)="disableacc(current_id)">Temporarily disable my account</a>
                                             </div>
 
                                         </div>

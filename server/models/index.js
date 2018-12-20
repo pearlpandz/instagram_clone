@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+let softDelete = require('mongoosejs-soft-delete');
+var mongoose_delete = require('mongoose-delete');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
     
@@ -24,7 +26,7 @@ const newPostSchema = new mongoose.Schema({
         }
     ]
 });
-
+newPostSchema.plugin(softDelete);
 var posts = mongoose.model('posts', newPostSchema);
 
 module.exports = posts;

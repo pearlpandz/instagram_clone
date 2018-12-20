@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfileService  } from "../edit-profile/edit.service";
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 declare var $: any;
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,6 +23,8 @@ export class EditProfileComponent implements OnInit {
   private cookieservice :  CookieService,
   private http: HttpClient,
   private toastrService: ToastrService,
+  private route: ActivatedRoute ,
+  private router: Router,
     ) { }
     // edit user array and variables
   edit : {}
@@ -137,6 +141,21 @@ if(this.pass_change == true){
  }
 
 
-
+disableacc(current_id){
+   let names = { "id": current_id};
+// console.log("cuurentid", current_id);
+// console.log("new", names)
+  this.profileservices.Disableaccount(names).subscribe(response =>{
+    // console.log(names)
+    console.log(response)
+   
+    if (this.current_id) {
+      this.cookieservice.deleteAll();
+      // $('#log-out').modal('toggle');
+       this.router.navigate(['/login']);
+      this.toastrService.success('You Successfully deactivated your account');
+    }
+  })
+ }
   
 }

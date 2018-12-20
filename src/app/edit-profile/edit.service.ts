@@ -32,4 +32,10 @@ export class ProfileService {
    return this.http.post('http://localhost:3000/changepassword' ,pass, '');
  } 
 
+ Disableaccount(id){
+  return this.http.post('http://localhost:3000/disable',id, '');
+ }
+
+
+
 }

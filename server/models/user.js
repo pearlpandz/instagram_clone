@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+let softDelete = require('mongoosejs-soft-delete');
+var mongoose_delete = require('mongoose-delete');
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
@@ -29,7 +31,9 @@ const newUserSchema = new mongoose.Schema({
     phonenumber: {type: String},
     gender: {type: String},
     postids: [],
-    Disableaccount: false,
+  
+ 
+    
     
     notification: [
         {   
@@ -40,6 +44,7 @@ const newUserSchema = new mongoose.Schema({
     ]
 });
 
-var users = mongoose.model('users', newUserSchema);
 
+newUserSchema.plugin(softDelete);
+var users = mongoose.model('users', newUserSchema);
 module.exports = users;

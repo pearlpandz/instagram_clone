@@ -21,7 +21,7 @@ exports.create = function(req,res){
         }
         else {
             // res.json({id: result['_id'] });
-        users.findOneAndUpdate({_id: req.body.userid}, { $push: { postids:  {_id: result['_id'] }}},function(err1,post1){
+        users.findOneAndUpdate({_id: req.body.userid}, { $push: { postids: {"_id":result['_id']}}},function(err1,post1){
             if(err1){
                 res.send('err')
             }else{

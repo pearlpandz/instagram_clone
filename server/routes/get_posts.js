@@ -6,6 +6,7 @@ const router = require('express').Router();
 var url = "mongodb://localhost:27017/";
 const Posts = require('../models/index'); //create new post schema
 const users = require('../models/user'); //create new user schema
+var mongoose_delete = require('mongoose-delete');
 exports.getpost = function (req, res) {
   if (req.body.skip == 0) {
     limits = 2;

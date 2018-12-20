@@ -14,9 +14,9 @@
                         <h1 class="profile-user-name">{{name}}</h1>
                     
                         <a  routerLink ="/edit-profile" class="user-profile-edit" *ngIf="name==current_user">Edit Profile</a>
+                        <!-- *ngIf="name==current_user" -->
 
-
-                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"*ngIf="name==current_user"><i class="ion-ios-more-outline"></i></a>
+                        <a href="#" class="logout" data-toggle="modal" data-target="#log-out"><i class="ion-ios-more-outline"></i></a>
 
                     </div>
 

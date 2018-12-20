@@ -4,6 +4,7 @@ var url = "mongodb://localhost:27017/";
 const users = require('../models/user'); //create new post schema
 const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
+const posts = require('../models/index'); //create new post schema
 var bcrypt = require('bcrypt');
 let salt= bcrypt.genSaltSync(8);
 
@@ -32,7 +33,7 @@ exports.login = function(req,res){
     else {
         
         users.findOne(conditions, function(err, data){
-              console.log("hi",conditions);
+            //   console.log("hi",conditions);
              
             if (err) { 
                 res.json(
@@ -54,22 +55,33 @@ exports.login = function(req,res){
                 bcrypt.compare(req.body.password, data.password, function (err, result) {
                     if(result == true){
                     //   console.log(result);
+                    posts.restore({"_id":data.postids}, function(err2,post2){
+                        
                     var token = jwt.sign({name:req.body.name}, config.secret, {
                         expiresIn: 60*60*24 // expires in 24 hours
                     });
+                    if(err2){
+                        res.send('err2')
+                    }
+                   else{
+                        // res.send('sucued log again')
                     
-                    res.json(
+                    
+                     res.json(
                         {
+                         
                             success: true,
                             token: token,
                             message: 'Successfully Signed In',
                             email: data.email,
                             name: data.name,
                             id: data._id,
-                            profilepic: data.profilepic
-                          
+                            profilepic: data.profilepic,
+                            
 
                         })
+                    }
+                })
                     }else{
                        
                         res.json(
