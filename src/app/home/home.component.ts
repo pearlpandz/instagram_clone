@@ -391,7 +391,7 @@ export class HomeComponent implements OnInit {
   }
 
   close() {
-    $('.mymodal').removeClass('active');
+    // $('.mymodal').removeClass('active');
   }
   loadmore(commentpost_id) {
     //$(this).find('.commentmore').toggle();

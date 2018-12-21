@@ -129,7 +129,7 @@ uniquenames(name: any){
   
   pass_change : {}
   submits(changepwd:any ){
-  //  console.log('fdz',changepwd.value);
+     console.log('fdz',changepwd.value);
     this.profileservices.passwordchange(changepwd.value ).map(response => response.json()).subscribe(response => {
       this.pass_change = response.status;
    
