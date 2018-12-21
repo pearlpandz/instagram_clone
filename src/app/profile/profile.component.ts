@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
   userpost = [];
   slidepost = [];
   owlpost = [];
-  modalpost :any;
+  modalpost  = {};
   popcomment = {};
   selectedFile: File;
   //postts variable

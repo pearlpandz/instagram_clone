@@ -53,14 +53,14 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("Google-OAuth-Client-Id") //for google auth
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('106481729892658') // for facebook auth
-  }
+  // {
+  //   // id: GoogleLoginProvider.PROVIDER_ID,
+  //   // provider: new GoogleLoginProvider("Google-OAuth-Client-Id") //for google auth
+  // },
+  // {
+  //   // id: FacebookLoginProvider.PROVIDER_ID,
+  //   // provider: new FacebookLoginProvider('106481729892658') // for facebook auth
+  // }
 ]);
 
 export function jwtTokenGetter() {
