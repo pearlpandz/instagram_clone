@@ -473,14 +473,14 @@
                     [carouselClasses]="['owl-theme', 'row', 'sliding']" > -->
 
                 <!-- <div class=" item" *ngFor="let singlepost of slidepost;let i = index"> -->
-                <div class="photo-popup" id={{modalpost._id}}>
+                <div class="photo-popup" id={{post_id}}>
                     <div class="photo-popup-inner row no-margin">
                         <div class="col-sm-8 no-padding">
                             <div class="popup-image-outer">
                                 <div class="popup-image">
                                     <!-- <img src={{sampleFile}} class="pop-img">!-->
 
-                                    <slideshow #slideshow [imageUrls]="modalpost.sampleFile" [height]="height"
+                                    <slideshow #slideshow [imageUrls]="sampleFile" [height]="height"
                                         [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
                                         [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
                                         [debug]="debug" [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition"
@@ -501,7 +501,7 @@
 
                                     <div class="user-name">
                                         <a href="view-profile.html">
-                                            <h5>{{modalpost.username}}</h5>
+                                            <h5>{{username}}</h5>
                                         </a>
                                     </div>
                                 </div>
@@ -511,28 +511,28 @@
                                 <div class="comment-wrap">
                                     <div class="like-count">
                                         <div class="float-left">
-                                            <p class="no-margin"><b class="likecount">{{modalpost.likecount}}
+                                            <p class="no-margin"><b class="likecount">{{likecount}}
 
                                                 </b></p>
                                         </div>
 
                                         <div class="float-right">
                                             <p class="hours">
-                                                {{modalpost.createdat | timeAgo }}
+                                                <!-- {{modalpost.createdat | timeAgo }} -->
                                             </p>
                                         </div>
                                     </div>
 
 
-                                    <div class="replay-comment" *ngFor="let comment of modalpost.comments">
+                                    <div class="replay-comment" *ngFor="let comment of comments">
                                         <p class="float-left" style="width: 90%;"><a href="view-profile">{{comment.username}}</a>{{comment.msg}}</p>
                                         <div *ngIf="current_user != name; else otheruser"  >
                                             <span *ngIf="isYourComment(comment.username, current_user) ">
-                                                <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)"><i
+                                                <a class="float-right comment-delete" (click)="deletecomment(post_id, comment._id)"><i
                                                         class="fa fa-times"></i></a></span>
                                         </div >
                                     <ng-template #otheruser>
-                                    <a class="float-right comment-delete" (click)="deletecomment(modalpost._id, comment._id)">
+                                    <a class="float-right comment-delete" (click)="deletecomment(post_id, comment._id)">
                                         <i class="fa fa-times"></i></a>
              
                                     </ng-template>
@@ -546,7 +546,7 @@
 
                                     <div class="input-group" id="{{post_id}}">
 
-                                        <span *ngIf="checklikeid(modalpost.likeids, current_id); else elseblock" class="input-group-addon like-btn">
+                                        <span *ngIf="checklikeid(likeids, current_id); else elseblock" class="input-group-addon like-btn">
 
                                             <a class="heart like" (click)="like(post_id, current_id)" id="{{post_id}}">
                                                 <i class="fa fa-heart" aria-hidden="true"></i>
@@ -555,7 +555,7 @@
 
                                         <ng-template #elseblock>
                                             <span class="input-group-addon like-btn">
-                                                <a class="heart" (click)="like(modalpost._id, current_id)" id="{{post_id}}">
+                                                <a class="heart" (click)="like(post_id, current_id)" id="{{post_id}}">
                                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </a>
                                             </span>
@@ -564,7 +564,7 @@
 
 
                                         <input type="text" class="form-control comment" placeholder="Add a comment..."
-                                            #comment_msg (keyup.enter)="commentpost1(modalpost._id, comment_msg.value, modalpost.username)">
+                                            #comment_msg (keyup.enter)="commentpost1(post_id, comment_msg.value, username)">
                                         <span class="input-group-addon more"><a href="#" data-toggle="modal"
                                                 data-target="#more-modal"><i class="ion-ios-more-outline"></i></a></span>
                                     </div>

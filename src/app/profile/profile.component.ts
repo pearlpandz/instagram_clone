@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
   userpost = [];
   slidepost = [];
   owlpost = [];
-  modalpost  = {};
+  // modalpost = {};
   popcomment = {};
   selectedFile: File;
   //postts variable
@@ -240,8 +240,8 @@ export class ProfileComponent implements OnInit {
     this.sampleFile = data.sampleFile;
     this.comments = data.comments;
     this.likeids = data.likeids;
-    this.modalpost = data;
-
+    // this.modalpost = data;
+// console.log("modalapoat data" ,this.modalpost);
     if (this.ipostindex == 0 && this.postcount > 1) {
 
       // console.log( '1st',this.ipostindex == 0)
@@ -280,9 +280,12 @@ export class ProfileComponent implements OnInit {
         if (data) {
           // console.log('-------------', data.data.comments);
           this.comments = data.data.comments;
+          this.post_id = data.data._id;
+          this.username = data.data.username;
           this.el.nativeElement.value = "";
           this.getProfile(this.names);
-          this.modalpost = data.data;
+          // this.comments  = data.data;
+          console.log("comments",data)
         }
         else {
 
@@ -307,11 +310,18 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         // this.count_like = data.data.likecount;
         if ($('#' + post_id).find('.heart').hasClass('like')) {
-          this.modalpost = data.data;
-          // console.log("status1", data);
+         this.likecount = data.data.likecount;
+         this.likeids =data.data.likeids
+         this.post_id = data.data._id;
+         this.username = data.data.username;
+           console.log("status1", data);
         } else {
-          this.modalpost = data.post;
-          // console.log("status2", data);
+          // this.modalpost = data.post;
+          this.likecount = data.post.likecount;
+          this.likeids =data.post.likeids;
+          this.post_id = data.post._id;
+          this.username = data.post.username;
+           console.log("status2", data);
         }
       })
   }
@@ -370,7 +380,11 @@ export class ProfileComponent implements OnInit {
       .map((data: any) => data.json())
       .subscribe(data => {
         if (data) {
-          this.modalpost = data.data;
+          // // this.modalpost = data.data;
+          this.comments = data.data.comments;
+          this.post_id = data.data._id;
+          this.username = data.data.username;
+        console.log("datacomments",data);
         }
         else {
           console.log('else', data);
@@ -410,7 +424,16 @@ export class ProfileComponent implements OnInit {
     this.profileservice.postafter(this.likeinfo[0]).map(afterpostlist => afterpostlist.json()).subscribe(afterpostlist => {
       this.getafterpostlist = afterpostlist;
 
-      this.modalpost = this.getafterpostlist;
+      // this.modalpost = this.getafterpostlist;
+      this.post_id = afterpostlist._id;
+    this.username = afterpostlist.username;
+    this.likecount = afterpostlist.likecount;
+    this.description = afterpostlist.description;
+    this.location = afterpostlist.location;
+    this.profilepic = afterpostlist.profilepic;
+    this.sampleFile = afterpostlist.sampleFile;
+    this.comments = afterpostlist.comments;
+    this.likeids = afterpostlist.likeids;
 
     });
     if (this.ipostindex == 0) {
@@ -442,7 +465,16 @@ export class ProfileComponent implements OnInit {
     this.profileservice.postafter(this.likeinfo[0]).map(beforepostlist => beforepostlist.json()).subscribe(beforepostlist => {
       this.getbeforepostlist = beforepostlist;
 
-      this.modalpost = this.getbeforepostlist
+      // this.modalpost = this.getbeforepostlist
+      this.post_id = beforepostlist._id;
+      this.username = beforepostlist.username;
+      this.likecount = beforepostlist.likecount;
+      this.description = beforepostlist.description;
+      this.location = beforepostlist.location;
+      this.profilepic = beforepostlist.profilepic;
+      this.sampleFile = beforepostlist.sampleFile;
+      this.comments = beforepostlist.comments;
+      this.likeids = beforepostlist.likeids;
     });
     if (this.ipostindex == 0) {
       console.log('1st', this.ipostindex == 0)
