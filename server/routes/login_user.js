@@ -77,7 +77,7 @@ exports.login = function(req,res){
                            name: data.name,
                            id: data._id,
                            profilepic: data.profilepic,
-                           
+                           tokens :token
 
                        })
                    }

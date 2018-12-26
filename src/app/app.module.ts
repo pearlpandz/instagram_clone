@@ -51,6 +51,7 @@ import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ResetpasswordComponent } from './reset_pwd/resetpassword.component';
 
 let config = new AuthServiceConfig([
   // {
@@ -86,7 +87,8 @@ export function provideConfig() {
     FooterComponent,
     LoginComponent,
     SignupComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ResetpasswordComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

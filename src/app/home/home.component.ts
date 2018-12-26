@@ -100,10 +100,10 @@ export class HomeComponent implements OnInit {
       this.lon = position.coords.longitude;
 
 
-      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyAom1PVwNn8gAvSl18fSKRI1Jlu-JOH5fQ").subscribe(data => {
+      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyBywJnO_THQflk3-dLJVGqEaQktx_B2em0").subscribe(data => {
         var dummy = data['results'][0]['formatted_address'];
         this.location = dummy;
-        // console.log(this.location);
+        //  console.log(this.location);
       });
     });
 

@@ -13,6 +13,7 @@ import { TermsComponent } from './cms/terms/terms.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ResetpasswordComponent } from './reset_pwd/resetpassword.component';
 
 const routes: Routes = [
   {
@@ -52,11 +53,15 @@ const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
+    path: 'reset',
+    component: ResetpasswordComponent,
+  },
+ 
+  {
     path: ':name',
     component: ProfileComponent,
     //canActivate: [AuthGuard]
   },
- 
 
   {
     path: 'about',
