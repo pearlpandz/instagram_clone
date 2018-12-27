@@ -110,7 +110,9 @@ app.post('/followcheck', follows.followcheck);
 app.post('/followinglist', follows.followlist);
 app.post('/followerlist', follows.followerlist);
 //nodemailer function
+app.post('/mailreset/:token', nodemail.mailreset);
 app.post('/mail', nodemail.mail);
+
 //edit user
 
 //nodemailer function

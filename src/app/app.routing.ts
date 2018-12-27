@@ -3,6 +3,7 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './auth/role-guard.service'; //login by type, access given by role type like admin, subadmin and etc..
 
+import{ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
 import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -34,6 +35,12 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'forgot',
+    component:  ForgotPwdComponent,
+    // canActivate: [AuthGuard]
+   
+  },
   // { 
   //   path: 'admin', 
   //   component: AdminComponent, 
@@ -53,7 +60,7 @@ const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
-    path: 'reset',
+    path: 'reset/:token',
     component: ResetpasswordComponent,
   },
  
