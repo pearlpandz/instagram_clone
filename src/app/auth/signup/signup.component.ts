@@ -38,12 +38,12 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     //check cookieEmail
-    this.cookieEmail = this.cookieService.get('email'); 
-    this.cookieToken = this.cookieService.get('token');
+    // this.cookieEmail = this.cookieService.get('email'); 
+    // this.cookieToken = this.cookieService.get('token');
     // console.log(this.cookieEmail, this.cookieToken);
-    if(this.cookieEmail) {
-      this.router.navigate(['/home']);
-    }
+    // if(this.cookieEmail) {
+    //   this.router.navigate(['/home']);
+    // }
 
      }
      //uniquename
@@ -62,23 +62,23 @@ uniqueemail(email:any){
   Submit(newUser: any) {
     this.http.post('http://localhost:3000/adduser', newUser.value).subscribe(data => {
      
-      if(data['success']){
+       if(data['success']){
         console.log(data);
 
         this.toastmsgsService.showSuccess();
-        this.cookieService.set( 'email', data['email'] );
-        this.cookieService.set( 'token', data['token'] );
-        this.cookieService.set( 'name', data['name'] );
-        this.cookieService.set('profilepic', data['profilepic']);
-        this.cookieService.set('id', data['id']);
+        // this.cookieService.set( 'email', data['email'] );
+        // this.cookieService.set( 'token', data['token'] );
+        // this.cookieService.set( 'name', data['name'] );
+        // this.cookieService.set('profilepic', data['profilepic']);
+        // this.cookieService.set('id', data['id']);
   
-        this.cookieEmail = this.cookieService.get('email'); 
-        this.cookieToken = this.cookieService.get('token');
-        if(this.cookieEmail){
-          this.router.navigate(['/home']);
-        }else{
-          this.router.navigate(['/signup']);
-        }
+        // this.cookieEmail = this.cookieService.get('email'); 
+        // this.cookieToken = this.cookieService.get('token');
+        // if(this.cookieEmail){
+        //   this.router.navigate(['/home']);
+        // }else{
+        //   this.router.navigate(['/signup']);
+        // }
       }else{
 
         console.log(data);

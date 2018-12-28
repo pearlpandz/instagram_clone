@@ -11,7 +11,7 @@ export class ToastmsgsService {
   ) { }
 
   showSuccess() {
-    this.toastrService.success('You Successfully joined our community!','Welcome');
+    this.toastrService.success('Thank you for visit our site','please chk ur mail for further steps to login');
   }
   showError(){
     this.toastrService.error('Content', 'Titel');

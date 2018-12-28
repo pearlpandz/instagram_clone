@@ -8,7 +8,16 @@ const config = require('./../common/config');
 const mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 let salt= bcrypt.genSaltSync(8);
-
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+      user: 'muthu@appoets.com',
+      pass: 'muthu.pandi1'
+    }
+  }));
 function isEmpty(req) {
     console.log(req);
     for (var key in req) {
@@ -78,11 +87,25 @@ exports.adduser = function(req,res){
                     });
                     console.log('created token', token);
 
-
+ 
+                    var mailOptions = {
+                        from: 'muthu@appoets.com',
+                        to: result.email,
+                        subject: 'confirmation',
+            text: 'Hello ' + result.name + ', You recently request a confirmation. Please click on the link below to confirm:<br><br><a href="http://localhost:4200/login/' + token,
+            html: 'Hello<strong> ' + result.name + '</strong>,<br><br>You recently request a confirmation. Please click on the link below to confirmation:<br><br><a href="http://localhost:4200/login/' + token + '">http://localhost:4200/login/</a>'
+        
+                    };
+                      
+    
+    transporter.sendMail(mailOptions , function(err, info) {
+        if (err) console.log(err); 
+    });
+    // res.json({ success: true, message: 'Please check your e-mail for confirm ur email' }); 
                     // return the information including token as JSON
                     res.json({
                         success: true,
-                        message: 'Successfully Signed Up',
+                        message: 'Successfully Signed aUp click mail to login',
                         token: token,
                         email: user.email,
                         name: user.name,
