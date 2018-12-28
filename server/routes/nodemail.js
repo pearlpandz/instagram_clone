@@ -14,57 +14,20 @@ var transporter = nodemailer.createTransport(smtpTransport({
     pass: 'muthu.pandi1'
   }
 }));
-// exports.mail = function(req,res){
-
-//     users.findOne({"email":req.body.email}, function(err,datas){
-//        if(err){
-//             res.send("err");
-//         }else{
-//             // res.send(datas);
-//             var token = jwt.sign({name:req.body.name}, config.secret, {
-//                 expiresIn: 60*60*24 // expires in 24 hours
-//             });
-//             // res.send(token)
-//             var mailOptions = {
-//                 from: 'muthu@appoets.com',
-//                 to: datas.email,
-//                 subject: 'Sending Email using Node.js[nodemailer]',
-            
-//                 html:'<p>hi '+ datas.name+',<br> We got a request to reset your Mogram password</p><a  href="http://localhost:4200/reset">click here to change the pwd</a>'  
-//             };
-              
-              
-//                   // res.send('in');
-//                   transporter.sendMail(mailOptions, function(error, info){
-//                       // console.log('adf');
-//                   if (error) {
-//                       res.send({
-//                           msg: error,
-//                           status: false
-//                       });
-//                   } else {
-//                       res.send('Email sent:' + info.response);
-//                   }
-//                   });  
-//         }
-//     })
-
-
-// }
 
 exports.mail = function(req,res){
     users.findOne({ email: req.body.email }).exec(function(err, user) {
-        if (err) throw err; // Throw error if cannot connect
+        if (err) throw err; 
         if (!user) {
-            res.json({ success: false, message: 'Username was not found' }); // Return error if username is not found in database
+            res.json({ success: false, message: 'Username was not found' }); 
         }  else {
-            user.resettoken = jwt.sign({ name: user.name, email: user.email },config.secret, { expiresIn: '24h' }); // Create a token for activating account through e-mail
-            // Save token to user in database
+            user.resettoken = jwt.sign({ name: user.name, email: user.email },config.secret, { expiresIn: '24h' }); 
+            
             user.save(function(err) {
                 if (err) {
-                    res.json({ success: false, message: err }); // Return error if cannot connect
+                    res.json({ success: false, message: err }); 
                 } else {
-                    // Create e-mail object to send to user
+                  
                     var mailOptions = {
                                         from: 'muthu@appoets.com',
                                         to: user.email,
@@ -74,11 +37,11 @@ exports.mail = function(req,res){
 						
                                     };
                                       
-                    // Function to send e-mail to the user
+                    
                     transporter.sendMail(mailOptions , function(err, info) {
-                        if (err) console.log(err); // If error with sending e-mail, log to console/terminal
+                        if (err) console.log(err); 
                     });
-                    res.json({ success: true, message: 'Please check your e-mail for password reset link' }); // Return success message
+                    res.json({ success: true, message: 'Please check your e-mail for password reset link' }); 
                 }
             });
         }
@@ -87,30 +50,29 @@ exports.mail = function(req,res){
 
 exports.mailreset = function(req,res) {
     users.findOne({ resettoken: req.params.token }).select().exec(function(err, user) {
-        if (err) throw err; // Throw err if cannot connect
-        var token = req.params.token; // Save user's token from parameters to variable
-        // Function to verify token
+        if (err) throw err; 
+        var token = req.params.token; 
         jwt.verify(token, config.secret, function(err, decoded) {
             if (err) {
-                res.json({ success: false, message: 'Password link has expired' }); // Token has expired or is invalid
+                res.json({ success: false, message: 'Password link has expired' }); 
             } else {
                 if (!user) {
-                    res.json({ success: false, message: 'Password link has expired1' }); // Token is valid but not no user has that token anymore
+                    res.json({ success: false, message: 'Password link has expired1' }); 
                 } else {
-                    // res.json({ success: true, user: user }); // Return user object to controller
+                   
                     users.findOne({ email: user.email }).select('username email name password resettoken').exec(function(err, user) {
-                        if (err) throw err; // Throw error if cannot connect
+                        if (err) throw err; 
                         if (req.body.password == null || req.body.password == '') {
                             res.json({ success: false, message: 'Password not provided' });
                         } else {
-                            user.password = req.body.password; // Save user's new password to the user object
-                            user.resettoken = false; // Clear user's resettoken 
-                            // Save user's new data
+                            user.password =  bcrypt.hashSync(req.body.password, salt); 
+                            user.resettoken = false; 
+                            
                             user.save(function(err) {
                                 if (err) {
                                     res.json({ success: false, message: err });
                                 } else {
-                                    // Create e-mail object to send to user
+                                   
                                     var email = {
                                         from: 'muthu@appoets.com',
                                         to: user.email,
@@ -118,11 +80,11 @@ exports.mailreset = function(req,res) {
                                         text: 'Hello ' + user.name + ', This e-mail is to notify you that your password was recently reset at localhost.com',
                                         html: 'Hello<strong> ' + user.name + '</strong>,<br><br>This e-mail is to notify you that your password was recently reset at localhost.com'
                                     };
-                                    // Function to send e-mail to the user
+                                  
                                     transporter.sendMail(email, function(err, info) {
-                                        if (err) console.log(err); // If error with sending e-mail, log to console/terminal
+                                        if (err) console.log(err);
                                     });
-                                    res.json({ success: true, message: 'Password has been reset!' }); // Return success message
+                                    res.json({ success: true, message: 'Password has been reset!' }); 
                                 }
                             });
                         }
@@ -135,8 +97,3 @@ exports.mailreset = function(req,res) {
         });
     });
 }
-
-// Save user's new password to database
-// exports.savenewpassword = function(req,res) {
-    
-// }
