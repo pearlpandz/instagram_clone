@@ -65,21 +65,26 @@ exports.login = function(req,res){
                    }
                   else{
                        // res.send('sucued log again')
-                   
-                   
+                   if(!data.isVerified){
+                       res.send("plz chk ur mail for  confirmation")
+                   }else if( data.isVerified == true){
                     res.json(
-                       {
-                        
-                           success: true,
-                           token: token,
-                           message: 'Successfully Signed In',
-                           email: data.email,
-                           name: data.name,
-                           id: data._id,
-                           profilepic: data.profilepic,
-                           tokens :token
-
-                       })
+                        {
+                         
+                            success: true,
+                            token: token,
+                            message: 'Successfully Signed In',
+                            email: data.email,
+                            name: data.name,
+                            id: data._id,
+                            profilepic: data.profilepic,
+                            tokens :token,
+                            verified:data.isVerified
+ 
+                        })
+                   }
+                   
+                   
                    }
                })
                    }else{

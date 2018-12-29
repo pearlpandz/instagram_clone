@@ -7,17 +7,17 @@ const jwt = require('jsonwebtoken');
 const config = require('./../common/config');
 const mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
-let salt= bcrypt.genSaltSync(8);
+let salt = bcrypt.genSaltSync(8);
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     auth: {
-      user: 'muthu@appoets.com',
-      pass: 'muthu.pandi1'
+        user: 'muthu@appoets.com',
+        pass: 'muthu.pandi1'
     }
-  }));
+}));
 function isEmpty(req) {
     console.log(req);
     for (var key in req) {
@@ -29,11 +29,11 @@ function isEmpty(req) {
 //checking... Array targat
 function checklikeid(array, target) {
     // console.log(array, target);
-   // console.log(target);
+    // console.log(target);
     for (var i = 0; i < array.length; i++) {
         // console.log('array first element', array[0]);
         if (array[i] == target) {
-           
+
             console.log('true');
             return true;
         }
@@ -42,37 +42,37 @@ function checklikeid(array, target) {
     return false;
 }
 
-exports.adduser = function(req,res){
+exports.adduser = function (req, res) {
 
-    if(req.body.profilepic){
+    if (req.body.profilepic) {
         profilepic = req.body.profilepic;
     }
     else {
         profilepic = req.protocol + "://" + req.get('host') + '/uploads/noimage.png';
     }
 
-    let user = new users ({
+    let user = new users({
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, salt),
 
         profilepic: profilepic,
         createdat: new Date().toLocaleString()
-      });
+    });
 
-      users.findOne( {email: req.body.email, name: req.body.name}, function(err, data){
-        if (err) { 
+    users.findOne({ email: req.body.email, name: req.body.name }, function (err, data) {
+        if (err) {
             // res.send(err);
             console.log('some errror hapeens')
         }
         if (data) {
             res.json({ success: false, message: 'User Already Exist!' });
-        } 
-        else  {
+        }
+        else {
             console.log(req.body.name);
 
-            user.save(function(err,result){
-                if(err){
+            user.save(function (err, result) {
+                if (err) {
                     console.log('err')
                     // res.send(err);
                     res.json({
@@ -82,26 +82,26 @@ exports.adduser = function(req,res){
                 }
                 else {
                     // console.log('secret = ',config.secret, req.body.name)
-                    var token = jwt.sign({name: req.body.name}, config.secret, {
-                        expiresIn: 60*60*24 // expires in 24 hours
+                    var token = jwt.sign({ name: req.body.name }, config.secret, {
+                        expiresIn: 60 * 60 * 24 // expires in 24 hours
                     });
                     console.log('created token', token);
 
- 
+
                     var mailOptions = {
                         from: 'muthu@appoets.com',
                         to: result.email,
                         subject: 'confirmation',
-            text: 'Hello ' + result.name + ', You recently request a confirmation. Please click on the link below to confirm:<br><br><a href="http://localhost:4200/login/' + token,
-            html: 'Hello<strong> ' + result.name + '</strong>,<br><br>You recently request a confirmation. Please click on the link below to confirmation:<br><br><a href="http://localhost:4200/login/' + token + '">http://localhost:4200/login/</a>'
-        
+                        text: 'Hello ' + result.name + ', You recently request a confirmation. Please click on the link below to confirm:<br><br><a href="http://localhost:4200/login/' + token +'/'+result.email,
+                        html: 'Hello<strong> ' + result.name + '</strong>,<br><br>You recently request a confirmation. Please click on the link below to confirmation:<br><br><a href="http://localhost:4200/login/' + token + '/'+result.email+'">http://localhost:4200/login/</a>'
+
                     };
-                      
-    
-    transporter.sendMail(mailOptions , function(err, info) {
-        if (err) console.log(err); 
-    });
-    // res.json({ success: true, message: 'Please check your e-mail for confirm ur email' }); 
+
+
+                    transporter.sendMail(mailOptions, function (err, info) {
+                        if (err) console.log(err);
+                    });
+                    // res.json({ success: true, message: 'Please check your e-mail for confirm ur email' }); 
                     // return the information including token as JSON
                     res.json({
                         success: true,
@@ -113,45 +113,45 @@ exports.adduser = function(req,res){
                         profilepic: user.profilepic
                     });
                 }
-            }); 
-            
-          }
-      });
+            });
+
+        }
+    });
 };
 
 
-exports.socialuser = function(req,res){
+exports.socialuser = function (req, res) {
 
 
-let Userdata = new users ({
-    name: req.body.name,
-    email: req.body.email,
-    profilepic: req.body.profilepic,
-    provider: req.body.provider,
-    createdat: new Date().toLocaleString()
-  });
+    let Userdata = new users({
+        name: req.body.name,
+        email: req.body.email,
+        profilepic: req.body.profilepic,
+        provider: req.body.provider,
+        createdat: new Date().toLocaleString()
+    });
 
-// console.log(Userdata);
-    users.findOne( {email: req.body.email}, function(err, data){
-        if (err) { 
+    // console.log(Userdata);
+    users.findOne({ email: req.body.email }, function (err, data) {
+        if (err) {
             console.log('err');
             // res.send(err);
             res.json({
                 success: false
             })
 
-            
+
         }
         if (data) {
-            
-            if(req.body.provider==data.provider){
+
+            if (req.body.provider == data.provider) {
                 // console.log('if');
                 // console.log(req.body.name);
                 // console.log('secret = ',config.secret, req.body.name)
-                var token = jwt.sign({name:req.body.name}, config.secret, {
-                    expiresIn: 60*60*24 // expires in 24 hours
+                var token = jwt.sign({ name: req.body.name }, config.secret, {
+                    expiresIn: 60 * 60 * 24 // expires in 24 hours
                 });
-                
+
                 res.json({
                     success: true,
                     message: 'Successfully Signed Up',
@@ -162,17 +162,17 @@ let Userdata = new users ({
                     profilepic: data.profilepic
                 });
             }
-        } 
-        else  {
+        }
+        else {
             // console.log('else');
             // console.log(req.body.name);
             // console.log('secret = ',config.secret, req.body.name)
-            var token = jwt.sign({name:req.body.name}, config.secret, {
-                expiresIn: 60*60*24 // expires in 24 hours
+            var token = jwt.sign({ name: req.body.name }, config.secret, {
+                expiresIn: 60 * 60 * 24 // expires in 24 hours
             });
             // console.log('created token', token);
-            Userdata.save(function(err,result){
-                if(err){
+            Userdata.save(function (err, result) {
+                if (err) {
                     res.json({
 
                         success: false,
@@ -191,115 +191,115 @@ let Userdata = new users ({
                         profilepic: result.profilepic
                     });
                 }
-            }); 
-            
-          }
+            });
+
+        }
     });
 }
 //set unique name for edituser
 
-exports.editUniqueName = function(req, res){
-// console.log(req.body);
-users.findOne({name: req.body.name}, function(err,detail){
+exports.editUniqueName = function (req, res) {
+    // console.log(req.body);
+    users.findOne({ name: req.body.name }, function (err, detail) {
 
 
-    if(isEmpty(detail)){
-    //    console.log("no user like");
-    users.distinct(req.body.name, function(err,names){
+        if (isEmpty(detail)) {
+            //    console.log("no user like");
+            users.distinct(req.body.name, function (err, names) {
 
-        // console.log('wsdde',names);
-        
-     if( checklikeid(names, req.body.name) ){
+                // console.log('wsdde',names);
 
-            res.json({
-                success: true,
-                msg: "username already exists...please try with anothor name",
+                if (checklikeid(names, req.body.name)) {
+
+                    res.json({
+                        success: true,
+                        msg: "username already exists...please try with anothor name",
+                    })
+
+                } else {
+                    res.json({
+                        msg: 'proceed',
+                        success: false
+                    })
+                }
+
             })
-          
-        }else{
-            res.json({
-                msg: 'proceed',
-                success: false
-            })
+        } else {
+            // console.log('supr', detail.name);
+            if (req.body.name == detail.name) {
+
+                console.log("yess curr");
+
+            }
         }
-
-      })
-    }else{
-        // console.log('supr', detail.name);
-        if(req.body.name == detail.name){
-
-             console.log("yess curr");
-   
-        }
-    } 
-}
+    }
 
 
 
-)
+    )
 }
 
 // set unique name for user
-exports.Uniquename = function(req,res){
-console.log(req.body);
-    users.distinct(req.body.field, function(err,names){
+exports.Uniquename = function (req, res) {
+    console.log(req.body);
+    users.distinct(req.body.field, function (err, names) {
 
-        console.log('wsdde',names);
-        
-     if( checklikeid(names, req.body.name) ){
+        console.log('wsdde', names);
+
+        if (checklikeid(names, req.body.name)) {
 
             res.json({
                 success: true,
                 msg: "username already exists...please try with anothor name",
             })
-          
-        }else{
+
+        } else {
             res.json({
                 msg: 'proceed',
                 success: false
             })
         }
 
-      })
+    })
 }
 
 // set unique name for email
-exports.Uniquemail = function(req,res){
+exports.Uniquemail = function (req, res) {
     // console.log(req.body.name);
-        users.distinct('email', function(err,email){
-            if( checklikeid(email, req.body.email) ){
-                res.json({
-                    success: true,
-                    msg: "email already exists...please try with anothor name"
-                })
-              
-            }else{
-                res.json({
-                    msg: 'proceed',
-                    success: false
-                })
-            }
-    
-        })
-    }
+    users.distinct('email', function (err, email) {
+        if (checklikeid(email, req.body.email)) {
+            res.json({
+                success: true,
+                msg: "email already exists...please try with anothor name"
+            })
+
+        } else {
+            res.json({
+                msg: 'proceed',
+                success: false
+            })
+        }
+
+    })
+}
 
 //block & unblock user
-exports.blockuser = function(req,res){
-    if( req.body.userid && req.body.blockid){
+exports.blockuser = function (req, res) {
+    if (req.body.userid && req.body.blockid) {
 
-        users.findOne({_id: req.body.userid} ,function(err, userdata){
-            if(err){
+        users.findOne({ _id: req.body.userid }, function (err, userdata) {
+            if (err) {
                 res.send(err);
             }
             else {
                 // res.send(userdata['blockids']);
 
-                if( checklikeid(userdata['blockids'], req.body.blockid ) ) {
-                    let query = {'_id': req.body.userid};
-                    let update = {blockids: req.body.blockid };
-                    var options = {new: true};
-                    users.findOneAndUpdate(query, {$pull:update}, options, function(err, data) {
-                        if(err) {
+                if (checklikeid(userdata['blockids'], req.body.blockid)) {
+                    let query = { '_id': req.body.userid };
+                    let update = { blockids: req.body.blockid };
+                    var options = { new: true };
+                    users.findOneAndUpdate(query, { $pull: update }, options, function (err, data) {
+                        if (err) {
                             res.send(err);
                         }
                         else {
@@ -308,13 +308,13 @@ exports.blockuser = function(req,res){
                     });
                 }
                 else {
-                    let query = {'_id': req.body.userid};
-                    let update = {blockids: req.body.blockid };
-                    var options = {new: true};
-                    users.findOneAndUpdate(query, {$push:update}, options, function(err, data) {
-                        if(err) {
+                    let query = { '_id': req.body.userid };
+                    let update = { blockids: req.body.blockid };
+                    var options = { new: true };
+                    users.findOneAndUpdate(query, { $push: update }, options, function (err, data) {
+                        if (err) {
                             // res.send(err);
-                        msg:"error"
+                            msg: "error"
                         }
                         else {
                             res.send(data._id);
@@ -322,7 +322,7 @@ exports.blockuser = function(req,res){
                     });
                 }
             }
-        }) 
+        })
     }
     else {
         req.send({
@@ -336,18 +336,18 @@ exports.blockuser = function(req,res){
 
 
 //get all blockids of requested userid
-exports.getblockids = function(req,res){
-    if( req.body.userid){
+exports.getblockids = function (req, res) {
+    if (req.body.userid) {
 
-        users.findOne( {_id: req.body.userid} , function(err, userdata){
-            if(err){
+        users.findOne({ _id: req.body.userid }, function (err, userdata) {
+            if (err) {
                 // res.send(err);
                 console.log('some erorr')
             }
             else {
                 res.send(userdata['blockids']);
             }
-        }) 
+        })
     }
     else {
         req.send({
@@ -358,39 +358,39 @@ exports.getblockids = function(req,res){
 
 }
 
-exports.allfind = function(req,res){
+exports.allfind = function (req, res) {
 
-    users.find({},function(err, user){
+    users.find({}, function (err, user) {
 
-if(err){
-    res.send("err no users");
-}else{
-    res.send(user);
-}
+        if (err) {
+            res.send("err no users");
+        } else {
+            res.send(user);
+        }
 
     })
 }
 
-exports.uploadSingle = function(req,res){
+exports.uploadSingle = function (req, res) {
     var receiveArrayFiles = req.file;
     var regularpath;
-   
+
     regularpath = req.protocol + "://" + req.get('host') + '/' + receiveArrayFiles.path;
 
     console.log(regularpath);
-    
+
     let mangooseid = req.body.id;
     console.log(mangooseid);
-    var query = {"_id": mangooseid};
-    var options = {new: true};
+    var query = { "_id": mangooseid };
+    var options = { new: true };
 
-    users.findOneAndUpdate(query, {$set:{profilepic:regularpath}}, options, function(err, user) {
-    //   console.log('000000 = ',err, post)
-      if (err) {
-        console.log('got an error');
-      }
-      else {
-        res.send(user); 
-      }
-    }); 
+    users.findOneAndUpdate(query, { $set: { profilepic: regularpath } }, options, function (err, user) {
+        //   console.log('000000 = ',err, post)
+        if (err) {
+            console.log('got an error');
+        }
+        else {
+            res.send(user);
+        }
+    });
 }

@@ -32,6 +32,8 @@ const newUserSchema = new mongoose.Schema({
     gender: {type: String},
     postids: [],
   resettoken : {type: String},
+  token : {type : String},
+  isVerified : Boolean,
  
     
     

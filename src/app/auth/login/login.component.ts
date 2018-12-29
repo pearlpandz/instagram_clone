@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 declare var jquery:any;
 declare var $;
 
@@ -25,18 +26,25 @@ export class LoginComponent implements OnInit {
   cookieProfilepic= '';
   password;
   user: SocialUser;
-
-
+verifyusertoken ;
+verifyuseremail ;
   constructor(
     private cookieService: CookieService,
     private router: Router,
     private toastrService: ToastrService,
     private http: HttpClient,
-    private auth: AuthService
+    private auth: AuthService,
+    private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-
+    this.activeRoute.params.subscribe(params => {  console.log("para.s", params); if(params['token']) {
+      this.verifyusertoken= params['token'];
+     this. verifyuseremail= params['email'];
+     console.log( params['token']);
+     console.log(params['email'])
+          }});
+         this.confirmmail(this.verifyusertoken,this. verifyuseremail)
     this.cookieEmail = this.cookieService.get('email');
     this.cookieToken = this.cookieService.get('token');
     this.cookieName = this.cookieService.get('name');
@@ -111,7 +119,11 @@ export class LoginComponent implements OnInit {
 
     });
   }
-
+confirmmail(token,mail){
+  this.http.post('http://localhost:3000/confirmationemail/'+token+'/'+mail ,'').map(data => data).subscribe(data =>{
+console.log('hihihi confirmSWS',data);
+  })
+}
   signInWithFB(): void {
     this.auth.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.auth.authState.subscribe((user) => { 

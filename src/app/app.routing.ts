@@ -27,6 +27,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'login/:token/:email',
+    component: LoginComponent
+  },
+  {
     path: 'signup',
     component: SignupComponent
   },

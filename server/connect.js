@@ -112,7 +112,7 @@ app.post('/followerlist', follows.followerlist);
 //nodemailer function
 app.post('/mailreset/:token', nodemail.mailreset);
 app.post('/mail', nodemail.mail);
-
+app.post('/confirmationemail/:token/:email', nodemail.confirmationemail);
 //edit user
 
 //nodemailer function

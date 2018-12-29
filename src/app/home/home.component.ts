@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
       this.lon = position.coords.longitude;
 
 
-      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyBywJnO_THQflk3-dLJVGqEaQktx_B2em0").subscribe(data => {
+      this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyCHd5naU_3-jnH1QxvpfItpkiNu-t7IBjE").subscribe(data => {
         var dummy = data['results'][0]['formatted_address'];
         this.location = dummy;
         //  console.log(this.location);
