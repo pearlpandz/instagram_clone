@@ -479,7 +479,7 @@
                             <div class="popup-image-outer">
                                 <div class="popup-image">
                                     <!-- <img src={{sampleFile}} class="pop-img">!-->
-
+                                    <p *ngIf="sampleFile?.length > 1; else elseblockimage">
                                     <slideshow #slideshow [imageUrls]="sampleFile" [height]="height"
                                         [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
                                         [disableSwiping]="disableSwiping" [autoPlay]="autoPlay" [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
@@ -488,6 +488,10 @@
                                         [showCaptions]="showCaptions" [captionColor]="captionColor" [captionBackground]="captionBackground"
                                         [lazyLoad]="lazyLoad" [hideOnNoSlides]="hideOnNoSlides">
                                     </slideshow>
+                                </p>
+                                <ng-template #elseblockimage>
+                                        <img src="{{sampleFile}}" alt="">
+                                </ng-template>
                                 </div>
                             </div>
                         </div>
