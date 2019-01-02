@@ -57,7 +57,7 @@ exports.mailreset = function(req,res) {
                 res.json({ success: false, message: 'Password link has expired' }); 
             } else {
                 if (!user) {
-                    res.json({ success: false, message: 'Password link has expired1' }); 
+                    res.json({ success: false, message: 'Password link has expired please click forgot password again' }); 
                 } else {
                    
                     users.findOne({ email: user.email }).select('username email name password resettoken').exec(function(err, user) {
