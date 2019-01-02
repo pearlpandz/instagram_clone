@@ -67,7 +67,7 @@ exports.login = function(req,res){
                        // res.send('sucued log again')
                    if(!data.isVerified){
                        res.json({
-                        success:false,
+                        mailsuccess:false,
                         msg:"plz chk ur mail for  confirmation"})
                    }else if( data.isVerified == true){
                     res.json(

@@ -43,8 +43,8 @@ verifyuseremail ;
       this.verifyusertoken= params['token'];
      this. verifyuseremail= params['email'];
 
-     console.log( params['token']);
-     console.log(params['email'])
+    //  console.log( params['token']);
+    //  console.log(params['email'])
           }});
       
     this.cookieEmail = this.cookieService.get('email');
@@ -83,9 +83,9 @@ verifyuseremail ;
         name:input,
         password: userdata.value.password
       }]
-      console.log('chkingname', datas)
+      // console.log('chkingname', datas)
     }
-    console.log('hihihihi', userdata.value.password);
+    // console.log('hihihihi', userdata.value.password);
     this.http.post('http://localhost:3000/userlogin', datas[0]).map(data => data).subscribe(data => {
 
       // console.log(data);
@@ -103,11 +103,18 @@ verifyuseremail ;
       // console.log(data);
 
       //  console.log('status chkjkkkk', data);
-       if(data['success'] == false){
-        this.toastrService.success("Thanks","Please check Your mail for verification");
+      if(data[ 'mailsuccess']== false){
+// console.log("not a user in our site please singup", data)
+this.toastrService.error(" Thanks Please Check Your Mail for Login ");
+      }
+      else if(data['success'] == false){
+        // console.log(data)
+        this.toastrService.error("User not found Please singup");
        }else if( data['passsuccess'] == false){
+        //  console.log(data)
         this.toastrService.error("err chk ur email or password");
        }else{
+        //  console.log(data)
         this.toastrService.success('Have a great day!', 'Welcome !')
         this.router.navigate(['/home']);
        }
