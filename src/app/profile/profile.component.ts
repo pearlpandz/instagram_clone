@@ -9,7 +9,6 @@ import { TouchSequence } from 'selenium-webdriver';
 import { HomeService } from '../home/home.service';
 import { CommentStmt } from '@angular/compiler';
 import { OwlModule } from 'ngx-owl-carousel';
-import 'hammerjs';
 import { empty } from 'rxjs';
 declare var jquery: any;
 declare var $: any;
@@ -143,8 +142,8 @@ export class ProfileComponent implements OnInit {
     this.profilepics = this.cookieService.get('profilepic');
 
    
-    console.log(this.profilepics);
-    console.log(this.profilepics);
+    // console.log(this.profilepics);
+    // console.log(this.profilepics);
     this.route.params.subscribe(
       params => {
         const id = +params['name'];
@@ -193,7 +192,8 @@ export class ProfileComponent implements OnInit {
         this.slidepost = response[1];
         this.owlpost = response[1];
 
-        console.log('searched profile', this.profile);
+       
+        // console.log('searched profile', this.profile);
         if (this.current_id == this.follower_id) {
           // console.log('1st');
           this.followbutton = false;
@@ -384,10 +384,10 @@ export class ProfileComponent implements OnInit {
           this.comments = data.data.comments;
           this.post_id = data.data._id;
           this.username = data.data.username;
-        console.log("datacomments",data);
+        // console.log("datacomments",data);
         }
         else {
-          console.log('else', data);
+          // console.log('else', data);
         }
       });
   }
@@ -398,7 +398,7 @@ export class ProfileComponent implements OnInit {
     // console.log(this.selectedFile);
     // console.log(event.target.files[0]);
     this.uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    console.log('uploaddata', this.uploadData);
+    // console.log('uploaddata', this.uploadData);
     // this.onUpload(this.uploadData);
 
     // console.log(this.current_id);
@@ -477,11 +477,11 @@ export class ProfileComponent implements OnInit {
       this.likeids = beforepostlist.likeids;
     });
     if (this.ipostindex == 0) {
-      console.log('1st', this.ipostindex == 0)
+      // console.log('1st', this.ipostindex == 0)
       this.prevbuttonDisabled = false;
       this.nextbuttonDisabled = true;
     } else if (this.ipostindex > 0 && this.ipostindex < this.postcount - 1) {
-      console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
+      // console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = true;
     }
@@ -548,7 +548,7 @@ export class ProfileComponent implements OnInit {
       this.followinglists = response.data;
 
 
-       console.log('following', this.followinglists);
+      //  console.log('following', this.followinglists);
 
       // console.log('ids of list', response);
 
@@ -563,7 +563,7 @@ export class ProfileComponent implements OnInit {
 
       this.followerlists = response.data;
       this.followername = response.msg;
-      console.log('follower', this.followerlists);
+      // console.log('follower', this.followerlists);
       // console.log('test follwing', this.followerlists);
 
     })
@@ -600,7 +600,9 @@ export class ProfileComponent implements OnInit {
       this.iffollowingbutton = response.sucess;
 
 
-      console.log('buttons', this.iffollowingbutton)
+     
+     
+      // console.log('buttons', this.iffollowingbutton)
    
 
     })

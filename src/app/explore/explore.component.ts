@@ -84,7 +84,7 @@ export class ExploreComponent implements OnInit {
     this.userspost = {
       "user_id": this.current_id
     }
-    console.log(this.userspost);
+    // console.log(this.userspost);
     this.explore.getcurrentuserpost(this.userspost).map(result => result).subscribe(result => {
       if (result) {
         this.usersexplorepost = result;
@@ -226,7 +226,7 @@ export class ExploreComponent implements OnInit {
     }
     this.explore.getrecentusers(this.request).map(result => result).subscribe(result => {
       this.usersexplore = result;
-      console.log(result);
+      // console.log(result);
     });
   }
   followers(current_userid, follower_id, i) {

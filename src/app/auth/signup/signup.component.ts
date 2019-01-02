@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastmsgsService } from './../../common/toastmsgs.service';
+import { ToastrService, ToastrComponentlessModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from "@angular/router";
 
@@ -23,6 +24,7 @@ export class SignupComponent implements OnInit {
   cookieName: string;
   cookieProfilepic: string;
   toastrService: any;
+  toastmsg:any;
   errorUsername : any;
   errorUseremail : any;
   name;
@@ -33,7 +35,8 @@ export class SignupComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router,
     private toastmsgsService: ToastmsgsService,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -81,7 +84,9 @@ uniqueemail(email:any){
         // }
       }else{
 
-        console.log(data);
+      //  console.log(data);
+      this.toastmsg = data
+        this.toastService.error(this.toastmsg.message);
       }
     //    console.log('token', this.cookieToken);
 
