@@ -15,8 +15,8 @@ export class ResetpasswordComponent implements OnInit {
  private toastrService: ToastrService) { }
 resetusertoken ;
   ngOnInit() {
-    console.log("dagbbsbshab");
-    this.activeRoute.params.subscribe(params => {  console.log("para.s", params); if(params['token']) {
+    // console.log("dagbbsbshab");
+    this.activeRoute.params.subscribe(params => { if(params['token']) {
     this.resetusertoken = params['token'];
     
     }});
