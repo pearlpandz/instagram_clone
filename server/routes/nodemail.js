@@ -111,14 +111,14 @@ exports.confirmationemail = function (req, res, next) {
             console.log("err")
         }else{
             // res.send(data);
-            if (!data) return res.status(400).send({ msg: 'We were unable to find a user for this token.' });
-                if (data.isVerified) return res.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
+            if (!data) return res.json({ msg: 'We were unable to find a user for this token.' });
+                if (data.isVerified) return res.json({ type: 'already-verified', msg: 'This user has already been verified.' });
      
             //     // Verify and save the user
                 data.isVerified = true;
                 data.save(function (err) {
                     if (err) { return res.status(500).send({ msg: err.message }); }
-                    res.status(200).send("The account has been verified. Please log in.");
+                    res.json({msg:"The account has been verified. Please log in."});
                 });
         }
     })

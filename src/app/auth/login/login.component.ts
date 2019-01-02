@@ -38,20 +38,27 @@ verifyuseremail ;
   ) { }
 
   ngOnInit() {
-    this.activeRoute.params.subscribe(params => {  console.log("para.s", params); if(params['token']) {
+    this.activeRoute.params.subscribe(params => {  if(params['token']) {
       this.verifyusertoken= params['token'];
      this. verifyuseremail= params['email'];
+
      console.log( params['token']);
      console.log(params['email'])
           }});
-         this.confirmmail(this.verifyusertoken,this. verifyuseremail)
+      
     this.cookieEmail = this.cookieService.get('email');
     this.cookieToken = this.cookieService.get('token');
     this.cookieName = this.cookieService.get('name');
     this.cookieProfilepic = this.cookieService.get('profilepic');
-    if (this.cookieEmail) {
-      this.router.navigate(['/home']);
+    if(this.verifyusertoken == undefined && this.verifyuseremail ==  undefined){
+      // console.log("undefined")
+    }else{
+    this.confirmmail(this.verifyusertoken,this. verifyuseremail)
     }
+    // if (this.cookieEmail) {
+      
+    //   this.router.navigate(['/home']);
+    // }
   }
 
   Submit(userdata: any) {
@@ -97,31 +104,22 @@ verifyuseremail ;
       this.cookieProfilepic = this.cookieService.get('profilepic');
       // console.log(data);
 
-       console.log('status chkjkkkk', data);
-
-      if (data['success']) {
+      //  console.log('status chkjkkkk', data);
+       if(data['success'] == false){
+        this.toastrService.success("Err chk ur email to confirm");
+       }else if( data['passsuccess'] == false){
+        this.toastrService.error("err chk ur email or password");
+       }else{
+        this.toastrService.success('Have a great day!', 'Welcome !')
         this.router.navigate(['/home']);
-        this.toastrService.success('Have a great day!', 'Welcome Back!');
-        //  console.log( data);
-
-      } else {
-
-
-        this.formValues.resetForm();
-        this.router.navigate(['/login']);
-
-        this.toastrService.warning('sry!', 'incorrect login!');
-
-
-        // console.log( data);
-      }
-
-
+       }
+     
     });
   }
-confirmmail(token,mail){
+ confirmmail(token,mail){
+  
   this.http.post('http://localhost:3000/confirmationemail/'+token+'/'+mail ,'').map(data => data).subscribe(data =>{
-console.log('hihihi confirmSWS',data);
+ console.log('hihihi confirmSWS',data);
   })
 }
   signInWithFB(): void {

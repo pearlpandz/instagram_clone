@@ -66,11 +66,13 @@ exports.login = function(req,res){
                   else{
                        // res.send('sucued log again')
                    if(!data.isVerified){
-                       res.send("plz chk ur mail for  confirmation")
+                       res.json({
+                        success:false,
+                        msg:"plz chk ur mail for  confirmation"})
                    }else if( data.isVerified == true){
                     res.json(
                         {
-                         
+                         data : data,
                             success: true,
                             token: token,
                             message: 'Successfully Signed In',
@@ -91,7 +93,7 @@ exports.login = function(req,res){
                       
                        res.json(
                            {
-                               success: false,
+                               passsuccess: false,
                                message: 'user password wrong'
                            }
                        )
