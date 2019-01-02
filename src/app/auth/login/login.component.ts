@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   cookieName = '';
   cookieProfilepic= '';
   password;
+  toast;
   user: SocialUser;
 verifyusertoken ;
 verifyuseremail ;
@@ -55,10 +56,7 @@ verifyuseremail ;
     }else{
     this.confirmmail(this.verifyusertoken,this. verifyuseremail)
     }
-    // if (this.cookieEmail) {
-      
-    //   this.router.navigate(['/home']);
-    // }
+    
   }
 
   Submit(userdata: any) {
@@ -75,7 +73,7 @@ verifyuseremail ;
         email:input,
         password: userdata.value.password
       }]
-      console.log('chkingemail', datas)
+      // console.log('chkingemail', datas)
 
     } else{
       // console.log("name",input);
@@ -106,7 +104,7 @@ verifyuseremail ;
 
       //  console.log('status chkjkkkk', data);
        if(data['success'] == false){
-        this.toastrService.success("Err chk ur email to confirm");
+        this.toastrService.success("Thanks","Please check Your mail for verification");
        }else if( data['passsuccess'] == false){
         this.toastrService.error("err chk ur email or password");
        }else{
@@ -119,7 +117,9 @@ verifyuseremail ;
  confirmmail(token,mail){
   
   this.http.post('http://localhost:3000/confirmationemail/'+token+'/'+mail ,'').map(data => data).subscribe(data =>{
- console.log('hihihi confirmSWS',data);
+//  console.log('hihihi confirmSWS',data);
+this.toast = data['msg'];
+this.toastrService.success(this.toast);
   })
 }
   signInWithFB(): void {
