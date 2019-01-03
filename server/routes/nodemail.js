@@ -112,13 +112,13 @@ exports.confirmationemail = function (req, res, next) {
         }else{
             // res.send(data);
             if (!data) return res.json({ msg: 'We were unable to find a user for this token.' });
-                if (data.isVerified) return res.json({ type: 'already-verified', msg: 'This user has already been verified.' });
+                if (data.isVerified) return res.json({ type: 'already-verified',data:data, msg: 'This user has already been verified.' });
      
             //     // Verify and save the user
                 data.isVerified = true;
                 data.save(function (err) {
                     if (err) { return res.status(500).send({ msg: err.message }); }
-                    res.json({msg:"The account has been verified. Please log in."});
+                    res.json({data:data,msg:"The account has been verified. Please log in."});
                 });
         }
     })

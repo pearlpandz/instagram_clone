@@ -537,7 +537,7 @@ export class ProfileComponent implements OnInit {
 
         this.valueOfButton = "followed"
       } else {
-        this.valueOfButton = "follow1"
+        this.valueOfButton = "follow"
       }
     })
   }

@@ -15,6 +15,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ResetpasswordComponent } from './reset_pwd/resetpassword.component';
+import { RedirectComponent } from './auth/redirect/redirect.component';
 
 const routes: Routes = [
   {
@@ -27,8 +28,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'login/:token/:email',
-    component: LoginComponent
+    path: 'redirect/:token/:email',
+    component: RedirectComponent
   },
   {
     path: 'signup',

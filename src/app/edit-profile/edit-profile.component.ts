@@ -49,7 +49,7 @@ errormail;
     this.current_user = this.cookieservice.get('name');
     this.current_id = this.cookieservice.get('id');
     this.current_mail = this.cookieservice.get('email');
-    console.log("hi", this.current_user );
+    // console.log("hi", this.current_user );
   //  this.Submit( this.current_user);
     this. getdetail(this.current_user);
     
@@ -73,7 +73,7 @@ errormail;
         this.website = Response[0].website;
         this.gender = Response[0].gender;
         // console.log( 'hi this is my user details',this.userdetails);
-         console.log('sdsfnamessss',  Response );
+        //  console.log('sdsfnamessss',  Response );
 
       })
 
@@ -85,6 +85,8 @@ errormail;
     // let names = { name : updateUser };
   
     // console.log('currentusername', updateUser.value);
+
+
     
      let names = { "id": this.current_id};
     // console.log("hiam", names);
@@ -92,7 +94,7 @@ errormail;
           this.edit = response.name;
           this.cookieservice.set( 'name', response.name );
 
-                console.log('eprofiless1' ,this.edit,); 
+                // console.log('eprofiless1' ,this.edit,); 
               this.toastrService.success( 'profile saved success');
             
     });
@@ -129,7 +131,7 @@ uniquenames(name: any){
   
   pass_change : {}
   submits(changepwd:any ){
-     console.log('fdz',changepwd.value);
+    //  console.log('fdz',changepwd.value);
     this.profileservices.passwordchange(changepwd.value ).map(response => response.json()).subscribe(response => {
       this.pass_change = response.status;
    
@@ -150,7 +152,7 @@ disableacc(current_id){
 // console.log("new", names)
   this.profileservices.Disableaccount(names).subscribe(response =>{
     // console.log(names)
-    console.log(response)
+    // console.log(response)
    
     if (this.current_id) {
       this.cookieservice.deleteAll();

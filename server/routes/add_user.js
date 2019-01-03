@@ -92,8 +92,8 @@ exports.adduser = function (req, res) {
                         from: 'muthu@appoets.com',
                         to: result.email,
                         subject: 'confirmation',
-                        text: 'Hello ' + result.name + ', You recently request a confirmation. Please click on the link below to confirm:<br><br><a href="http://localhost:4200/login/' + token +'/'+result.email,
-                        html: 'Hello<strong> ' + result.name + '</strong>,<br><br>You recently request a confirmation. Please click on the link below to confirmation:<br><br><a href="http://localhost:4200/login/' + token + '/'+result.email+'">http://localhost:4200/login/</a>'
+                        text: 'Hello ' + result.name + ', You recently request a confirmation. Please click on the link below to confirm:<br><br><a href="http://localhost:4200/redirect/' + token +'/'+result.email,
+                        html: 'Hello<strong> ' + result.name + '</strong>,<br><br>You recently request a confirmation. Please click on the link below to confirmation:<br><br><a href="http://localhost:4200/redirect/' + token + '/'+result.email+'">http://localhost:4200/redirect/</a>'
 
                     };
 

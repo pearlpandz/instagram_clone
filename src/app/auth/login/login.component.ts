@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+
 declare var jquery:any;
 declare var $;
 
@@ -19,16 +20,17 @@ import {
 })
 export class LoginComponent implements OnInit {
   @ViewChild('userLogin') formValues;
- 
+ maildata;
   cookieEmail = '';
   cookieToken = '';
   cookieName = '';
   cookieProfilepic= '';
+  cookieid=''
+  
   password;
   toast;
   user: SocialUser;
-verifyusertoken ;
-verifyuseremail ;
+
   constructor(
     private cookieService: CookieService,
     private router: Router,
@@ -39,24 +41,15 @@ verifyuseremail ;
   ) { }
 
   ngOnInit() {
-    this.activeRoute.params.subscribe(params => {  if(params['token']) {
-      this.verifyusertoken= params['token'];
-     this. verifyuseremail= params['email'];
-
-    //  console.log( params['token']);
-    //  console.log(params['email'])
-          }});
+  
       
     this.cookieEmail = this.cookieService.get('email');
     this.cookieToken = this.cookieService.get('token');
     this.cookieName = this.cookieService.get('name');
     this.cookieProfilepic = this.cookieService.get('profilepic');
-    if(this.verifyusertoken == undefined && this.verifyuseremail ==  undefined){
-      // console.log("undefined")
-    }else{
-    this.confirmmail(this.verifyusertoken,this. verifyuseremail)
-    }
-    
+ 
+   
+
   }
 
   Submit(userdata: any) {
@@ -95,14 +88,17 @@ verifyuseremail ;
       this.cookieService.set('name', data['name']);
       this.cookieService.set('profilepic', data['profilepic']);
       this.cookieService.set('id', data['id']);
+      this.cookieService.set('verified', data['verified']);
 
       this.cookieEmail = this.cookieService.get('email');
       this.cookieToken = this.cookieService.get('token');
       this.cookieName = this.cookieService.get('name');
       this.cookieProfilepic = this.cookieService.get('profilepic');
-      // console.log(data);
+      this.cookieid = this.cookieService.get('id');
+ 
+   
 
-      //  console.log('status chkjkkkk', data);
+   console.log('status chkjkkkk', data);
       if(data[ 'mailsuccess']== false){
 // console.log("not a user in our site please singup", data)
 this.toastrService.error(" Thanks Please Check Your Mail for Login ");
@@ -121,14 +117,7 @@ this.toastrService.error(" Thanks Please Check Your Mail for Login ");
      
     });
   }
- confirmmail(token,mail){
-  
-  this.http.post('http://localhost:3000/confirmationemail/'+token+'/'+mail ,'').map(data => data).subscribe(data =>{
-//  console.log('hihihi confirmSWS',data);
-this.toast = data['msg'];
-this.toastrService.success(this.toast);
-  })
-}
+
   signInWithFB(): void {
     this.auth.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.auth.authState.subscribe((user) => { 

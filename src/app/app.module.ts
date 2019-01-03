@@ -53,6 +53,7 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ResetpasswordComponent } from './reset_pwd/resetpassword.component';
 import{ForgotPwdComponent } from './forgot-pwd/forgot-pwd.component';
+import { RedirectComponent } from './auth/redirect/redirect.component';
  
 
 
@@ -92,7 +93,8 @@ export function provideConfig() {
     SignupComponent,
     EditProfileComponent,
     ResetpasswordComponent,
-    ForgotPwdComponent ,
+    ForgotPwdComponent,
+    RedirectComponent ,
    
     
   ],
