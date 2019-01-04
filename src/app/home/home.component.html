@@ -9,14 +9,17 @@
                   <button class="btn bntn"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>!
                 </div> -->
     </div>
-    <div *ngFor='let post of postdata;let i=index;' (deferLoad)="post.show = true">
-        <ng-container *ngIf="post.show">
+    <div *ngIf="postdata.length >0 ;else elseblocktext">
+    <div *ngFor='let post of postdata;let i=index;' (deferLoad)="post.show = true"   >
+        <ng-container *ngIf="post.show" >
+            
             <div class="feed-panel" *ngIf="arrayTarget(blockids, post.userid)" id="{{post._id}}">
-                <div class="row feed-head no-margin">
+               
+                <div class="row feed-head no-margin" >
                     <input class="form-control" type="hidden" id="post_id" name="post_id" value="{{post._id}}" #post_id />
 
                     <!-- <h4 class="post_cretaed_user hidden">post_cretaed_user_id {{post.userid}}</h4> -->
-
+                  
                     <input class="form-control hidden" type="text" id="current_userid" name="current_userid" value="{{userid}}"
                         #current_userid />
 
@@ -154,7 +157,16 @@
             </div>
 
         </ng-container>
+      
     </div>
+
+</div>
+
+<ng-template #elseblocktext>
+<div   class="nopost">
+  <a routerLink="/explore">click here</a>&nbsp;<b>To exploring the world</b>
+</div>
+</ng-template>
 </div>
 
 <!-- More Modal -->

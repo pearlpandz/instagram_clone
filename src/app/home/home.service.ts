@@ -24,7 +24,7 @@ export class HomeService {
 
   getPost(skip) {
     // console.log();
-    return this.http.post('http://localhost:3000/getpost', skip);
+    return this.http.post('http://localhost:3000/getpost',skip);
   }
 
   likePost(likeinfo) {

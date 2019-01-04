@@ -8,7 +8,14 @@ const Posts = require('../models/index'); //create new post schema
 const users = require('../models/user'); //create new user schema
 var mongoose_delete = require('mongoose-delete');
 exports.getpost = function (req, res) {
-  if (req.body.skip == 0) {
+  
+  users.find( {"name":req.body.name},function(err, data){
+    if( err){
+      console.log("err")
+    }else{
+    
+    if(data[0] ){
+      if (req.body.skip == 0) {
     limits = 2;
     addskip = parseInt(req.body.skip) + limits;
     console.log(addskip);
@@ -17,17 +24,29 @@ exports.getpost = function (req, res) {
     addskip = parseInt(req.body.skip) + limits;
     console.log(addskip);
   }
-  Posts.find({}).sort('-createdat').skip(parseInt(req.body.skip)).limit(2).exec(function (err, post) {
-    if (err) {
-      res.json(err);
+        Posts.find({ $or:[ {'userid':data[0].following}, {'userid':data[0]._id} ]}).sort('-createdat').skip(parseInt(req.body.skip)).limit(2).exec(function(err, post){
+          if(err){
+            console.log("err")
+          }else{
+            res.json({
+                    data: post,
+                    skip: addskip
+                  });
+           
+          }
+        })
+      
+
     }
-    else {
-      res.json({
-        data: post,
-        skip: addskip
-      });
+    
     }
-  });
+
+  })
+
+
+
+
+
 };
 
 

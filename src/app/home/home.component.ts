@@ -101,8 +101,8 @@ export class HomeComponent implements OnInit {
 
 
       this.http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.lat + "," + this.lon + "&result_type=locality&key=AIzaSyAhdAfPL5qKKsfxhKPSqzCuq2pgB7I2QYQ").subscribe(data => {
-        var dummy = data['results'][0]['formatted_address'];
-        this.location = dummy;
+        // var dummy = data['results'][0]['formatted_address'];
+        // this.location = dummy;
         //  console.log(this.location);
       });
     });
@@ -204,6 +204,7 @@ export class HomeComponent implements OnInit {
   // get post
   getpost(): any {
     this.skipdata = {
+      name:this.homeName,
       skip: this.skip
     }
     this.homeService.getPost(this.skipdata)
@@ -211,6 +212,7 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         for (var i in data.data) {
           this.postdata.push(data.data[i]);
+          //  console.log(data.data);
         }
         this.post_create = data.data.createdat;
         this.skip = data.skip;
