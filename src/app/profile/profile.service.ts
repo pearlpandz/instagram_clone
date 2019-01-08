@@ -38,4 +38,8 @@ export class ProfileService {
     return this.http.post('http://localhost:3000/followinglist', {"id":userid});
   }
 
+  deleteprofilepic(id){
+    return this.http.post('http://localhost:3000/deleteimage', id);
+  }
+
 }

@@ -394,3 +394,26 @@ exports.uploadSingle = function (req, res) {
         }
     });
 }
+
+
+
+exports.deleteimage = function(req, res){
+    var query = { "_id": req.body.id };
+    // var receiveArrayFiles = req.file;
+    var  noprofilepic;
+    noprofilepic = req.protocol + "://" + req.get('host') + '/uploads/noimage.png';
+
+    var options = { new: true };
+
+    users.findOneAndUpdate(query, { $set: { profilepic: noprofilepic } }, options, function (err, user) {
+        //   console.log('000000 = ',err, post)
+        if (err) {
+            res.send('got an error');
+        }
+        else {
+            res.json({
+                changed : true,
+                data:user.profilepic});
+        }
+    });
+}

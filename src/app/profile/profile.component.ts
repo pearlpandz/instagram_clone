@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('comment_msg') el: ElementRef
   @Output() myEvent = new EventEmitter();
+ 
+ 
   cookieEmail;
   likeids = [];
   constructor(
@@ -391,6 +393,7 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
+  
   onFileChanged(event) {
     this.uploadData.append('id', this.current_id);
     // console.log( 'hi calling');
@@ -631,6 +634,20 @@ export class ProfileComponent implements OnInit {
     })
   }
  
+  deletepic(ids){
+  
+    // console.log(ids)
+    this.profileservice.deleteprofilepic({"id": ids}).map(res => res.json()).subscribe(res =>{
+
+      // console.log(res.data)
+      this.pic = res.data;
+      this.profilepic  = res.data;
+      // this.profilepics  = res.data;
+       this.cookieService.set('profilepic',res.data);
+     
+    })
+
+  }
   popup_close() {
 
     this.getProfile(this.names);

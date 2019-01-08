@@ -74,6 +74,7 @@ app.post('/post', routes_posts.create);
 //upload post pic
 app.post('/upload', upload.array('sampleFile'), routes_upload_post.upload);
 app.post('/uploadSingle', upload.single('myFile'), create_user.uploadSingle);
+app.post('/deleteimage', create_user.deleteimage );
 
 
 //get posts middleware.checkToken,
@@ -141,7 +142,7 @@ app.post('/getrecentusers',explore.getrecentusers);
 app.post('/getcurrentuserpost',explore.getcurrentuserpost);
 
 //find particular user through URL
- app.post('/:name', findusers.finde);
+  app.post('/:name', findusers.finde);
 
 
 
