@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit {
   onFileSelected(event: any) {
 
     this.selectedFile = <Array<File>>event.target.files;
-    console.log(this.selectedFile);
+    // console.log(this.selectedFile);
     // for (var i = 0; i < this.selectedFile.length; i++) {
     //   this.fd.append('sampleFile', this.selectedFile[i], this.selectedFile[i].name[0]);
     // }

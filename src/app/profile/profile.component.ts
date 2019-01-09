@@ -287,7 +287,7 @@ export class ProfileComponent implements OnInit {
           this.el.nativeElement.value = "";
           this.getProfile(this.names);
           // this.comments  = data.data;
-          console.log("comments",data)
+          // console.log("comments",data)
         }
         else {
 
@@ -316,14 +316,14 @@ export class ProfileComponent implements OnInit {
          this.likeids =data.data.likeids
          this.post_id = data.data._id;
          this.username = data.data.username;
-           console.log("status1", data);
+          //  console.log("status1", data);
         } else {
           // this.modalpost = data.post;
           this.likecount = data.post.likecount;
           this.likeids =data.post.likeids;
           this.post_id = data.post._id;
           this.username = data.post.username;
-           console.log("status2", data);
+          //  console.log("status2", data);
         }
       })
   }
