@@ -148,3 +148,10 @@ app.post('/getcurrentuserpost',explore.getcurrentuserpost);
 
 // run server
 server.listen(port, () => console.info(`App running on port ${port}`));
+
+const connections = [];
+
+io.sockets.on('connection',(socket) => {
+   connections.push(socket);
+   console.log(' %s sockets is connected', connections.length);
+});

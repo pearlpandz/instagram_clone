@@ -183,4 +183,10 @@ textarea:focus {
     font-size: 20px;
     font-family: fantasy;
    }
-  
+   .feed-head .user-img img {
+    object-fit: cover;
+    background-size: cover;
+    border-radius: 50px;
+    width: 100px;
+    height: 42px;
+   }

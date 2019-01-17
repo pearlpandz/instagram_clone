@@ -444,7 +444,7 @@ export class ProfileComponent implements OnInit {
       this.prevbuttonDisabled = false;
       this.nextbuttonDisabled = true;
     } else if (this.ipostindex > 0 && this.ipostindex < this.postcount - 1) {
-      console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
+      // console.log('2st', this.ipostindex > 0 && this.ipostindex < this.postcount - 1)
       this.prevbuttonDisabled = true;
       this.nextbuttonDisabled = true;
     } else if (this.ipostindex == 0 && this.postcount == 0) {
